@@ -8,8 +8,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	MainBorderPane root = new MainBorderPane();
-    	primaryStage.setScene(new Scene(root));
+    	Scene sc = new Scene(new MainBorderPane());
+    	sc.getStylesheets().add("/stylesheets/sombre.css");
+    	primaryStage.setScene(sc);
     	primaryStage.setTitle("Interface de fou malade");
     	primaryStage.show();
     }

@@ -3,11 +3,11 @@ package fr.insa.heitz.projetTreillis.gui;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class MainBas extends HBox {
+public class Gauche extends VBox {
 
-	public MainBas(ArrayList<Node> composants) {
+	public Gauche(ArrayList<Node> composants) {
 		
 	}
 }

@@ -3,7 +3,10 @@ package fr.insa.heitz.projetTreillis.gui;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -25,20 +28,47 @@ public class MainBorderPane extends BorderPane{
 	
 	public MainBorderPane() {
 		composantsHaut = new ArrayList<Node>();
-		for (int i = 0; i <= 2; i++) {
-			composantsHaut.add(new MenuButton());
-		}
-		
-		vbMainHaut = new MainHaut(composantsHaut);
-		hbMainBas = new MainBas(composantsBas);
-		vbMainGauche = new MainGauche(composantsGauche);
-		vbMainDroite = new MainDroite(composantsDroite);
-		spMainCentre = new MainCentre();
-		
+		addMenuButton(composantsHaut, 3, "haut-l1-menu-button");
+		addButton(composantsHaut, 8, "haut-l2-button");
+		addToggleButton(composantsHaut, 3, "haut-l2-toggle-button");
+		addButton(composantsHaut, 2, "");
+		composantsHaut.add(6, new Label("|"));
+		composantsHaut.add(10, new Label("|"));
+				
+		vbMainHaut = new Haut(composantsHaut);
+		hbMainBas = new Bas(composantsBas);
+		vbMainGauche = new Gauche(composantsGauche);
+		vbMainDroite = new Droite(composantsDroite);
+		spMainCentre = new Centre();
+				
 		setTop(vbMainHaut);
 		setBottom(hbMainBas);
 		setLeft(vbMainGauche);
 		setRight(vbMainDroite);
 		setCenter(spMainCentre);
+	}
+	
+	static void addMenuButton(ArrayList<Node> list, int nombre, String... styleClasses) {
+		for (int i = 1; i <= nombre; i++) {
+			MenuButton current = new MenuButton();
+			current.getStyleClass().addAll(styleClasses);
+			list.add(current);
+		}
+	}
+	
+	static void addButton(ArrayList<Node> list, int nombre, String... styleClasses) {
+		for (int i = 1; i <= nombre; i++) {
+			Button current = new Button();
+			current.getStyleClass().addAll(styleClasses);
+			list.add(current);
+		}
+	}
+	
+	static void addToggleButton(ArrayList<Node> list, int nombre, String... styleClasses) {
+		for (int i = 1; i <= nombre; i++) {
+			ToggleButton current = new ToggleButton();
+			current.getStyleClass().addAll(styleClasses);
+			list.add(current);
+		}
 	}
 }
