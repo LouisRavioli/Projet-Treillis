@@ -1,4 +1,17 @@
 /*haut*/
+.haut-l1-hbox {
+	-fx-background-color: #000000;
+}
+
 .haut-l1-menu-button {
-	-fx-background-color: #CCFF99;
+	-fx-background-color: #654056;
+	-fx-background-radius: 0;
+}
+
+.haut-l1-menu-button .arrow-button {
+	-fx-padding: 0;	
+}
+
+.haut-l1-menu-button .arrow-button .arrow {
+	-fx-padding: 0;	
 }
