@@ -1,17 +1,99 @@
+/*variables*/
+* {
+	-fx-noir: #000000;
+	-fx-noir-bof: #263F3F;
+	-fx-blanc: #FFFFFF;
+	-fx-bleu-hover: #6495ED;
+	-fx-bleu-hover-90: #6495ED90;
+	-fx-transparent: transparent;
+}
+
 /*haut*/
-.haut-l1-hbox {
-	-fx-background-color: #000000;
+
+/*ligne 1*/
+.haut-l1-menu-bar {
+	-fx-background-color: -fx-noir;
 }
 
-.haut-l1-menu-button {
-	-fx-background-color: #654056;
+.haut-l1-menu-bar .menu .label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.context-menu {
+	-fx-background-color: -fx-noir;
+}
+
+/*ligne 2*/
+
+.haut-l2-border-pane {
+	-fx-background-color: -fx-noir-bof;
+}
+
+.haut-l2-hbox {
+	-fx-alignment: center;
+	-fx-spacing: 2px;
+}
+
+.haut-l2-separator {
+	-fx-orientation: vertical;
+	-fx-max-height: 20px;
+}
+
+.haut-l2-separator .line{
+	-fx-border-width: 0.5px;
+	-fx-border-color: -fx-blanc;
+}
+
+.haut-l2-button {
 	-fx-background-radius: 0;
+	-fx-background-color: -fx-transparent;
+	-fx-pref-height: 26px;
+	-fx-pref-width: 26px;
+	-fx-background-position: center center;
+	-fx-background-size: 26px 26px;
 }
 
-.haut-l1-menu-button .arrow-button {
-	-fx-padding: 0;	
+.haut-l2-button:hover {
+	-fx-background-color: -fx-bleu-hover-90;
 }
 
-.haut-l1-menu-button .arrow-button .arrow {
-	-fx-padding: 0;	
+.haut-l2-button:armed {
+	-fx-background-color: -fx-bleu-hover;
+}
+
+.haut-l2-button .tooltip {
+	-fx-background-radius: 0;
+	-fx-background-color: -fx-noir;
+}
+
+.haut-l2-button1 {
+	-fx-background-image: url("/images/nouveau.png");
+}
+
+.haut-l2-button2 {
+	-fx-background-image: url("/images/ouvrir.png");
+}
+
+.haut-l2-button3 {
+	-fx-background-image: url("/images/enregistrer.png");
+}
+
+.haut-l2-button4 {
+	-fx-background-image: url("/images/couper.png");
+}
+
+.haut-l2-button5 {
+	-fx-background-image: url("/images/copier.png");
+}
+
+.haut-l2-button6 {
+	-fx-background-image: url("/images/coller.png");
+}
+
+.haut-l2-button7 {
+	-fx-background-image: url("/images/annuler.png");
+}
+
+.haut-l2-button8 {
+	-fx-background-image: url("/images/repeter.png");
 }
