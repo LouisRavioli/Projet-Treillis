@@ -1,22 +1,16 @@
 package fr.insa.heitz.projetTreillis.gui;
 
-import java.util.ArrayList;
-
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class MainBorderPane extends BorderPane{
+public class MainBorderPane extends BorderPane {
 
 	private VBox vbMainHaut;
 	private HBox hbMainBas;
-	private VBox vbMainGauche;
+	private GridPane vbMainGauche;
 	private VBox vbMainDroite;
 	private StackPane spMainCentre;
 	

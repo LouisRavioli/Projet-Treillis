@@ -8,6 +8,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	//Test
+    	/*Button b1 = new Button();
+    	Button b2 = new Button();
+    	b1.getStyleClass().add("gauche-outils-l1-button");
+    	b2.getStyleClass().add("test");
+    	HBox hb = new HBox(b1, b2);
+    	Scene sc = new Scene(hb);*/
+    	
+    	
     	Scene sc = new Scene(new MainBorderPane());
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);

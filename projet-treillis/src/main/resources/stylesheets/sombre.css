@@ -1,16 +1,18 @@
-/*variables*/
+/*I. variables*/
 * {
 	-fx-noir: #000000;
-	-fx-noir-bof: #263F3F;
+	-fx-noir-bof: #303030;
+	-fx-noir-bof-bof: #2B4747;
 	-fx-blanc: #FFFFFF;
 	-fx-bleu-hover: #6495ED;
 	-fx-bleu-hover-90: #6495ED90;
+	-fx-rouge-hover: #FF0000;
 	-fx-transparent: transparent;
 }
 
-/*haut*/
+/*II. haut*/
 
-/*ligne 1*/
+/*II.1 ligne 1*/
 .haut-l1-menu-bar {
 	-fx-background-color: -fx-noir;
 }
@@ -23,13 +25,13 @@
 	-fx-background-color: -fx-noir;
 }
 
-/*ligne 2*/
+/*II.2 ligne 2*/
 
 .haut-l2-border-pane {
 	-fx-background-color: -fx-noir-bof;
 }
 
-.haut-l2-hbox {
+.haut-l2-gauche-hbox {
 	-fx-alignment: center;
 	-fx-spacing: 2px;
 }
@@ -44,8 +46,10 @@
 	-fx-border-color: -fx-blanc;
 }
 
+/*II.2.a gauche*/
+
 .haut-l2-button {
-	-fx-background-radius: 0;
+	-fx-background-radius: 0px;
 	-fx-background-color: -fx-transparent;
 	-fx-pref-height: 26px;
 	-fx-pref-width: 26px;
@@ -62,7 +66,7 @@
 }
 
 .haut-l2-button .tooltip {
-	-fx-background-radius: 0;
+	-fx-background-radius: 0px;
 	-fx-background-color: -fx-noir;
 }
 
@@ -96,4 +100,175 @@
 
 .haut-l2-button8 {
 	-fx-background-image: url("/images/repeter.png");
+}
+
+/*II.2.b droite*/
+
+.haut-l2-toggle-button {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-transparent;
+	-fx-pref-height: 26px;
+	-fx-pref-width: 26px;
+	-fx-background-position: center center;
+	-fx-background-size: 26px 26px;
+}
+
+.haut-l2-toggle-button:hover {
+	-fx-background-color: -fx-bleu-hover-90;
+}
+
+.haut-l2-toggle-button:selected {
+	-fx-background-color: -fx-bleu-hover;
+}
+
+.haut-l2-toggle-button .tooltip {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir;
+}
+
+.haut-l2-toggle-button1 {
+	-fx-background-image: url("/images/grille.png");
+}
+
+.haut-l2-toggle-button2 {
+	-fx-background-image: url("/images/couleurs.png");
+}
+
+.haut-l2-toggle-button3 {
+	-fx-background-image: url("/images/outils.png");
+}
+
+/*III. gauche*/
+
+.gauche-grid-pane {
+	-fx-background-color: -fx-noir-bof-bof;
+	-fx-vgap: 200px;
+}
+
+/*III.1 outils*/
+
+.gauche-outils-vbox {
+	-fx-background-color: -fx-noir-bof;
+	-fx-alignment: center;
+}
+
+/*III.1.a ligne 1*/
+
+.gauche-outils-l1-border-pane {
+	-fx-padding: 4px;
+	-fx-pref-height: 17px;
+	-fx-background-color: -fx-noir;
+}
+
+.gauche-outils-l1-label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.gauche-outils-l1-button {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-blanc;
+	-fx-min-height: 17px;
+	-fx-pref-height: 17px;
+	-fx-pref-width: 17px;
+	-fx-background-position: center center;
+	-fx-background-size: 17px 17px;
+	-fx-background-image: url("/images/fermer.png");
+}
+
+.gauche-outils-l1-button:hover {
+	-fx-background-color: -fx-rouge-hover;
+	-fx-background-image: url("/images/fermer_blanc.png");
+}
+
+/*III.1.b ligne 2*/
+
+.gauche-outils-l2-grid-pane {
+	-fx-padding: 0px 5px 0px 5px;
+	-fx-hgap: 5px;
+	-fx-vgap: 5px;
+}
+
+.gauche-outils-l2-toggle-button {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-transparent;
+	-fx-pref-height: 26px;
+	-fx-pref-width: 26px;
+	-fx-background-position: center center;
+	-fx-background-size: 26px 26px;
+}
+
+.gauche-outils-l2-toggle-button:hover {
+	-fx-background-color: -fx-bleu-hover-90;
+}
+
+.gauche-outils-l2-toggle-button:selected {
+	-fx-background-color: -fx-bleu-hover;
+}
+
+.gauche-outils-l2-toggle-button .tooltip {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir;
+}
+
+.gauche-outils-l2-toggle-button11 {
+	-fx-background-image: url("/images/selection.png");
+}
+
+.gauche-outils-l2-toggle-button12 {
+	-fx-background-image: url("/images/deplacer_selection.png");
+}
+
+.gauche-outils-l2-toggle-button21 {
+	-fx-background-image: url("/images/noeud.png");
+}
+
+.gauche-outils-l2-toggle-button22 {
+	-fx-background-image: url("/images/barre.png");
+}
+
+/*III.2 couleurs*/
+
+.gauche-couleurs-vbox {
+	-fx-background-color: -fx-noir-bof;
+	-fx-alignment: center;
+}
+
+/*III.2.a ligne 1*/
+
+.gauche-couleurs-l1-border-pane {
+	-fx-padding: 4px;
+	-fx-pref-height: 17px;
+	-fx-background-color: -fx-noir;
+}
+
+.gauche-couleurs-l1-label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.gauche-couleurs-l1-button {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-blanc;
+	-fx-min-height: 17px;
+	-fx-pref-height: 17px;
+	-fx-pref-width: 17px;
+	-fx-background-position: center center;
+	-fx-background-size: 17px 17px;
+	-fx-background-image: url("/images/fermer.png");
+}
+
+.gauche-couleurs-l1-button:hover {
+	-fx-background-color: -fx-rouge-hover;
+	-fx-background-image: url("/images/fermer_blanc.png");
+}
+
+/*III.2.b ligne 2*/
+
+.gauche-couleurs-l2-color-picker {
+	-fx-background-radius: 0px;
+}
+
+/*centre*/
+
+.centre-stack-pane {
+	-fx-background-color: -fx-noir-bof-bof;
 }
