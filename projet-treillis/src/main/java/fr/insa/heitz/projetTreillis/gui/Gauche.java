@@ -1,20 +1,19 @@
 package fr.insa.heitz.projetTreillis.gui;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class Gauche extends GridPane {
 	
 	private VBox vbOutils;
 	private GridPane gpOutils;
 	private VBox vbCouleurs;
+	private SelecteurCouleur selecteurCouleur;
 
 	public Gauche() {
 		//I. Outils
@@ -44,7 +43,7 @@ public class Gauche extends GridPane {
 		//II. Couleurs
 		//II.1 Titre
 		vbCouleurs = new VBox();
-		vbOutils.getStyleClass().add("gauche-couleurs-vbox");
+		vbCouleurs.getStyleClass().add("gauche-couleurs-vbox");
 		Label lCouleursL1 = new Label("Couleurs");
 		lCouleursL1.getStyleClass().add("gauche-couleurs-l1-label");
 		Button bCouleursL1 = new Button();
@@ -52,11 +51,8 @@ public class Gauche extends GridPane {
 		BorderPane bpCouleursL1 = new BorderPane(null, null, bCouleursL1, null, lCouleursL1);
 		bpCouleursL1.getStyleClass().add("gauche-couleurs-l1-border-pane");
 		//II.2 Sélection couleurs
-		ColorPicker cpCouleurs = new ColorPicker(Color.BLACK);
-		cpCouleurs.getStyleClass().add("gauche-couleurs-l2-color-picker");
-		cpCouleurs.show();
-		
-		vbCouleurs.getChildren().addAll(bpCouleursL1, cpCouleurs);
+		selecteurCouleur = new SelecteurCouleur();
+		vbCouleurs.getChildren().addAll(bpCouleursL1, selecteurCouleur);
 		
 		add(vbOutils, 0, 0);
 		add(vbCouleurs, 0, 1, 2, 1);

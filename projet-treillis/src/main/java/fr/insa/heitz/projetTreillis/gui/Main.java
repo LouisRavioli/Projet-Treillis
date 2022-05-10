@@ -17,7 +17,7 @@ public class Main extends Application {
     	Scene sc = new Scene(hb);*/
     	
     	
-    	Scene sc = new Scene(new MainBorderPane());
+    	Scene sc = new Scene(new MainBorderPane(), 1200, 600);
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);
     	primaryStage.setTitle("Interface de fou malade");

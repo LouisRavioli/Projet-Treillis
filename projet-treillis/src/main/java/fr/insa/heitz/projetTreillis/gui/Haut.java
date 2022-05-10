@@ -56,7 +56,7 @@ public class Haut extends VBox {
 		//II.2 Boutons droite
 		hbL2Droite = new HBox();
 		hbL2Droite.getStyleClass().add("haut-l2-hbox");
-		String[] tooltipsToggleButtonsL2 = {"Afficher la grille", "Couleurs", "Outils"};
+		String[] tooltipsToggleButtonsL2 = {"Afficher la grille", "Couleurs", "Outils", "Informations"};
 		ToggleButton tbGrille = new ToggleButton();
 		tbGrille.setTooltip(new Tooltip(tooltipsToggleButtonsL2[0]));
 		tbGrille.getStyleClass().addAll("haut-l2-toggle-button", "haut-l2-toggle-button1");

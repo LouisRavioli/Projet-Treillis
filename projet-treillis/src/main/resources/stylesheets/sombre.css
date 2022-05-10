@@ -138,18 +138,21 @@
 	-fx-background-image: url("/images/outils.png");
 }
 
+.haut-l2-toggle-button4 {
+	-fx-background-image: url("/images/information.png");
+}
+
 /*III. gauche*/
 
 .gauche-grid-pane {
 	-fx-background-color: -fx-noir-bof-bof;
-	-fx-vgap: 200px;
+	-fx-vgap: 170px;
 }
 
 /*III.1 outils*/
 
 .gauche-outils-vbox {
 	-fx-background-color: -fx-noir-bof;
-	-fx-alignment: center;
 }
 
 /*III.1.a ligne 1*/
@@ -230,7 +233,6 @@
 
 .gauche-couleurs-vbox {
 	-fx-background-color: -fx-noir-bof;
-	-fx-alignment: center;
 }
 
 /*III.2.a ligne 1*/
@@ -263,12 +265,78 @@
 
 /*III.2.b ligne 2*/
 
-.gauche-couleurs-l2-color-picker {
+.gauche-couleurs-l2-label {
+	-fx-text-fill: -fx-blanc;
+	-fx-padding: 5px 0px 0px 5px;
+}
+
+.gauche-couleurs-l2-graphic {
+	-fx-stroke: -fx-blanc;
+}
+
+.gauche-couleurs-l2-grid-pane {
+	-fx-hgap: 2px;
+	-fx-vgap: 2px;
+	-fx-padding: 5px 5px 5px 5px;
+}
+
+.gauche-couleurs-l2-color-button {
+	-fx-min-height: 17px;
+	-fx-pref-height: 17px;
+	-fx-min-width: 17px;
+	-fx-pref-width: 17px;
+	-fx-background-color: -fx-transparent;
 	-fx-background-radius: 0px;
 }
 
-/*centre*/
+.gauche-couleurs-l2-color-button:hover {
+	-fx-background-color: -fx-blanc;
+}
+
+/*IV. droite*/
+
+.droite-vbox {
+	-fx-background-color: -fx-noir-bof;
+}
+
+/*IV.1 ligne 1*/
+
+.droite-l1-border-pane {
+	-fx-padding: 4px;
+	-fx-pref-height: 17px;
+	-fx-background-color: -fx-noir;
+}
+
+.droite-l1-label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.droite-l1-button {
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-blanc;
+	-fx-min-height: 17px;
+	-fx-pref-height: 17px;
+	-fx-pref-width: 17px;
+	-fx-background-position: center center;
+	-fx-background-size: 17px 17px;
+	-fx-background-image: url("/images/fermer.png");
+}
+
+.droite-l1-button:hover {
+	-fx-background-color: -fx-rouge-hover;
+	-fx-background-image: url("/images/fermer_blanc.png");
+}
+
+/*V. centre*/
 
 .centre-stack-pane {
 	-fx-background-color: -fx-noir-bof-bof;
+}
+
+.centre-pane {
+	-fx-max-height: 500px;
+	-fx-pref-height: 500px;
+	-fx-max-width: 500px;
+	-fx-pref-width: 500px;
+	-fx-background-color: -fx-blanc;
 }
