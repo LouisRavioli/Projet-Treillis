@@ -40,9 +40,6 @@ public class Test {
         /*NoeudSimple n = new NoeudSimple(1, 2, 3, new Vecteur2D(5, 9));
         System.out.println(n.nbrInconnues());*/
         
-        NoeudSimple n = new NoeudSimple(0, 0, new Vecteur2D(5, 9));
-        
-        Barre b = new Barre(n, new NoeudSimple(2, 2, new Vecteur2D(4, 8)), 5, 6, 3);
-        System.out.println(b.angle(n));
+        System.out.println(new Barre(Banque.nS1, Banque.nS2));
     }
 }

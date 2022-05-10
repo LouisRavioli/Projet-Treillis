@@ -24,13 +24,65 @@ public class Barre {
         this(-1, noeudDepart, noeudArrivee, tracMax, compMax, cout);
     }
     
-    @Override
-    public String toString() {
-        return "id:" + id + "\nnoeud dÃ©part:" + noeudDepart + "\nnoeud arrivÃ©e:" + noeudArrivee + "\ntraction max:" + tracMax + ";compression max:" + compMax + ";coÃ»t:" + cout;
+    public Barre(Noeud noeudDepart, Noeud noeudArrivee) {
+    	this(noeudDepart, noeudArrivee, 0, 0, 0);
     }
     
-    public Noeud noeudOppose(Noeud n) {
-        if (noeudDepart.getId() == n.getId()) {
+    @Override
+    public String toString() {
+        return "id : " + id + "\nnoeud départ :\n" + noeudDepart + "\nnoeud arrivée :\n" + noeudArrivee + "\ntraction max : " + tracMax + "\ncompression max : " + compMax + "\ncoût : " + cout;
+    }
+    
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Noeud getNoeudDepart() {
+		return noeudDepart;
+	}
+
+	public void setNoeudDepart(Noeud noeudDepart) {
+		this.noeudDepart = noeudDepart;
+	}
+
+	public Noeud getNoeudArrivee() {
+		return noeudArrivee;
+	}
+
+	public void setNoeudArrivee(Noeud noeudArrivee) {
+		this.noeudArrivee = noeudArrivee;
+	}
+
+	public double getTracMax() {
+		return tracMax;
+	}
+
+	public void setTracMax(double tracMax) {
+		this.tracMax = tracMax;
+	}
+
+	public double getCompMax() {
+		return compMax;
+	}
+
+	public void setCompMax(double compMax) {
+		this.compMax = compMax;
+	}
+
+	public double getCout() {
+		return cout;
+	}
+
+	public void setCout(double cout) {
+		this.cout = cout;
+	}
+
+	public Noeud noeudOppose(Noeud n) {
+        if (noeudDepart == n) {
             return noeudArrivee;
         }
         else {

@@ -14,4 +14,20 @@ public class Vecteur2D {
     public String toString() {
         return "[" + vx + "," + vy + "]";
     }
+
+	public double getVx() {
+		return vx;
+	}
+
+	public void setVx(double vx) {
+		this.vx = vx;
+	}
+
+	public double getVy() {
+		return vy;
+	}
+
+	public void setVy(double vy) {
+		this.vy = vy;
+	}
 }

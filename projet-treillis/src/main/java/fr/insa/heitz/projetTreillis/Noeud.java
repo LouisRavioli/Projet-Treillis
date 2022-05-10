@@ -31,37 +31,57 @@ public abstract class Noeud {
     
     @Override
     public String toString() {
-        return "id:" + id + ";pos:[" + px + "," + py + "];force:" + v;
+        return "id : " + id + "\npos : [" + px + "," + py + "]\nforce : " + v;
     }
     
     public int getId() {
         return id;
     }
     
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
     public double getPx() {
         return px;
+    }
+    
+    public void setPx(double px) {
+    	this.px = px;
     }
     
     public double getPy() {
         return py;
     }
     
+    public void setPy(double py) {
+    	this.py = py;
+    }
+    
     public ArrayList<Barre> getBarresDepart() {
         return barresDepart;
+    }
+    
+    public void setBarresDepart(ArrayList<Barre> barresDepart) {
+    	this.barresDepart = barresDepart;
     }
     
     public ArrayList<Barre> getBarresArrivee() {
         return barresArrivee;
     }
     
+    public void setBarresArrivee(ArrayList<Barre> barresArrivee) {
+    	this.barresArrivee = barresArrivee;
+    }
+    
     static Noeud entreeNoeud(int n) {
-        System.out.println("px:");
+        System.out.print("px : ");
         double px = Lire.d();
-        System.out.println("py:");
+        System.out.print("py : ");
         double py = Lire.d();
-        System.out.println("vx:");
+        System.out.print("vx : ");
         double vx = Lire.d();
-        System.out.println("vy:");
+        System.out.print("vy : ");
         double vy = Lire.d();
         switch (n) {
             case 0 : {
@@ -79,7 +99,7 @@ public abstract class Noeud {
     public abstract int nbrInconnues();
     
     public ArrayList<Barre> barresIncidentes() {
-        ArrayList<Barre> listeBarres = barresDepart;
+        ArrayList<Barre> listeBarres = new ArrayList<Barre>(barresDepart);
         listeBarres.addAll(barresArrivee);
         return listeBarres;
     }
