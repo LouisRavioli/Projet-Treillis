@@ -5,41 +5,27 @@ import java.util.ArrayList;
 
 public abstract class Noeud {
     
-    private int id;
     private double px;
     private double py;
     private Vecteur2D v;
     private ArrayList<Barre> barresDepart;
     private ArrayList<Barre> barresArrivee;
     
-    public Noeud(int id, double px, double py, Vecteur2D v) {
-        this.id = id;
+    public Noeud(double px, double py, Vecteur2D v) {
         this.px = px;
         this.py = py;
         this.v = v;
         barresDepart = new ArrayList<Barre>();
         barresArrivee = new ArrayList<Barre>();
     }
-    
-    public Noeud(double px, double py, Vecteur2D v) {
-        this(-1, px ,py, v);
-    }
-    
+   
     public Noeud(double px, double py) {
         this(px, py, new Vecteur2D(0, 0));
     }
     
     @Override
     public String toString() {
-        return "id : " + id + "\npos : [" + px + "," + py + "]\nforce : " + v;
-    }
-    
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-    	this.id = id;
+        return "pos : [" + px + "," + py + "]\nforce : " + v;
     }
     
     public double getPx() {
