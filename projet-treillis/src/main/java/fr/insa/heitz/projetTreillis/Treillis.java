@@ -1,19 +1,19 @@
-/*package fr.insa.heitz.projetTreillis;
+package fr.insa.heitz.projetTreillis;
 
 import java.util.HashMap;
 
 public class Treillis {
     
     private HashMap<Noeud,Integer> noeuds;
-    private HashMap<Noeud,Integer> barres;
+    private HashMap<Barre,Integer> barres;
     
-    public Treillis(HashMap<Noeud,Integer> noeuds, HashMap<Noeud,Integer> barres) {
+    public Treillis(HashMap<Noeud,Integer> noeuds, HashMap<Barre,Integer> barres) {
         this.noeuds = noeuds;
         this.barres = barres;
     }
     
     public Treillis() {
-    	this(new HashMap<Noeud,Integer>(), new HashMap<Noeud,Integer>());
+    	this(new HashMap<Noeud,Integer>(), new HashMap<Barre,Integer>());
     }
     
     public HashMap<Noeud,Integer> getNoeuds() {
@@ -24,94 +24,68 @@ public class Treillis {
         this.noeuds = noeuds;
     }
 
-    public HashMap<Noeud,Integer> getBarres() {
+    public HashMap<Barre,Integer> getBarres() {
         return barres;
     }
 
-    public void setBarres(HashMap<Noeud,Integer> barres) {
+    public void setBarres(HashMap<Barre,Integer> barres) {
         this.barres = barres;
     }
 
-    public int maxIdNoeud() {
+    public int idLibreNoeud() {
         int maxId = 0;
-        for (int i = 0; i < listeNoeuds.size(); i++) {
-            if (listeNoeuds.get(i).getId() > maxId) {
-                maxId = listeNoeuds.get(i).getId();
-            }
+        while (noeuds.containsValue(maxId)) {
+            maxId++;
         }
         return maxId;
     }
     
-    public int maxIdBarre() {
+    public int idLibreBarre() {
         int maxId = 0;
-        for (int i = 0; i < listeBarres.size(); i++) {
-            if (listeBarres.get(i).getId() > maxId) {
-                maxId = listeBarres.get(i).getId();
-            }
+        while (barres.containsValue(maxId)) {
+            maxId++;
         }
         return maxId;
     }
     
     public void ajouteNoeud(Noeud n) throws Exception {
-    	boolean stocke = true;
-    	for (int i = 0; i < listeNoeuds.size(); i++) {
-    		if (n == listeNoeuds.get(i)) {
-    			stocke = false;
-    		}
-    	}
-    	if (stocke) {
-    		n.setId(maxIdNoeud() + 1);
-    		listeNoeuds.add(n);
+    	if (noeuds.containsKey(n)) {
+    		throw new Exception("Noeud déjà dans la liste");
     	}
     	else {
-    		throw new Exception("Noeud déjà dans la liste");
+    		noeuds.put(n, idLibreNoeud());
     	}
     }
     
     public void ajouteBarre(Barre b) throws Exception {
-    	boolean stocke = true;
-    	for (int i = 0; i < listeBarres.size(); i++) {
-    		if (b == listeBarres.get(i)) {
-    			stocke = false;
-    		}
-    	}
-    	if (stocke) {
-    		ajouteNoeud(b.getNoeudDepart());
-    		ajouteNoeud(b.getNoeudArrivee());
-    		b.setId(maxIdBarre() + 1);
-    		listeBarres.add(b);
+    	if (barres.containsKey(b)) {
+    		throw new Exception("Barre déjà dans la liste");
     	}
     	else {
-    		throw new Exception("Barre déjà dans la liste");
+    		ajouteNoeud(b.getNoeudDepart());
+    		ajouteNoeud(b.getNoeudArrivee());
+    		barres.put(b, idLibreBarre());
     	}
     }
     
     public void supprimeNoeud(Noeud n) throws Exception {
-    	boolean contenu = false;
-    	for (int i = 0; i < listeNoeuds.size(); i++) {
-    		if (n == listeNoeuds.get(i)) {
-    			contenu = true;
-    			for (int j = 0; j < n.barresIncidentes().size(); j++) {
-    				supprimeBarre(n.barresIncidentes().get(j));
-    			}
-    			listeNoeuds.remove(i);
+    	if (noeuds.containsKey(n)) {
+    		for (Barre b : n.barresIncidentes()) {
+    			supprimeBarre(b);
     		}
+    		noeuds.remove(n);
     	}
-    	if (!contenu) {
+    	else {
     		throw new Exception("Noeud absent de la liste");
     	}
     }
     
     public void supprimeBarre(Barre b) throws Exception {
-    	boolean contenu = false;
-    	for (int i = 0; i < listeBarres.size(); i++) {
-    		if (b == listeBarres.get(i)) {
-    			contenu = true;
-    			listeBarres.remove(i);
-    		}
+    	if (barres.containsKey(b)) {
+    		barres.remove(b);
     	}
-    	if (!contenu) {
+    	else {
     		throw new Exception("Barre absente de la liste");
     	}
     }
-}*/
+}

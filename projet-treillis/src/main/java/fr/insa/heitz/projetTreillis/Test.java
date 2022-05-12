@@ -1,10 +1,12 @@
 package fr.insa.heitz.projetTreillis;
 
+import java.util.HashMap;
+
 public class Test {
     
     public static void main(String[] args) {
     	
-    	/*Matrice m = new Matrice(3, 4);
+    	Matrice m = new Matrice(3, 4);
 		
 		m.setCoeff(0, 0, 0);
 		m.setCoeff(0, 1, 1);
@@ -35,11 +37,15 @@ public class Test {
 		catch (Exception e) {
 			System.out.println(e);
 		}
-		System.out.println(m);*/
+		System.out.println(m);
 		
         /*NoeudSimple n = new NoeudSimple(1, 2, 3, new Vecteur2D(5, 9));
         System.out.println(n.nbrInconnues());*/
         
-        System.out.println(new Barre(Banque.nS1, Banque.nS2));
+        /*HashMap<Noeud,Integer> test = new HashMap<Noeud,Integer>();
+        test.put(new NoeudSimple(0, 0), 0);
+        test.put(new NoeudSimple(0, 0), 1);
+        test.put(new NoeudSimple(0, 0), 1);
+        test.put(new NoeudSimple(0, 0), 3);*/
     }
 }
