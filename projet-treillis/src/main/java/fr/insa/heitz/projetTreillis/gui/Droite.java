@@ -13,4 +13,8 @@ public class Droite extends VBox {
 		getChildren().addAll(bpTitre);
 		getStyleClass().add("droite-vbox");
 	}
+
+	public Titre getBpTitre() {
+		return bpTitre;
+	}
 }

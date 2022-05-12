@@ -15,4 +15,8 @@ public class Centre extends StackPane {
 		getChildren().add(pDessin);
 		getStyleClass().add("centre-stack-pane");
 	}
+
+	public Pane getpDessin() {
+		return pDessin;
+	}
 }
