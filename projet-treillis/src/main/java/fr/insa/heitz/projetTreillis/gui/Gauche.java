@@ -8,27 +8,34 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class Gauche extends GridPane {
-	
+public class Gauche extends GridPane {	
 	private VBox vbOutils;
+        private Titre bpTitreOutils;                
 	private GridPane gpOutils;
+        private ToggleButton tbSelection;
+        private ToggleButton tbDeplacerSelection;
+        private ToggleButton tbNoeud;
+        private ToggleButton tbBarre;
+        
 	private VBox vbCouleurs;
+        private Titre bpTitreCouleurs;
 	private SelecteurCouleur selecteurCouleur;
 
 	public Gauche() {
 		//I. Outils
-		//I.1 Titre
-		vbOutils = new VBox();
+                vbOutils = new VBox();
 		vbOutils.getStyleClass().add("gauche-outils-vbox");
-		Label lOutilsL1 = new Label("Outils");
-		lOutilsL1.getStyleClass().add("gauche-outils-l1-label");
-		Button bOutilsL1 = new Button();
-		bOutilsL1.getStyleClass().add("gauche-outils-l1-button");
-		BorderPane bpOutilsL1 = new BorderPane(null, null, bOutilsL1, null, lOutilsL1);
-		bpOutilsL1.getStyleClass().add("gauche-outils-l1-border-pane");
-		//I.2 Boutons
+                
+		//I.1 Titre
+		bpTitreOutils = new Titre("Outils", "gauche-outils-l1");
+                
+		//I.2 Toggle Buttons
 		gpOutils = new GridPane();
 		gpOutils.getStyleClass().add("gauche-outils-l2-grid-pane");
+                tbSelection = new ToggleButton();
+                tbDeplacerSelection = new ToggleButton();
+                tbNoeud = new ToggleButton();
+                tbBarre = new ToggleButton();
 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}};
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 2; j++) {
@@ -38,7 +45,7 @@ public class Gauche extends GridPane {
 				gpOutils.add(currentToggleButton, i, j);
 			}
 		}
-		vbOutils.getChildren().addAll(bpOutilsL1, gpOutils);
+		vbOutils.getChildren().addAll(bpTitreOutils, gpOutils);
 		
 		//II. Couleurs
 		//II.1 Titre

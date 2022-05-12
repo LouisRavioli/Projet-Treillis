@@ -1,38 +1,38 @@
-package fr.insa.heitz.projetTreillis;
+/*package fr.insa.heitz.projetTreillis;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Treillis {
     
-    private ArrayList<Noeud> listeNoeuds;
-    private ArrayList<Barre> listeBarres;
+    private HashMap<Noeud,Integer> noeuds;
+    private HashMap<Noeud,Integer> barres;
     
-    public Treillis(ArrayList<Noeud> listeNoeuds, ArrayList<Barre> listeBarres) {
-        this.listeNoeuds = listeNoeuds;
-        this.listeBarres = listeBarres;
+    public Treillis(HashMap<Noeud,Integer> noeuds, HashMap<Noeud,Integer> barres) {
+        this.noeuds = noeuds;
+        this.barres = barres;
     }
     
     public Treillis() {
-    	this(new ArrayList<Noeud>(), new ArrayList<Barre>());
+    	this(new HashMap<Noeud,Integer>(), new HashMap<Noeud,Integer>());
     }
     
-    public ArrayList<Noeud> getListeNoeuds() {
-		return listeNoeuds;
-	}
+    public HashMap<Noeud,Integer> getNoeuds() {
+        return noeuds;
+    }
 
-	public void setListeNoeuds(ArrayList<Noeud> listeNoeuds) {
-		this.listeNoeuds = listeNoeuds;
-	}
+    public void setNoeuds(HashMap<Noeud,Integer> noeuds) {
+        this.noeuds = noeuds;
+    }
 
-	public ArrayList<Barre> getListeBarres() {
-		return listeBarres;
-	}
+    public HashMap<Noeud,Integer> getBarres() {
+        return barres;
+    }
 
-	public void setListeBarres(ArrayList<Barre> listeBarres) {
-		this.listeBarres = listeBarres;
-	}
+    public void setBarres(HashMap<Noeud,Integer> barres) {
+        this.barres = barres;
+    }
 
-	public int maxIdNoeud() {
+    public int maxIdNoeud() {
         int maxId = 0;
         for (int i = 0; i < listeNoeuds.size(); i++) {
             if (listeNoeuds.get(i).getId() > maxId) {
@@ -114,4 +114,4 @@ public class Treillis {
     		throw new Exception("Barre absente de la liste");
     	}
     }
-}
+}*/
