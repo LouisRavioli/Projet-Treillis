@@ -9,7 +9,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainBorderPane mainBorderPane = new MainBorderPane();
-        Controler controler = new Controler(mainBorderPane.getVbMainHaut(), mainBorderPane.getHbMainBas(), mainBorderPane.getVbMainGauche(), mainBorderPane.getVbMainDroite(), mainBorderPane.getSpMainCentre());
     	Scene sc = new Scene(mainBorderPane, 1200, 600);
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);
