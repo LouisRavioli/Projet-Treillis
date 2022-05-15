@@ -10,6 +10,10 @@ public class NoeudAppuiSimple extends NoeudAppui {
         super(px, py);
     }
     
+    public NoeudAppuiSimple() {
+    	super();
+    }
+    
     @Override
     public int nbrInconnues() {
         return 2;

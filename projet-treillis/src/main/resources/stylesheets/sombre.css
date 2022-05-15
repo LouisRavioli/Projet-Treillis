@@ -142,32 +142,25 @@
 	-fx-background-image: url("/images/information.png");
 }
 
-/*III. gauche*/
-
-.gauche-grid-pane {
-	-fx-background-color: -fx-noir-bof-bof;
-	-fx-vgap: 170px;
-}
-
-/*III.1 outils*/
-
-.gauche-outils-vbox {
+/*Outils*/
+.outils-vbox {
 	-fx-background-color: -fx-noir-bof;
+	-fx-alignment: top-left;
+	-fx-max-height: 74px;
+	-fx-max-width: 67px;
 }
 
-/*III.1.a ligne 1*/
-
-.gauche-outils-l1-border-pane {
+.outils-titre-border-pane {
 	-fx-padding: 4px;
 	-fx-pref-height: 17px;
 	-fx-background-color: -fx-noir;
 }
 
-.gauche-outils-l1-label {
+.outils-titre-label {
 	-fx-text-fill: -fx-blanc;
 }
 
-.gauche-outils-l1-button {
+.outils-titre-button {
 	-fx-background-radius: 0px;
 	-fx-background-color: -fx-blanc;
 	-fx-min-height: 17px;
@@ -178,20 +171,18 @@
 	-fx-background-image: url("/images/fermer.png");
 }
 
-.gauche-outils-l1-button:hover {
+.outils-titre-button:hover {
 	-fx-background-color: -fx-rouge-hover;
 	-fx-background-image: url("/images/fermer_blanc.png");
 }
 
-/*III.1.b ligne 2*/
-
-.gauche-outils-l2-grid-pane {
+.outils-corps-grid-pane {
 	-fx-padding: 0px 5px 0px 5px;
 	-fx-hgap: 5px;
 	-fx-vgap: 5px;
 }
 
-.gauche-outils-l2-toggle-button {
+.outils-corps-toggle-button {
 	-fx-background-radius: 0px;
 	-fx-background-color: -fx-transparent;
 	-fx-pref-height: 26px;
@@ -200,54 +191,54 @@
 	-fx-background-size: 26px 26px;
 }
 
-.gauche-outils-l2-toggle-button:hover {
+.outils-corps-toggle-button:hover {
 	-fx-background-color: -fx-bleu-hover-90;
 }
 
-.gauche-outils-l2-toggle-button:selected {
+.outils-corps-toggle-button:selected {
 	-fx-background-color: -fx-bleu-hover;
 }
 
-.gauche-outils-l2-toggle-button .tooltip {
+.outils-corps-toggle-button .tooltip {
 	-fx-background-radius: 0px;
 	-fx-background-color: -fx-noir;
 }
 
-.gauche-outils-l2-toggle-button11 {
+.outils-corps-toggle-button11 {
 	-fx-background-image: url("/images/selection.png");
 }
 
-.gauche-outils-l2-toggle-button12 {
+.outils-corps-toggle-button12 {
 	-fx-background-image: url("/images/deplacer_selection.png");
 }
 
-.gauche-outils-l2-toggle-button21 {
+.outils-corps-toggle-button21 {
 	-fx-background-image: url("/images/noeud.png");
 }
 
-.gauche-outils-l2-toggle-button22 {
+.outils-corps-toggle-button22 {
 	-fx-background-image: url("/images/barre.png");
 }
 
-/*III.2 couleurs*/
-
-.gauche-couleurs-vbox {
+/*Couleurs*/
+.couleurs-vbox {
 	-fx-background-color: -fx-noir-bof;
+	-fx-alignment: bottom-left;
+	-fx-max-height: 205px;
+	-fx-max-width: 255px;
 }
 
-/*III.2.a ligne 1*/
-
-.gauche-couleurs-l1-border-pane {
+.couleurs-titre-border-pane {
 	-fx-padding: 4px;
 	-fx-pref-height: 17px;
 	-fx-background-color: -fx-noir;
 }
 
-.gauche-couleurs-l1-label {
+.couleurs-titre-label {
 	-fx-text-fill: -fx-blanc;
 }
 
-.gauche-couleurs-l1-button {
+.couleurs-titre-button {
 	-fx-background-radius: 0px;
 	-fx-background-color: -fx-blanc;
 	-fx-min-height: 17px;
@@ -258,29 +249,27 @@
 	-fx-background-image: url("/images/fermer.png");
 }
 
-.gauche-couleurs-l1-button:hover {
+.couleurs-titre-button:hover {
 	-fx-background-color: -fx-rouge-hover;
 	-fx-background-image: url("/images/fermer_blanc.png");
 }
 
-/*III.2.b ligne 2*/
-
-.gauche-couleurs-l2-label {
+.couleurs-corps-label {
 	-fx-text-fill: -fx-blanc;
 	-fx-padding: 5px 0px 0px 5px;
 }
 
-.gauche-couleurs-l2-graphic {
+.couleurs-corps-graphic {
 	-fx-stroke: -fx-blanc;
 }
 
-.gauche-couleurs-l2-grid-pane {
+.couleurs-corps-grid-pane {
 	-fx-hgap: 2px;
 	-fx-vgap: 2px;
-	-fx-padding: 5px 5px 5px 5px;
+	-fx-padding: 5px;
 }
 
-.gauche-couleurs-l2-color-button {
+.couleurs-corps-button {
 	-fx-min-height: 17px;
 	-fx-pref-height: 17px;
 	-fx-min-width: 17px;
@@ -289,29 +278,28 @@
 	-fx-background-radius: 0px;
 }
 
-.gauche-couleurs-l2-color-button:hover {
+.couleurs-corps-button:hover {
 	-fx-background-color: -fx-blanc;
 }
 
-/*IV. droite*/
-
-.droite-vbox {
+/*Informations*/
+.informations-vbox {
 	-fx-background-color: -fx-noir-bof;
+	-fx-alignment: top-right;
+	-fx-max-width: 200px;
 }
 
-/*IV.1 ligne 1*/
-
-.droite-l1-border-pane {
+.informations-titre-border-pane {
 	-fx-padding: 4px;
 	-fx-pref-height: 17px;
 	-fx-background-color: -fx-noir;
 }
 
-.droite-l1-label {
+.informations-titre-label {
 	-fx-text-fill: -fx-blanc;
 }
 
-.droite-l1-button {
+.informations-titre-button {
 	-fx-background-radius: 0px;
 	-fx-background-color: -fx-blanc;
 	-fx-min-height: 17px;
@@ -322,21 +310,23 @@
 	-fx-background-image: url("/images/fermer.png");
 }
 
-.droite-l1-button:hover {
+.informations-titre-button:hover {
 	-fx-background-color: -fx-rouge-hover;
 	-fx-background-image: url("/images/fermer_blanc.png");
 }
 
-/*V. centre*/
+/*Zone dessin*/
 
-.centre-stack-pane {
-	-fx-background-color: -fx-noir-bof-bof;
-}
-
-.centre-pane {
+.zone-dessin-pane {
+	-fx-background-color: -fx-blanc;
 	-fx-max-height: 500px;
 	-fx-pref-height: 500px;
 	-fx-max-width: 500px;
 	-fx-pref-width: 500px;
-	-fx-background-color: -fx-blanc;
+}
+
+/*Centre*/
+
+.centre-stack-pane {
+	-fx-background-color: -fx-noir-bof-bof;
 }

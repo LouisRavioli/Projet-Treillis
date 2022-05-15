@@ -10,6 +10,10 @@ public class NoeudAppuiGlissant extends NoeudAppui {
         super(px, py);
     }
     
+    public NoeudAppuiGlissant() {
+    	super();
+    }
+    
     @Override
     public int nbrInconnues() {
         return 1;

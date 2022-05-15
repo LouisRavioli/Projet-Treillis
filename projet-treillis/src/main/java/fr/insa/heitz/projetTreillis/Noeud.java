@@ -23,6 +23,10 @@ public abstract class Noeud {
         this(px, py, new Vecteur2D(0, 0));
     }
     
+    public Noeud() {
+    	this(0, 0);
+    }
+    
     @Override
     public String toString() {
         return "pos : [" + px + "," + py + "]\nforce : " + v;

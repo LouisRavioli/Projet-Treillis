@@ -22,6 +22,10 @@ public class Barre {
     	this(noeudDepart, noeudArrivee, 0, 0, 0);
     }
     
+    public Barre() {
+    	this(new NoeudSimple(), new NoeudSimple());
+    }
+    
     @Override
     public String toString() {
         return "noeud départ :\n" + noeudDepart + "\nnoeud arrivée :\n" + noeudArrivee + "\ntraction max : " + tracMax + "\ncompression max : " + compMax + "\ncoût : " + cout;

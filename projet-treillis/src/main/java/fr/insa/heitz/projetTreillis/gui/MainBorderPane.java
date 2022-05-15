@@ -1,98 +1,72 @@
 package fr.insa.heitz.projetTreillis.gui;
 
+import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class MainBorderPane extends BorderPane {
 
-	private Haut vbMainHaut;
-	private Bas hbMainBas;
-	private Gauche vbMainGauche;
-	private Droite vbMainDroite;
-	private Centre spMainCentre;
+	private Groupe modele;
+		
+	private Haut vbHaut;
+	private Bas hbBas;
+	private Outils vbOutils;
+	private Couleurs vbCouleurs;
+	private Informations vbInformations;
+	private ZoneDessin pZoneDessin;
+	private StackPane spCentre;
 	
-	public MainBorderPane() {
-		vbMainHaut = new Haut();
-		hbMainBas = new Bas();
-		vbMainGauche = new Gauche();
-		vbMainDroite = new Droite();
-		spMainCentre = new Centre();
-				
-		setTop(vbMainHaut);
-		setBottom(hbMainBas);
-		setLeft(vbMainGauche);
-		setRight(vbMainDroite);
-		setCenter(spMainCentre);
+	
+	public MainBorderPane(Groupe modele) {
+		this.modele = modele;
+		
+		vbHaut = new Haut();
+		hbBas = new Bas();
+		vbOutils = new Outils();
+		vbCouleurs = new Couleurs();
+		vbInformations = new Informations();
+		pZoneDessin = new ZoneDessin(modele);
+		spCentre = new StackPane(vbOutils, vbCouleurs, vbInformations, pZoneDessin);
+		spCentre.getStyleClass().add("centre-stack-pane");
+		
+		setTop(vbHaut);
+		setBottom(hbBas);
+		setCenter(spCentre);
 	}
 
-    /**
-     * @return the vbMainHaut
-     */
-    public Haut getVbMainHaut() {
-        return vbMainHaut;
-    }
+	public Groupe getModele() {
+		return modele;
+	}
+	
+	public void setModele(Groupe modele) {
+		this.modele = modele;
+	}
 
-    /**
-     * @param vbMainHaut the vbMainHaut to set
-     */
-    public void setVbMainHaut(Haut vbMainHaut) {
-        this.vbMainHaut = vbMainHaut;
-    }
+	public Haut getVbHaut() {
+		return vbHaut;
+	}
 
-    /**
-     * @return the hbMainBas
-     */
-    public Bas getHbMainBas() {
-        return hbMainBas;
-    }
+	public Bas getHbBas() {
+		return hbBas;
+	}
 
-    /**
-     * @param hbMainBas the hbMainBas to set
-     */
-    public void setHbMainBas(Bas hbMainBas) {
-        this.hbMainBas = hbMainBas;
-    }
+	public Outils getVbOutils() {
+		return vbOutils;
+	}
 
-    /**
-     * @return the vbMainGauche
-     */
-    public Gauche getVbMainGauche() {
-        return vbMainGauche;
-    }
+	public Couleurs getVbCouleurs() {
+		return vbCouleurs;
+	}
 
-    /**
-     * @param vbMainGauche the vbMainGauche to set
-     */
-    public void setVbMainGauche(Gauche vbMainGauche) {
-        this.vbMainGauche = vbMainGauche;
-    }
+	public Informations getVbInformations() {
+		return vbInformations;
+	}
 
-    /**
-     * @return the vbMainDroite
-     */
-    public Droite getVbMainDroite() {
-        return vbMainDroite;
-    }
+	public ZoneDessin getpZoneDessin() {
+		return pZoneDessin;
+	}
 
-    /**
-     * @param vbMainDroite the vbMainDroite to set
-     */
-    public void setVbMainDroite(Droite vbMainDroite) {
-        this.vbMainDroite = vbMainDroite;
-    }
-
-    /**
-     * @return the spMainCentre
-     */
-    public Centre getSpMainCentre() {
-        return spMainCentre;
-    }
-
-    /**
-     * @param spMainCentre the spMainCentre to set
-     */
-    public void setSpMainCentre(Centre spMainCentre) {
-        this.spMainCentre = spMainCentre;
-    }
-
-        
+	public StackPane getSpCentre() {
+		return spCentre;
+	}
 }

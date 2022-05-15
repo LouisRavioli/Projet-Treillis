@@ -9,4 +9,8 @@ public abstract class NoeudAppui extends Noeud {
     public NoeudAppui(double px, double py) {
         super(px, py);
     }
+    
+    public NoeudAppui() {
+    	super();
+    }
 }

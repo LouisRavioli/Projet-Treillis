@@ -12,16 +12,16 @@ public class SelecteurCouleur extends VBox {
 	private Label lCouleurChoisie;
 	private GridPane gpPalette;
 	
-	public SelecteurCouleur() {
-		//I. Couleur choisie
+	public SelecteurCouleur(String style) {
+		//Couleur choisie
 		Rectangle rGraphicCouleur = new Rectangle(15, 15, Color.BLACK);
-		rGraphicCouleur.getStyleClass().add("gauche-couleurs-l2-graphic");
+		rGraphicCouleur.getStyleClass().add(style + "-graphic");
 		lCouleurChoisie = new Label("Noir", rGraphicCouleur);
-		lCouleurChoisie.getStyleClass().add("gauche-couleurs-l2-label");
+		lCouleurChoisie.getStyleClass().add(style + "-label");
 		
-		//II. Palette
+		//Palette
 		gpPalette = new GridPane();
-		gpPalette.getStyleClass().add("gauche-couleurs-l2-grid-pane");
+		gpPalette.getStyleClass().add(style + "-grid-pane");
 		String[][][] paletteId = {
 			{{"330000"}, {"331900"}, {"333300"}, {"193300"}, {"003300"}, {"003319"}, {"003333"}, {"001933"}, {"000033"}, {"190033"}, {"330033"}, {"330019"}, {"000000"}},
 			{{"660000"}, {"663300"}, {"666600"}, {"336600"}, {"006600"}, {"006633"}, {"006666"}, {"003366"}, {"000066"}, {"330066"}, {"660066"}, {"660033"}, {"202020"}},
@@ -36,7 +36,7 @@ public class SelecteurCouleur extends VBox {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 13; j++) {
 				Button currentColorButton = new Button(null, new Rectangle(15, 15, Color.web(paletteId[i][j][0])));
-				currentColorButton.getStyleClass().add("gauche-couleurs-l2-color-button");
+				currentColorButton.getStyleClass().add(style + "-button");
 				gpPalette.add(currentColorButton, j, i);
 			}
 		}

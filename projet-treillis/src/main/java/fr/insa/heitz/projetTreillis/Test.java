@@ -2,11 +2,14 @@ package fr.insa.heitz.projetTreillis;
 
 import java.util.HashMap;
 
+import fr.insa.heitz.projetTreillis.dessin.Point;
+import fr.insa.heitz.projetTreillis.dessin.Segment;
+
 public class Test {
     
     public static void main(String[] args) {
     	
-    	Matrice m = new Matrice(3, 4);
+    	/*Matrice m = new Matrice(3, 4);
 		
 		m.setCoeff(0, 0, 0);
 		m.setCoeff(0, 1, 1);
@@ -37,7 +40,7 @@ public class Test {
 		catch (Exception e) {
 			System.out.println(e);
 		}
-		System.out.println(m);
+		System.out.println(m);*/
 		
         /*NoeudSimple n = new NoeudSimple(1, 2, 3, new Vecteur2D(5, 9));
         System.out.println(n.nbrInconnues());*/
@@ -47,5 +50,8 @@ public class Test {
         test.put(new NoeudSimple(0, 0), 1);
         test.put(new NoeudSimple(0, 0), 1);
         test.put(new NoeudSimple(0, 0), 3);*/
+    	
+    	Segment s = new Segment();
+    	System.out.println(s);
     }
 }
