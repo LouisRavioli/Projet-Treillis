@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.scene.Group;
+import fr.insa.heitz.projetTreillis.gui.Controleur;
+import javafx.scene.Node;
 
 public class Groupe extends Figure {
 
@@ -15,7 +16,7 @@ public class Groupe extends Figure {
 	}
 	
 	public Groupe(Figure... figures) {
-		this.figures = Arrays.asList(figures);
+		this(new ArrayList<Figure>(Arrays.asList(figures)));
 	}
 	
 	public Groupe() {
@@ -95,19 +96,23 @@ public class Groupe extends Figure {
 	}
 
 	@Override
-	public Group dessine() {
-		Group g = new Group();
+	public List<Node> dessine(Controleur controleur) {
+		ArrayList<Node> formes = new ArrayList<Node>();
 		for (Figure f : figures) {
-			g.getChildren().add(f.dessine());
+			formes.addAll(f.dessine(controleur));
 		}
-		return g;
+		return formes;
 	}
 	
 	public void addFigure(Figure f) {
 		figures.add(f);
 	}
 	
+	public void removeFigure(Figure f) {
+		figures.remove(f);
+	}
+	
 	public static Groupe groupeTest() {
-		return new Groupe(Banque.P1, Banque.P2, Banque.S1);
+		return new Groupe(Banque.S1, Banque.P1, Banque.P2);
 	}
 }

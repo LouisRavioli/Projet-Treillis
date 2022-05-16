@@ -1,28 +1,24 @@
 package fr.insa.heitz.projetTreillis.gui;
 
-import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import javafx.scene.layout.Pane;
 
 public class ZoneDessin extends Pane {
 	
-	private Groupe modele;
+	private MainBorderPane bpMain;
 	
-	public ZoneDessin(Groupe modele) {
-		this.modele = modele;
-		dessiner();
-				
+	public ZoneDessin(MainBorderPane bpMain) {
+		this.bpMain = bpMain;
+		
+		dessinerTout();
+		
 		getStyleClass().add("zone-dessin-pane");
+		
+		setOnMouseClicked(event -> {
+			bpMain.getControleur().clicZoneDessin(event);
+		});
 	}
 
-	public Groupe getModele() {
-		return modele;
-	}
-
-	public void setModele(Groupe modele) {
-		this.modele = modele;
-	}
-	
-	public void dessiner() {
-		getChildren().add(modele.dessine());
+	public void dessinerTout() {
+		getChildren().addAll(bpMain.getModele().dessine(bpMain.getControleur()));
 	}
 }

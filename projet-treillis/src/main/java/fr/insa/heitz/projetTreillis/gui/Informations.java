@@ -8,7 +8,7 @@ public class Informations extends VBox {
 
 	private Titre bpTitre;
 
-	public Informations() {
+	public Informations(MainBorderPane bpMain) {
 		//Titre
 		bpTitre = new Titre("Informations", "informations-titre");
 		

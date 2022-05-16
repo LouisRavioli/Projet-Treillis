@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 
 public class MainBorderPane extends BorderPane {
 
+	private Controleur controleur;
 	private Groupe modele;
 		
 	private Haut vbHaut;
@@ -19,13 +20,14 @@ public class MainBorderPane extends BorderPane {
 	
 	public MainBorderPane(Groupe modele) {
 		this.modele = modele;
+		controleur = new Controleur(this);
 		
-		vbHaut = new Haut();
-		hbBas = new Bas();
-		vbOutils = new Outils();
-		vbCouleurs = new Couleurs();
-		vbInformations = new Informations();
-		pZoneDessin = new ZoneDessin(modele);
+		vbHaut = new Haut(this);
+		hbBas = new Bas(this);
+		vbOutils = new Outils(this);
+		vbCouleurs = new Couleurs(this);
+		vbInformations = new Informations(this);
+		pZoneDessin = new ZoneDessin(this);
 		spCentre = new StackPane(vbOutils, vbCouleurs, vbInformations, pZoneDessin);
 		spCentre.getStyleClass().add("centre-stack-pane");
 		
@@ -40,6 +42,14 @@ public class MainBorderPane extends BorderPane {
 	
 	public void setModele(Groupe modele) {
 		this.modele = modele;
+	}
+
+	public Controleur getControleur() {
+		return controleur;
+	}
+
+	public void setControleur(Controleur controleur) {
+		this.controleur = controleur;
 	}
 
 	public Haut getVbHaut() {

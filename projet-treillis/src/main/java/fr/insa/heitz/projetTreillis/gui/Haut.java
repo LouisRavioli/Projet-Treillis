@@ -47,7 +47,7 @@ public class Haut extends VBox {
 	private ToggleButton tbOutils;
 	private ToggleButton tbInformations;
 		
-	public Haut() {
+	public Haut(MainBorderPane bpMain) {
 		//I. Barre menu
 		mbL1 = new MenuBar();
 		mbL1.getStyleClass().add("haut-l1-menu-bar");

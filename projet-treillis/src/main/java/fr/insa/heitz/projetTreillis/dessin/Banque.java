@@ -3,7 +3,7 @@ package fr.insa.heitz.projetTreillis.dessin;
 public class Banque {
 
 	public static final Point P1 = new Point(100, 200);
-	public static final Point P2 = new Point(0, 300);
+	public static final Point P2 = new Point(400, 300);
 	public static final Point P3 = new Point(500, 200);
 	public static final Point P4 = new Point(200, 700);
 	public static final Point P5 = new Point(10, 0);

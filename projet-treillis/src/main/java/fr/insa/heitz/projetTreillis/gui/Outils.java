@@ -1,5 +1,6 @@
 package fr.insa.heitz.projetTreillis.gui;
 
+import fr.insa.heitz.projetTreillis.gui.Controleur.Etat;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -17,7 +18,7 @@ public class Outils extends VBox {
     private ToggleButton tbNoeud;
     private ToggleButton tbBarre;
     
-    public Outils() {               
+    public Outils(MainBorderPane bpMain) {               
 		//Titre
     	bpTitre = new Titre("Outils", "outils-titre");
                 
@@ -39,9 +40,46 @@ public class Outils extends VBox {
 				gpOutils.add(toggleButtonsOutils[i][j], j, i);
 			}
 		}
+		
 		getChildren().addAll(bpTitre, gpOutils);
 		getStyleClass().add("outils-vbox");
 		StackPane.setAlignment(this, Pos.TOP_LEFT);
+		
+		tbSelection.setOnAction(event -> {
+			if (tbSelection.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.SELECTION);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+				
+		tbDeplacerSelection.setOnAction(event -> {
+			if (tbDeplacerSelection.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.DEPLACER_SELECTION);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}		
+		});
+		
+		tbNoeud.setOnAction(event -> {
+			if (tbNoeud.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.POINT);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
+		tbBarre.setOnAction(event -> {
+			if (tbBarre.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.SEGMENT_P1);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
     }
 
 	public Titre getBpTitre() {

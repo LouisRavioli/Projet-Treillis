@@ -5,16 +5,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class Couleurs extends VBox {
-
+	
 	private Titre bpTitre;
 	private SelecteurCouleur selecteurCouleur;
 	
-	public Couleurs() {
+	public Couleurs(MainBorderPane bpMain) {		
 		//Titre
 		bpTitre = new Titre("Couleurs", "couleurs-titre");
 		
 		//Sélection couleurs
-		selecteurCouleur = new SelecteurCouleur("couleurs-corps");
+		selecteurCouleur = new SelecteurCouleur(bpMain, "couleurs-corps");
 		
 		getChildren().addAll(bpTitre, selecteurCouleur);
 		getStyleClass().add("couleurs-vbox");

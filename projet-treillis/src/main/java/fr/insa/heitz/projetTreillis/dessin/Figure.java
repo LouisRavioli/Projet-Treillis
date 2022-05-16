@@ -1,6 +1,9 @@
 package fr.insa.heitz.projetTreillis.dessin;
 
-import javafx.scene.Group;
+import java.util.List;
+
+import fr.insa.heitz.projetTreillis.gui.Controleur;
+import javafx.scene.Node;
 
 public abstract class Figure {
 
@@ -30,5 +33,5 @@ public abstract class Figure {
 	
 	public abstract double minY() throws Exception;
 	
-	public abstract Group dessine(); 
+	public abstract List<Node> dessine(Controleur controleur); 
 	}
