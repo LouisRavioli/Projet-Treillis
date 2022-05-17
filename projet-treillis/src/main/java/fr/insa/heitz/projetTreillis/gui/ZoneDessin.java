@@ -1,5 +1,6 @@
 package fr.insa.heitz.projetTreillis.gui;
 
+import javafx.css.PseudoClass;
 import javafx.scene.layout.Pane;
 
 public class ZoneDessin extends Pane {

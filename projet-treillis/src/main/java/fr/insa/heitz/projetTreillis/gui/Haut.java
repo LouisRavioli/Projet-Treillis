@@ -18,6 +18,8 @@ public class Haut extends VBox {
 	private Menu mFichier;
 	private Menu mEdition;
 	private Menu mAffichage;
+	private Menu mSelection;
+	private Menu mAide;
 	private MenuItem miNouveau;
 	private MenuItem miOuvrir;
 	private MenuItem miEnregistrer;
@@ -30,6 +32,8 @@ public class Haut extends VBox {
 	private MenuItem miZoomArriere;
 	private MenuItem miTailleReelle;
 	private MenuItem miAjuster;
+	private MenuItem miGrouper;
+	private MenuItem miContact;
 	
 	private BorderPane bpL2;
 	private HBox hbL2Gauche;
@@ -48,13 +52,15 @@ public class Haut extends VBox {
 	private ToggleButton tbInformations;
 		
 	public Haut(MainBorderPane bpMain) {
-		//I. Barre menu
+		//Barre menu
 		mbL1 = new MenuBar();
 		mbL1.getStyleClass().add("haut-l1-menu-bar");
 		mFichier = new Menu();
 		mEdition = new Menu();
 		mAffichage = new Menu();
-		Menu[] menusHaut = {mFichier, mEdition, mAffichage};
+		mSelection = new Menu();
+		mAide = new Menu();
+		Menu[] menusHaut = {mFichier, mEdition, mAffichage, mSelection, mAide};
 		miNouveau = new MenuItem();
 		miOuvrir = new MenuItem();
 		miEnregistrer = new MenuItem();
@@ -67,9 +73,11 @@ public class Haut extends VBox {
 		miZoomArriere = new MenuItem();
 		miTailleReelle = new MenuItem();
 		miAjuster = new MenuItem();
-		MenuItem[][] menuItemsHaut = {{miNouveau, miOuvrir, miEnregistrer}, {miAnnuler, miRepeter, miCouper, miCopier, miColler}, {miZoomAvant, miZoomArriere, miTailleReelle, miAjuster}};
-		String[] nomsMenus = {"Fichier", "Edition", "Affichage"};
-		String[][] nomsMenuItems = {{"Nouveau", "Ouvrir", "Enregistrer"}, {"Annuler", "Répéter", "Couper", "Copier", "Coller"}, {"Zoom avant", "Zoom arrière", "Taille réelle", "Ajuster à la fenêtre"}};
+		miGrouper = new MenuItem();
+		miContact = new MenuItem();
+		MenuItem[][] menuItemsHaut = {{miNouveau, miOuvrir, miEnregistrer}, {miAnnuler, miRepeter, miCouper, miCopier, miColler}, {miZoomAvant, miZoomArriere, miTailleReelle, miAjuster}, {miGrouper}, {miContact}};
+		String[] nomsMenus = {"Fichier", "Edition", "Affichage", "Sélection", "Aide"};
+		String[][] nomsMenuItems = {{"Nouveau", "Ouvrir", "Enregistrer"}, {"Annuler", "Répéter", "Couper", "Copier", "Coller"}, {"Zoom avant", "Zoom arrière", "Taille réelle", "Ajuster à la fenêtre"}, {"Grouper"}, {"Contact"}};
 		for (int i = 0; i < menusHaut.length; i++) {
 			menusHaut[i].setText(nomsMenus[i]);
 			for (int j = 0; j < menuItemsHaut[i].length; j++) {
@@ -81,11 +89,15 @@ public class Haut extends VBox {
 		mEdition.getItems().add(2, new SeparatorMenuItem());
 		mbL1.getMenus().addAll(menusHaut);
 		
-		//II. Barre boutons
+		miContact.setOnAction(event -> {
+			bpMain.getControleur().clicContact();
+		});
+		
+		//Barre boutons
 		bpL2 = new BorderPane();
 		bpL2.getStyleClass().add("haut-l2-border-pane");
 		
-		//II.1 Boutons gauche
+		//Boutons gauche
 		hbL2Gauche = new HBox();
 		hbL2Gauche.getStyleClass().add("haut-l2-gauche-hbox");
 		bNouveau = new Button();
@@ -109,7 +121,7 @@ public class Haut extends VBox {
 			hbL2Gauche.getChildren().add(i, currentSeparator);
 		}
 		
-		//II.2 Boutons droite
+		//Boutons droite
 		hbL2Droite = new HBox();
 		hbL2Droite.getStyleClass().add("haut-l2-hbox");
 		tbGrille = new ToggleButton();
@@ -147,6 +159,14 @@ public class Haut extends VBox {
 
 	public Menu getmAffichage() {
 		return mAffichage;
+	}
+	
+	public Menu getmSelection() {
+		return mSelection;
+	}
+
+	public Menu getmAide() {
+		return mAide;
 	}
 
 	public MenuItem getMiNouveau() {
@@ -195,6 +215,14 @@ public class Haut extends VBox {
 
 	public MenuItem getMiAjuster() {
 		return miAjuster;
+	}
+	
+	public MenuItem getMiGrouper() {
+		return miGrouper;
+	}
+
+	public MenuItem getMiContact() {
+		return miContact;
 	}
 
 	public BorderPane getBpL2() {

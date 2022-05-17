@@ -6,10 +6,16 @@ import java.util.List;
 import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
 public class Controleur {
 	
@@ -138,5 +144,51 @@ public class Controleur {
 			n.getStyleClass().remove("forme-selection");
 		}
 		selection.clear();
+	}
+	
+	public Point nouveauPoint(Color couleur, double px, double py) {
+		Point p = new Point(couleur, px, py);
+		return p;
+	}
+
+	public void clicContact() {                       
+        TextField tfMailArthur = new TextField("arthur.bourgeois@insa-strasbourg.fr");
+        tfMailArthur.getStyleClass().add("aide-contact-text-field");
+        Button bEnvoiMailArthur = new Button("Envoyer un mail à Arthur");
+        bEnvoiMailArthur.getStyleClass().add("aide-contact-button");
+        bEnvoiMailArthur.setOnAction(event -> {
+        	new Main().getHostServices().showDocument("mailto:" + tfMailArthur.getText());
+        });
+        
+        TextField tfMailMelanie = new TextField("melanie.dalibard@insa-strasbourg.fr");
+        tfMailMelanie.getStyleClass().add("aide-contact-text-field");
+        Button bEnvoiMailMelanie = new Button("Envoyer un mail à Mélanie");
+        bEnvoiMailMelanie.getStyleClass().add("aide-contact-button");
+        bEnvoiMailMelanie.setOnAction(event -> {
+        	new Main().getHostServices().showDocument("mailto:" + tfMailMelanie.getText());
+        });
+        
+        TextField tfMailLouis = new TextField("louis.heitz@insa-strasbourg.fr");
+        tfMailLouis.getStyleClass().add("aide-contact-text-field");
+        Button bEnvoiMailLouis = new Button("Envoyer un mail à Louis");
+        bEnvoiMailLouis.getStyleClass().add("aide-contact-button");
+        bEnvoiMailLouis.setOnAction(event -> {
+        	new Main().getHostServices().showDocument("mailto:" + tfMailLouis.getText());
+        });
+        
+        Label lTexte = new Label("Si vous avez besoin d'aide, n'hésitez pas à contacter un des membres de notre équipe de \ncodeurs du dimanche : Arthur, Mélanie ou Louis. \nVous n'avez aucun soucis à vous faire, car nous sommes toujours prêts à vous apporter \nnotre expertise pour que votre expérience se déroule au mieux sur notre logiciel !\n ");
+        lTexte.getStyleClass().add("aide-contact-label");
+        
+        VBox vbCorps = new VBox(lTexte, tfMailArthur, bEnvoiMailArthur, tfMailMelanie, bEnvoiMailMelanie, tfMailLouis, bEnvoiMailLouis);
+        vbCorps.getStyleClass().add("aide-contact-vbox");
+        
+        Scene secondaryScene = new Scene(vbCorps);
+        secondaryScene.getStylesheets().add("/stylesheets/sombre.css");
+    
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Contact");
+        newWindow.setScene(secondaryScene);
+    
+        newWindow.show();
 	}
 }

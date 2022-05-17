@@ -8,9 +8,13 @@ import javafx.scene.Node;
 public abstract class Figure {
 
 	private Groupe groupe;
+	private boolean hover;
+	private boolean selected;
 	
 	public Figure(Groupe groupe) {
 		this.groupe = groupe;
+		hover = false;
+		selected = false;
 	}
 	
 	public Figure() {
@@ -23,6 +27,22 @@ public abstract class Figure {
 
 	public void setGroupe(Groupe groupe) {
 		this.groupe = groupe;
+	}
+	
+	public boolean isHover() {
+		return hover;
+	}
+	
+	public void setHover(boolean hover) {
+		this.hover = hover;
+	}
+	
+	public boolean isSelected() {
+		return selected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 	
 	public abstract double maxX() throws Exception;

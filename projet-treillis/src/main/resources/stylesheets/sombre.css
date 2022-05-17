@@ -1,4 +1,4 @@
-/*I. variables*/
+/*Variables*/
 * {
 	-fx-noir: #000000;
 	-fx-noir-bof: #303030;
@@ -10,9 +10,7 @@
 	-fx-transparent: transparent;
 }
 
-/*II. haut*/
-
-/*II.1 ligne 1*/
+/*Haut*/
 .haut-l1-menu-bar {
 	-fx-background-color: -fx-noir;
 }
@@ -24,8 +22,6 @@
 .context-menu {
 	-fx-background-color: -fx-noir;
 }
-
-/*II.2 ligne 2*/
 
 .haut-l2-border-pane {
 	-fx-background-color: -fx-noir-bof;
@@ -45,8 +41,6 @@
 	-fx-border-width: 0.5px;
 	-fx-border-color: -fx-blanc;
 }
-
-/*II.2.a gauche*/
 
 .haut-l2-button {
 	-fx-background-radius: 0px;
@@ -101,8 +95,6 @@
 .haut-l2-button8 {
 	-fx-background-image: url("/images/repeter.png");
 }
-
-/*II.2.b droite*/
 
 .haut-l2-toggle-button {
 	-fx-background-radius: 0px;
@@ -316,7 +308,6 @@
 }
 
 /*Zone dessin*/
-
 .zone-dessin-pane {
 	-fx-background-color: -fx-blanc;
 	-fx-max-height: 500px;
@@ -326,7 +317,6 @@
 }
 
 /*Centre*/
-
 .centre-stack-pane {
 	-fx-background-color: -fx-noir-bof-bof;
 }
@@ -350,4 +340,37 @@
 
 .forme-selection {
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
+}
+
+/*Aide*/
+
+/*Contact*/
+.aide-contact-vbox {
+	-fx-spacing: 10px;
+	-fx-padding: 10px 10px 10px 10px;
+	-fx-background-color: -fx-noir-bof-bof;
+}
+
+.aide-contact-button {
+	-fx-text-fill: -fx-blanc;
+	-fx-max-width: 160px;
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir-bof;
+	-fx-border-color: -fx-blanc;
+}
+
+.aide-contact-button:hover {
+	-fx-background-color: -fx-bleu-hover;
+}
+
+.aide-contact-label {
+	-fx-min-height: 45px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.aide-contact-text-field {
+	-fx-text-fill: -fx-blanc;
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir-bof-bof;
+	-fx-border-color: -fx-blanc;
 }
