@@ -1,10 +1,10 @@
 package fr.insa.heitz.projetTreillis.gui;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.dessin.CustomEllipse;
+import fr.insa.heitz.projetTreillis.dessin.CustomLine;
 import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
 import javafx.scene.Node;
@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -35,6 +34,7 @@ public class Controleur {
 		this.bpMain = bpMain;
 		etat = Etat.DEFAUT;
 		clicForme = false;
+		curSegment = new Line();
 		selection = new ArrayList<Node>();
 	}
 	
@@ -46,6 +46,8 @@ public class Controleur {
 		bpMain.getModele().removeFigure(curSegmentP1);
 		bpMain.getpZoneDessin().getChildren().remove(curSegment);
 		bpMain.getpZoneDessin().dessinerTout();
+		System.out.println(selection);
+		refreshSelection();
 	}
 
 	public void clicZoneDessin(MouseEvent event) {
@@ -75,28 +77,23 @@ public class Controleur {
 				curSegment = new Line(event.getX(), event.getY(), event.getX(), event.getY());
 				curSegment.setStroke(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur());
 				curSegment.getStyleClass().add("forme-segment-temp");
-				bpMain.getpZoneDessin().setOnMouseMoved(move -> {
-					curSegment.setEndX(move.getX());
-					curSegment.setEndY(move.getY());
-				});
-				bpMain.getpZoneDessin().getChildren().add(bpMain.getpZoneDessin().getChildren().size() - 2, curSegment);
+				bpMain.getpZoneDessin().getChildren().add(0, curSegment);
 				etat = Etat.SEGMENT_P2;
 				break;
 			case SEGMENT_P2:
 				bpMain.getpZoneDessin().getChildren().remove(curSegment);
-				bpMain.setOnMouseMoved(null);
 				creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, creerPoint(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY()));
-				Collections.swap(bpMain.getModele().getFigures(), bpMain.getModele().getFigures().size() - 1, bpMain.getModele().getFigures().size() - 3);
+				curSegmentP1 = null;
 				bpMain.getpZoneDessin().dessinerTout();
 				clearSelection();
-				addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 2));
+				addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 1));
 				etat = Etat.SEGMENT_P1;
 				break;
 			}
 		}
 	}
 		
-	public void clicZoneDessin(MouseEvent event, Ellipse e) {
+	public void clicZoneDessin(MouseEvent event, CustomEllipse e) {
 		clicForme = true;
 		switch (etat) {
 		case DEFAUT:
@@ -114,14 +111,29 @@ public class Controleur {
 			addToSelection(e);
 			break;
 		case SEGMENT_P1:
-			//TODO curSegmentP1 = 
+			clearSelection();
+			addToSelection(e);
+			curSegmentP1 = e.getPoint();
+			curSegment = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+			curSegment.setStroke(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur());
+			curSegment.getStyleClass().add("forme-segment-temp");
+			bpMain.getpZoneDessin().getChildren().add(0, curSegment);
+			etat = Etat.SEGMENT_P2;
 			break;
 		case SEGMENT_P2:
+			bpMain.getpZoneDessin().getChildren().remove(curSegment);
+			bpMain.setOnMouseMoved(null);
+			creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, e.getPoint());
+			curSegmentP1 = null;
+			bpMain.getpZoneDessin().dessinerTout();
+			clearSelection();
+			addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 1));
+			etat = Etat.SEGMENT_P1;
 			break;
 		}
 	}
 	
-	public void clicZoneDessin(MouseEvent event, Line l) {
+	public void clicZoneDessin(MouseEvent event, CustomLine l) {
 		clicForme = true;
 		switch (etat) {
 		case DEFAUT:
@@ -138,6 +150,8 @@ public class Controleur {
 			clearSelection();
 			break;
 		case SEGMENT_P1:
+			clearSelection();
+			addToSelection(l);
 			break;
 		case SEGMENT_P2:
 			break;	
@@ -160,7 +174,7 @@ public class Controleur {
 		bpMain.getVbCouleurs().getSelecteurCouleur().setCouleur(c);
 		bpMain.getVbCouleurs().getSelecteurCouleur().getlCouleurChoisie().setText(nom);
 	}
-	
+		
 	public void addToSelection(Node n) {
 		n.getStyleClass().add("forme-selection");
 		selection.add(n);
@@ -169,6 +183,12 @@ public class Controleur {
 	public void removeFromSelection(Node n) {
 		n.getStyleClass().remove("forme-selection");
 		selection.remove(n);
+	}
+	
+	public void refreshSelection() {
+		for (Node n : selection) {
+			n.getStyleClass().add("forme-selection");
+		}
 	}
 	
 	public void clearSelection() {
@@ -222,5 +242,23 @@ public class Controleur {
         newWindow.setScene(secondaryScene);
     
         newWindow.show();
+	}
+
+	public void clicBoutonFermer(VBox vbCur) {
+		bpMain.getSpCentre().getChildren().remove(vbCur);
+	}
+
+	public void moveMouseZoneDessinLine(MouseEvent move) {
+		curSegment.setEndX(move.getX());
+		curSegment.setEndY(move.getY());
+	}
+	
+	public void dragMouseZoneDessinDeplacer(MouseEvent drag) {
+		if (etat == Etat.DEPLACER_SELECTION) {
+			System.out.println("hi");
+			for (Node n : selection) {
+				n.relocate(drag.getX(), drag.getY());
+			}
+		}
 	}
 }

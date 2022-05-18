@@ -1,13 +1,9 @@
 package fr.insa.heitz.projetTreillis.dessin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 
 public class Point extends FigureSimple {
 	
@@ -76,13 +72,12 @@ public class Point extends FigureSimple {
 	}
 
 	@Override
-	public List<Node> dessine(Controleur controleur) {
-		Ellipse e = new Ellipse(px, py, TAILLE_POINT, TAILLE_POINT);
-		e.setFill(getCouleur());
+	public void dessine(Controleur controleur, ArrayList<Node> formes) {
+		CustomEllipse e = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
 		e.getStyleClass().add("forme-point");
 		e.setOnMouseClicked(event -> {
 			controleur.clicZoneDessin(event, e);
 		});
-		return new ArrayList<Node>(Arrays.asList(e));
+		formes.add(e);
 	}
 }

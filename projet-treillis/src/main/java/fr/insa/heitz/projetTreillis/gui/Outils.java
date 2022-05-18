@@ -20,7 +20,7 @@ public class Outils extends VBox {
     
     public Outils(MainBorderPane bpMain) {               
 		//Titre
-    	bpTitre = new Titre("Outils", "outils-titre");
+    	bpTitre = new Titre("Outils", "outils-titre", bpMain.getControleur(), this);
                 
 		//Toggle Buttons
 		gpOutils = new GridPane();

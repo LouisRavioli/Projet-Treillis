@@ -11,7 +11,7 @@ public class Couleurs extends VBox {
 	
 	public Couleurs(MainBorderPane bpMain) {		
 		//Titre
-		bpTitre = new Titre("Couleurs", "couleurs-titre");
+		bpTitre = new Titre("Couleurs", "couleurs-titre", bpMain.getControleur(), this);
 		
 		//Sélection couleurs
 		selecteurCouleur = new SelecteurCouleur(bpMain, "couleurs-corps");

@@ -3,6 +3,7 @@ package fr.insa.heitz.projetTreillis.gui;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -14,6 +15,7 @@ public class Main extends Application {
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);
     	primaryStage.setTitle("Interface de fou malade");
+    	primaryStage.getIcons().add(new Image("/images/barre.png"));
     	primaryStage.show();
     }
 

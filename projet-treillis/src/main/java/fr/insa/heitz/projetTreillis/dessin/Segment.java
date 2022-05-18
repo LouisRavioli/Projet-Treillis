@@ -1,13 +1,9 @@
 package fr.insa.heitz.projetTreillis.dessin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 public class Segment extends FigureSimple {
 
@@ -74,13 +70,12 @@ public class Segment extends FigureSimple {
 	}
 
 	@Override
-	public List<Node> dessine(Controleur controleur) {
-		Line l = new Line(pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy());
-		l.setStroke(getCouleur());
+	public void dessine(Controleur controleur, ArrayList<Node> formes) {
+		CustomLine l = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this);
 		l.getStyleClass().add("forme-segment");
 		l.setOnMouseClicked(event -> {
 			controleur.clicZoneDessin(event, l);
 		});
-		return new ArrayList<Node>(Arrays.asList(l));
+		formes.add(0, l);
 	}
 }

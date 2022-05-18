@@ -96,12 +96,10 @@ public class Groupe extends Figure {
 	}
 
 	@Override
-	public List<Node> dessine(Controleur controleur) {
-		ArrayList<Node> formes = new ArrayList<Node>();
-		for (Figure f : figures) {
-			formes.addAll(f.dessine(controleur));
+	public void dessine(Controleur controleur, ArrayList<Node> formes) {
+		for (Figure f : figures) {				
+			f.dessine(controleur, formes);
 		}
-		return formes;
 	}
 	
 	public void addFigure(Figure f) {

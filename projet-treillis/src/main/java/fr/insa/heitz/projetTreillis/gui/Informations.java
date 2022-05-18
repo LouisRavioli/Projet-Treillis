@@ -10,7 +10,7 @@ public class Informations extends VBox {
 
 	public Informations(MainBorderPane bpMain) {
 		//Titre
-		bpTitre = new Titre("Informations", "informations-titre");
+		bpTitre = new Titre("Informations", "informations-titre", bpMain.getControleur(), this);
 		
 		getChildren().addAll(bpTitre);
 		getStyleClass().add("informations-vbox");
