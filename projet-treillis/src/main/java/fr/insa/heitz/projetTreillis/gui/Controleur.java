@@ -1,6 +1,8 @@
 package fr.insa.heitz.projetTreillis.gui;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import fr.insa.heitz.projetTreillis.dessin.Point;
@@ -24,7 +26,8 @@ public class Controleur {
 	public enum Etat {DEFAUT, SELECTION, DEPLACER_SELECTION, POINT, SEGMENT_P1, SEGMENT_P2};
 	private Etat etat;
 	
-	private double[] posSegment;
+	private Line curSegment;
+	private Point curSegmentP1;
 	private boolean clicForme;
 	private List<Node> selection;
     
@@ -37,9 +40,12 @@ public class Controleur {
 	
 	public void changeEtat(Etat nouvelEtat) {
 		etat = nouvelEtat;
-		if (nouvelEtat != Etat.SELECTION) {
+		if ((nouvelEtat != Etat.SELECTION)&&(nouvelEtat != Etat.DEPLACER_SELECTION)) {
 			clearSelection();
 		}
+		bpMain.getModele().removeFigure(curSegmentP1);
+		bpMain.getpZoneDessin().getChildren().remove(curSegment);
+		bpMain.getpZoneDessin().dessinerTout();
 	}
 
 	public void clicZoneDessin(MouseEvent event) {
@@ -56,27 +62,40 @@ public class Controleur {
 			case DEPLACER_SELECTION:
 				break;
 			case POINT:
-				Point p = new Point(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY());
-				bpMain.getModele().addFigure(p);
+				creerPoint(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY());
 				bpMain.getpZoneDessin().dessinerTout();
 				clearSelection();
 				addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 1));
 				break;
 			case SEGMENT_P1:
-				posSegment = new double[] {event.getX(), event.getY()};
-				etat = Etat.SEGMENT_P2;
-				break;
-			case SEGMENT_P2:
-				bpMain.getModele().addFigure(new Segment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), new Point(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), posSegment[0], posSegment[1]), new Point(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY())));
+				curSegmentP1 = creerPoint(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY());
 				bpMain.getpZoneDessin().dessinerTout();
 				clearSelection();
 				addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 1));
+				curSegment = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+				curSegment.setStroke(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur());
+				curSegment.getStyleClass().add("forme-segment-temp");
+				bpMain.getpZoneDessin().setOnMouseMoved(move -> {
+					curSegment.setEndX(move.getX());
+					curSegment.setEndY(move.getY());
+				});
+				bpMain.getpZoneDessin().getChildren().add(bpMain.getpZoneDessin().getChildren().size() - 2, curSegment);
+				etat = Etat.SEGMENT_P2;
+				break;
+			case SEGMENT_P2:
+				bpMain.getpZoneDessin().getChildren().remove(curSegment);
+				bpMain.setOnMouseMoved(null);
+				creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, creerPoint(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), event.getX(), event.getY()));
+				Collections.swap(bpMain.getModele().getFigures(), bpMain.getModele().getFigures().size() - 1, bpMain.getModele().getFigures().size() - 3);
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(bpMain.getpZoneDessin().getChildren().get(bpMain.getpZoneDessin().getChildren().size() - 2));
 				etat = Etat.SEGMENT_P1;
 				break;
 			}
 		}
 	}
-	
+		
 	public void clicZoneDessin(MouseEvent event, Ellipse e) {
 		clicForme = true;
 		switch (etat) {
@@ -95,6 +114,7 @@ public class Controleur {
 			addToSelection(e);
 			break;
 		case SEGMENT_P1:
+			//TODO curSegmentP1 = 
 			break;
 		case SEGMENT_P2:
 			break;
@@ -122,6 +142,18 @@ public class Controleur {
 		case SEGMENT_P2:
 			break;	
 		}
+	}
+	
+	public Point creerPoint(Color couleur, double px, double py) {
+		Point p = new Point(couleur, px, py);
+		bpMain.getModele().addFigure(p);
+		return p;
+	}
+	
+	public Segment creerSegment(Color couleur, Point pointDepart, Point pointArrivee) {
+		Segment s = new Segment(couleur ,pointDepart, pointArrivee);
+		bpMain.getModele().addFigure(s);
+		return s;
 	}
 
 	public void clicBoutonCouleur(String nom, Color c) {

@@ -1,8 +1,5 @@
 package fr.insa.heitz.projetTreillis;
 
-import java.util.HashMap;
-
-import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
 
 public class Test {

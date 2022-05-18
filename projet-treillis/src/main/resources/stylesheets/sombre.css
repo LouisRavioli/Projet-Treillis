@@ -338,6 +338,10 @@
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
 
+.forme-segment-temp {
+	-fx-stroke-width: 3px;
+}
+
 .forme-selection {
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
