@@ -1,6 +1,7 @@
 package fr.insa.heitz.projetTreillis.dessin;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import javafx.scene.Node;
 
@@ -52,5 +53,12 @@ public abstract class Figure {
 	
 	public abstract double minY() throws Exception;
 	
-	public abstract void dessine(Controleur controleur, ArrayList<Node> formes); 
+	public abstract void dessine(Controleur controleur, List<Node> formes);
+		
+	public abstract List<Figure> copie();
+	
+	public abstract List<FigureSimple> getFiguresSimples();
+
+	public abstract void deplacer(double dx, double dy);
 	}
+

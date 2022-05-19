@@ -13,6 +13,9 @@ public class Groupe extends Figure {
 
 	public Groupe(List<Figure> figures) {
 		this.figures = figures;
+		for (Figure f : figures) {
+			f.setGroupe(this);
+		}
 	}
 	
 	public Groupe(Figure... figures) {
@@ -21,6 +24,15 @@ public class Groupe extends Figure {
 	
 	public Groupe() {
 		this(new ArrayList<Figure>());
+	}
+	
+	@Override
+	public String toString() {
+		String s = "groupe :\n";
+		for (Figure f : figures) {
+			s += f + "\n\n";
+		}
+		return s.substring(0, s.length() - 2);
 	}
 	
 	public List<Figure> getFigures() {
@@ -96,18 +108,86 @@ public class Groupe extends Figure {
 	}
 
 	@Override
-	public void dessine(Controleur controleur, ArrayList<Node> formes) {
+	public void dessine(Controleur controleur, List<Node> formes) {
 		for (Figure f : figures) {				
 			f.dessine(controleur, formes);
 		}
 	}
 	
+	@Override
+	public List<Figure> copie() {
+		List<Figure> copies = new ArrayList<Figure>();
+		for (Figure f : figures) {
+			copies.addAll(f.copie());
+		}
+		return copies;
+	}
+	
+	@Override
+	public List<FigureSimple> getFiguresSimples() {
+		List<FigureSimple> figuresSimples = new ArrayList<FigureSimple>();
+		for (Figure f : figures) {
+			figuresSimples.addAll(f.getFiguresSimples());
+		}
+		return figuresSimples;
+	}
+	
+	@Override
+	public void deplacer(double dx, double dy) {
+		for (Figure f : figures) {
+			f.deplacer(dx, dy);
+		}
+	}
+	
 	public void addFigure(Figure f) {
+		f.setGroupe(this);
 		figures.add(f);
+		for (FigureSimple fs : f.getFiguresSimples()) {
+			if (fs.getId() == 0) {
+				fs.setId(idLibre());
+			}
+		}
 	}
 	
 	public void removeFigure(Figure f) {
 		figures.remove(f);
+	}
+	
+	public int idLibre() {
+		boolean idTrouve = true;
+		int i = 0;
+		while (idTrouve) {
+			i++;
+			idTrouve = false;
+			for (FigureSimple fs : getFiguresSimples()) {
+				if (fs.getId() == i) {
+					idTrouve = true;
+				}
+			}
+		}
+		return i;
+	}
+	
+	public Groupe grouper(List<Figure> elements) {
+		List<Figure> groupe = new ArrayList<Figure>();
+		for (Figure f : elements) {
+			for (FigureSimple fs : f.getFiguresSimples()) {
+				groupe.add(fs);
+			}
+			removeFigure(f);
+		}
+		Groupe g = new Groupe(groupe);
+		addFigure(g);
+		return g;
+	}
+	
+	public List<Figure> scinder(Groupe groupe){
+		removeFigure(groupe);
+		List<Figure> elements = new ArrayList<Figure>(groupe.getFiguresSimples());
+		for (Figure f : elements) {
+			addFigure(f);
+		}
+		return elements;
 	}
 	
 	public static Groupe groupeTest() {

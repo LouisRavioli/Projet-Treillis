@@ -326,16 +326,8 @@
 	-fx-stroke: -fx-noir;
 }
 
-.forme-point:hover {
-	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
-}
-
 .forme-segment {
 	-fx-stroke-width: 3px;
-}
-
-.forme-segment:hover {
-	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
 
 .forme-segment-temp {
@@ -343,6 +335,10 @@
 }
 
 .forme-selection {
+	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
+}
+
+.forme-hover {
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
 

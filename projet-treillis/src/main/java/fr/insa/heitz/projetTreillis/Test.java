@@ -1,6 +1,10 @@
 package fr.insa.heitz.projetTreillis;
 
-import fr.insa.heitz.projetTreillis.dessin.Segment;
+import java.util.Arrays;
+
+import fr.insa.heitz.projetTreillis.dessin.Banque;
+import fr.insa.heitz.projetTreillis.dessin.Groupe;
+import fr.insa.heitz.projetTreillis.dessin.Point;
 
 public class Test {
     
@@ -48,7 +52,7 @@ public class Test {
         test.put(new NoeudSimple(0, 0), 1);
         test.put(new NoeudSimple(0, 0), 3);*/
     	
-    	Segment s = new Segment();
-    	System.out.println(s);
+    	Groupe g = new Groupe(Banque.P1, Banque.P3, Banque.S1);
+    	System.out.println(g.idLibre());
     }
 }

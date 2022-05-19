@@ -1,6 +1,7 @@
 package fr.insa.heitz.projetTreillis.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -24,14 +25,18 @@ public class ZoneDessin extends Pane {
 			bpMain.getControleur().moveMouseZoneDessinLine(move);
 		});
 		
+		setOnMousePressed(dragEntered -> {
+			bpMain.getControleur().setPosInitiale(dragEntered);
+		});
+		
 		setOnMouseDragged(drag -> {
 			bpMain.getControleur().dragMouseZoneDessinDeplacer(drag);
-		});
+		});		
 	}
 
 	public void dessinerTout() {
 		getChildren().clear();
-		ArrayList<Node> formes = new ArrayList<Node>();
+		List<Node> formes = new ArrayList<Node>();
 		bpMain.getModele().dessine(bpMain.getControleur(), formes);
 		getChildren().addAll(formes);
 	}

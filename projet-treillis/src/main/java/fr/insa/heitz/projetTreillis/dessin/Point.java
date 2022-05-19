@@ -1,6 +1,9 @@
 package fr.insa.heitz.projetTreillis.dessin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -8,14 +11,18 @@ import javafx.scene.paint.Color;
 public class Point extends FigureSimple {
 	
 	public static final double TAILLE_POINT = 5;
-
+	
 	private double px;
 	private double py;
 	
-	public Point(Color couleur, double px, double py) {
-		super(couleur);
+	public Point(int id, Color couleur, double px, double py, Forme forme) {
+		super(id, couleur, forme);
 		this.px = px;
 		this.py = py;
+	}
+	
+	public Point(Color couleur, double px, double py) {
+		this(0, couleur, px, py, null);
 	}
 	
 	public Point(double px, double py) {
@@ -27,12 +34,12 @@ public class Point extends FigureSimple {
 	}
 	
 	public Point(Point modele) {
-		this(modele.getCouleur(), modele.px, modele.py);
+		this(modele.getId(), modele.getCouleur(), modele.px, modele.py, modele.getForme());
 	}
 	
 	@Override
 	public String toString() {
-		return "pos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
+		return "id : " + getId() + "\npos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
 	}
 
 	public double getPx() {
@@ -72,12 +79,29 @@ public class Point extends FigureSimple {
 	}
 
 	@Override
-	public void dessine(Controleur controleur, ArrayList<Node> formes) {
-		CustomEllipse e = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
-		e.getStyleClass().add("forme-point");
-		e.setOnMouseClicked(event -> {
-			controleur.clicZoneDessin(event, e);
+	public void dessine(Controleur controleur, List<Node> formes) {
+		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
+		setForme(ce);
+		ce.getShape().setOnMouseClicked(event -> {
+			controleur.clicZoneDessin(event, ce);
 		});
-		formes.add(e);
+		ce.getShape().setOnMouseEntered(event -> {
+			controleur.mouseEnterForme(this);
+		});
+		ce.getShape().setOnMouseExited(event -> {
+			controleur.mouseExitForme(this);
+		});
+		formes.add(ce.getShape());
+	}
+	
+	@Override
+	public List<Figure> copie() {
+		return new ArrayList<Figure>(Arrays.asList(new Point(this)));
+	}
+	
+	@Override
+	public void deplacer(double dx, double dy) {
+		px += dx;
+		py += dy;
 	}
 }
