@@ -14,13 +14,15 @@ public class Point extends FigureSimple {
 	
 	private double px;
 	private double py;
+	private List<Segment> segmentsIncidents;
 	
 	public Point(int id, Color couleur, double px, double py, Forme forme) {
 		super(id, couleur, forme);
 		this.px = px;
 		this.py = py;
+		this.segmentsIncidents = new ArrayList<Segment>();
 	}
-	
+
 	public Point(Color couleur, double px, double py) {
 		this(0, couleur, px, py, null);
 	}
@@ -35,6 +37,7 @@ public class Point extends FigureSimple {
 	
 	public Point(Point modele) {
 		this(modele.getId(), modele.getCouleur(), modele.px, modele.py, modele.getForme());
+		segmentsIncidents = modele.segmentsIncidents;
 	}
 	
 	@Override
@@ -56,6 +59,14 @@ public class Point extends FigureSimple {
 
 	public void setPy(double py) {
 		this.py = py;
+	}
+	
+	public List<Segment> getSegmentsIncidents() {
+		return segmentsIncidents;
+	}
+
+	public void setSegmentsIncidents(List<Segment> segmentsIncidents) {
+		this.segmentsIncidents = segmentsIncidents;
 	}
 
 	@Override
@@ -83,7 +94,7 @@ public class Point extends FigureSimple {
 		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
 		setForme(ce);
 		ce.getShape().setOnMouseClicked(event -> {
-			controleur.clicZoneDessin(event, ce);
+			controleur.clicZoneDessin(event, this);
 		});
 		ce.getShape().setOnMouseEntered(event -> {
 			controleur.mouseEnterForme(this);
@@ -103,5 +114,10 @@ public class Point extends FigureSimple {
 	public void deplacer(double dx, double dy) {
 		px += dx;
 		py += dy;
+	}
+
+	@Override
+	public List<FigureSimple> getDependance() {
+		return new ArrayList<FigureSimple>(Arrays.asList(this));
 	}
 }

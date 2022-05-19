@@ -17,6 +17,8 @@ public class Outils extends VBox {
     private ToggleButton tbDeplacerSelection;
     private ToggleButton tbNoeud;
     private ToggleButton tbBarre;
+    private ToggleButton tbEffacer;
+    private ToggleButton tbForce;
     
     public Outils(MainBorderPane bpMain) {               
 		//Titre
@@ -29,9 +31,11 @@ public class Outils extends VBox {
 		tbDeplacerSelection = new ToggleButton();
 		tbNoeud = new ToggleButton();
 		tbBarre = new ToggleButton();
+		tbEffacer = new ToggleButton();
+		tbForce = new ToggleButton();
 		ToggleGroup tgOutils = new ToggleGroup();
-        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}};
- 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}};
+        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}, {tbEffacer, tbForce}};
+ 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}, {"Effacer", "Appliquer une force"}};
 		for (int i = 0; i < toggleButtonsOutils.length; i++) {
 			for (int j = 0; j < 2; j++) {
 				toggleButtonsOutils[i][j].setToggleGroup(tgOutils);
@@ -75,6 +79,24 @@ public class Outils extends VBox {
 		tbBarre.setOnAction(event -> {
 			if (tbBarre.isSelected()) {
 				bpMain.getControleur().changeEtat(Etat.SEGMENT_P1);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
+		tbEffacer.setOnAction(event -> {
+			if (tbEffacer.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.EFFACER);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
+		tbForce.setOnAction(event -> {
+			if (tbForce.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.FORCE);
 			}
 			else {
 				bpMain.getControleur().changeEtat(Etat.DEFAUT);

@@ -212,6 +212,14 @@
 	-fx-background-image: url("/images/barre.png");
 }
 
+.outils-corps-toggle-button31 {
+	-fx-background-image: url("/images/effacer.png");
+}
+
+.outils-corps-toggle-button32 {
+	-fx-background-image: url("/images/force.png");
+}
+
 /*Couleurs*/
 .couleurs-vbox {
 	-fx-background-color: -fx-noir-bof;

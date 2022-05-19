@@ -17,6 +17,8 @@ public class Segment extends FigureSimple {
 		super(id, couleur, forme);
 		this.pointDepart = pointDepart;
 		this.pointArrivee = pointArrivee;
+		pointDepart.getSegmentsIncidents().add(this);
+		pointArrivee.getSegmentsIncidents().add(this);
 	}
 	
 	public Segment(Color couleur, Point pointDepart, Point pointArrivee) {
@@ -81,7 +83,7 @@ public class Segment extends FigureSimple {
 		CustomLine cl = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this);
 		setForme(cl);
 		cl.getShape().setOnMouseClicked(event -> {
-			controleur.clicZoneDessin(event, cl);
+			controleur.clicZoneDessin(event, this);
 		});
 		cl.getShape().setOnMouseEntered(event -> {
 			controleur.mouseEnterForme(this);
@@ -99,5 +101,10 @@ public class Segment extends FigureSimple {
 	
 	@Override
 	public void deplacer(double dx, double dy) {
+	}
+	
+	@Override
+	public List<FigureSimple> getDependance() {
+		return new ArrayList<FigureSimple>(Arrays.asList(this));
 	}
 }

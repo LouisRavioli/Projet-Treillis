@@ -139,6 +139,15 @@ public class Groupe extends Figure {
 		}
 	}
 	
+	@Override
+	public List<FigureSimple> getDependance() {
+		List<FigureSimple> dependance = new ArrayList<FigureSimple>();
+		for (Figure f : figures) {
+			dependance.addAll(f.getDependance());
+		}
+		return dependance;
+	}
+	
 	public void addFigure(Figure f) {
 		f.setGroupe(this);
 		figures.add(f);

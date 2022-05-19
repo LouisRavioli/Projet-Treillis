@@ -3,8 +3,6 @@ package fr.insa.heitz.projetTreillis.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.insa.heitz.projetTreillis.dessin.CustomEllipse;
-import fr.insa.heitz.projetTreillis.dessin.CustomLine;
 import fr.insa.heitz.projetTreillis.dessin.Figure;
 import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
@@ -25,7 +23,7 @@ public class Controleur {
 	
 	private MainBorderPane bpMain;
 	
-	public enum Etat {DEFAUT, SELECTION, DEPLACER_SELECTION, POINT, SEGMENT_P1, SEGMENT_P2};
+	public enum Etat {DEFAUT, SELECTION, DEPLACER_SELECTION, POINT, SEGMENT_P1, SEGMENT_P2, EFFACER, FORCE};
 	private Etat etat;
 	
 	private Line curSegment;
@@ -104,11 +102,15 @@ public class Controleur {
 				curSegmentIsTemp = false;
 				etat = Etat.SEGMENT_P1;
 				break;
+			case EFFACER:
+				break;
+			case FORCE:
+				break;
 			}
 		}
 	}
 		
-	public void clicZoneDessin(MouseEvent event, CustomEllipse ce) {
+	public void clicZoneDessin(MouseEvent event, Point p) {
 		clicForme = true;
 		Color couleur = bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur();
 		switch (etat) {
@@ -116,16 +118,16 @@ public class Controleur {
 			break;
 		case SELECTION:
 			if (event.isControlDown()) {
-				if ((selection.contains(ce.getPoint()))||selection.contains(ce.getPoint().getGroupe())) {
-					removeFromSelection(ce.getPoint());
+				if ((selection.contains(p))||selection.contains(p.getGroupe())) {
+					removeFromSelection(p);
 				}
 				else {
-					addToSelection(ce.getPoint());
+					addToSelection(p);
 				}
 			}
 			else {
 				clearSelection();
-				addToSelection(ce.getPoint());
+				addToSelection(p);
 			}
 			break;
 		case DEPLACER_SELECTION:
@@ -134,52 +136,84 @@ public class Controleur {
 			break;
 		case SEGMENT_P1:
 			clearSelection();
-			addToSelection(ce.getPoint());
-			curSegmentP1 = ce.getPoint();
+			addToSelection(p);
+			curSegmentP1 = p;
 			addLinePreview(couleur, event.getX(), event.getY());
 			etat = Etat.SEGMENT_P2;
 			break;
 		case SEGMENT_P2:
 			bpMain.getpZoneDessin().getChildren().remove(curSegment);
-			creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, ce.getPoint());
+			creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, p);
 			curSegmentP1 = null;
 			bpMain.getpZoneDessin().dessinerTout();
 			clearSelection();
-			addToSelection(ce.getPoint());
+			addToSelection(p);
 			curSegmentIsTemp = false;
 			etat = Etat.SEGMENT_P1;
+			break;
+		case EFFACER:
+			effacerForme(p);
+			bpMain.getpZoneDessin().dessinerTout();
+			break;
+		case FORCE:
 			break;
 		}
 	}
 	
-	public void clicZoneDessin(MouseEvent event, CustomLine cl) {
+	public void clicZoneDessin(MouseEvent event, Segment s) {
 		clicForme = true;
+		Color couleur = bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur();
 		switch (etat) {
 		case DEFAUT:
 			break;	
 		case SELECTION:
 			if (event.isControlDown()) {
-				if ((selection.contains(cl.getSegment()))||(selection.contains(cl.getSegment().getGroupe()))) {
-					removeFromSelection(cl.getSegment());
+				if ((selection.contains(s))||(selection.contains(s.getGroupe()))) {
+					removeFromSelection(s);
 				}
 				else {
-					addToSelection(cl.getSegment());
+					addToSelection(s);
 				}
 			}
 			else {
 				clearSelection();
-				addToSelection(cl.getSegment());
+				addToSelection(s);
 			}
 			break;
 		case DEPLACER_SELECTION:
 			break;
 		case POINT:
+			Point p1 = scinderSegment(s, couleur, event.getX(), event.getY());
+			bpMain.getpZoneDessin().dessinerTout();
+			clearSelection();
+			addToSelection(p1);
 			break;
 		case SEGMENT_P1:
+			curSegmentP1 = scinderSegment(s, couleur, event.getX(), event.getY());
+			bpMain.getpZoneDessin().dessinerTout();
 			clearSelection();
+			addToSelection(curSegmentP1);
+			addLinePreview(couleur, event.getX(), event.getY());
+			curSegmentIsTemp = true;
+			etat = Etat.SEGMENT_P2;
 			break;
 		case SEGMENT_P2:
-			break;	
+			bpMain.getpZoneDessin().getChildren().remove(curSegment);
+			Point p2 = scinderSegment(s, couleur, event.getX(), event.getY());
+			creerSegment(couleur, curSegmentP1, p2);
+			curSegmentP1 = null;
+			bpMain.getpZoneDessin().dessinerTout();
+			clearSelection();
+			addToSelection(p2);
+			curSegmentIsTemp = false;
+			etat = Etat.SEGMENT_P1;
+			break;
+		case EFFACER:
+			effacerForme(s);
+			bpMain.getpZoneDessin().dessinerTout();
+			break;
+		case FORCE:
+			break;
 		}
 	}
 	
@@ -200,6 +234,14 @@ public class Controleur {
 		Segment s = new Segment(couleur, pointDepart, pointArrivee);
 		bpMain.getModele().addFigure(s);
 		return s;
+	}
+	
+	public Point scinderSegment(Segment s, Color couleur, double px, double py) {
+		bpMain.getModele().removeFigure(s);
+		Point p = creerPoint(couleur, px, py);
+		creerSegment(couleur, p, s.getPointDepart());
+		creerSegment(couleur, p, s.getPointArrivee());
+		return p;
 	}
 		
 	public void addToSelection(Figure f) {
@@ -352,6 +394,17 @@ public class Controleur {
 		}
 		else {
 			fs.getForme().getShape().getStyleClass().remove("forme-hover");
+		}
+	}
+
+	public void effacerForme(Figure f) {
+		if (f.getGroupe() == bpMain.getModele()) {
+			for (FigureSimple fs : f.getDependance()) {
+				bpMain.getModele().removeFigure(fs);
+			}
+		}
+		else {
+			effacerForme(f.getGroupe());
 		}
 	}
 }

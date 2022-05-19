@@ -60,5 +60,7 @@ public abstract class Figure {
 	public abstract List<FigureSimple> getFiguresSimples();
 
 	public abstract void deplacer(double dx, double dy);
-	}
+	
+	public abstract List<FigureSimple> getDependance();
+}
 
