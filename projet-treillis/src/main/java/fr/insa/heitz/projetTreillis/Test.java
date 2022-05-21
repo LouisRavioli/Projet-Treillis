@@ -2,9 +2,6 @@ package fr.insa.heitz.projetTreillis;
 
 import java.util.ArrayList;
 
-import fr.insa.heitz.projetTreillis.dessin.Banque;
-import fr.insa.heitz.projetTreillis.dessin.Groupe;
-
 public class Test {
     
     public static void main(String[] args) {

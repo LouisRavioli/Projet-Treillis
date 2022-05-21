@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.insa.heitz.projetTreillis.Barre;
+import fr.insa.heitz.projetTreillis.Noeud;
 import fr.insa.heitz.projetTreillis.NoeudSimple;
 import fr.insa.heitz.projetTreillis.dessin.Figure;
 import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
@@ -554,6 +555,14 @@ public class Controleur {
 		if (ligne.isExpanded()) {
 			clearSelection();
 			addToSelection(ligne.getS());
+		}
+	}
+	
+	public void test() {
+		for (Noeud n : bpMain.getTreillis().getNoeuds().keySet()) { //boucle où n prend la valeur de chaque noeud du treillis
+			System.out.println(bpMain.getTreillis().getNoeuds().get(n)); //affiche l'identifiant du noeud
+			System.out.println(n.getPx()); //affiche l'abscisse
+			System.out.println(n.getPy()); //affiche l'ordonnée
 		}
 	}
 }

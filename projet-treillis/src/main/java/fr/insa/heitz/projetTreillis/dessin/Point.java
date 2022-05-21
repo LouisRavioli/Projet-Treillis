@@ -136,6 +136,8 @@ public class Point extends FigureSimple {
 	public void deplacer(double dx, double dy) {
 		px += dx;
 		py += dy;
+		getLigne().getTfPx().setText(String.valueOf(px));
+		getLigne().getTfPy().setText(String.valueOf(py));
 	}
 
 	@Override
