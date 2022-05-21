@@ -140,8 +140,8 @@ public class Groupe extends Figure {
 	}
 	
 	@Override
-	public List<FigureSimple> getDependance() {
-		List<FigureSimple> dependance = new ArrayList<FigureSimple>();
+	public List<Figure> getDependance() {
+		List<Figure> dependance = new ArrayList<Figure>(Arrays.asList(this));
 		for (Figure f : figures) {
 			dependance.addAll(f.getDependance());
 		}

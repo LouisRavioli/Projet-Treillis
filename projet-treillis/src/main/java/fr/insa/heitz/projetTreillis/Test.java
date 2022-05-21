@@ -1,10 +1,7 @@
 package fr.insa.heitz.projetTreillis;
 
-import java.util.Arrays;
-
 import fr.insa.heitz.projetTreillis.dessin.Banque;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
-import fr.insa.heitz.projetTreillis.dessin.Point;
 
 public class Test {
     

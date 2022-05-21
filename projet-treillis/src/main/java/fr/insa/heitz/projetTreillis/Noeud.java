@@ -10,6 +10,7 @@ public abstract class Noeud {
     private Vecteur2D v;
     private ArrayList<Barre> barresDepart;
     private ArrayList<Barre> barresArrivee;
+    private Treillis treillis;
     
     public Noeud(double px, double py, Vecteur2D v) {
         this.px = px;
@@ -48,7 +49,15 @@ public abstract class Noeud {
     	this.py = py;
     }
     
-    public ArrayList<Barre> getBarresDepart() {
+    public Vecteur2D getV() {
+		return v;
+	}
+
+	public void setV(Vecteur2D v) {
+		this.v = v;
+	}
+
+	public ArrayList<Barre> getBarresDepart() {
         return barresDepart;
     }
     
@@ -64,7 +73,15 @@ public abstract class Noeud {
     	this.barresArrivee = barresArrivee;
     }
     
-    static Noeud entreeNoeud(int n) {
+    public Treillis getTreillis() {
+		return treillis;
+	}
+
+	public void setTreillis(Treillis treillis) {
+		this.treillis = treillis;
+	}
+
+	static Noeud entreeNoeud(int n) {
         System.out.print("px : ");
         double px = Lire.d();
         System.out.print("py : ");

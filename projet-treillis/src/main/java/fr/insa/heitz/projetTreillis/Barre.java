@@ -7,6 +7,7 @@ public class Barre {
     private double tracMax;
     private double compMax;
     private double cout;
+    private Treillis treillis;
     
     public Barre(Noeud noeudDepart, Noeud noeudArrivee, double tracMax, double compMax, double cout) {
         this.noeudDepart = noeudDepart;
@@ -69,6 +70,14 @@ public class Barre {
 
 	public void setCout(double cout) {
 		this.cout = cout;
+	}
+	
+	public Treillis getTreillis() {
+		return treillis;
+	}
+
+	public void setTreillis(Treillis treillis) {
+		this.treillis = treillis;
 	}
 
 	public Noeud noeudOppose(Noeud n) {

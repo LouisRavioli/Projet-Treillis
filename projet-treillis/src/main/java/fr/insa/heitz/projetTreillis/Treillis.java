@@ -48,23 +48,19 @@ public class Treillis {
         return maxId;
     }
     
-    public void ajouteNoeud(Noeud n) throws Exception {
-    	if (noeuds.containsKey(n)) {
-    		throw new Exception("Noeud déjà dans la liste");
-    	}
-    	else {
+    public void ajouteNoeud(Noeud n) {
+    	if (!noeuds.containsKey(n)) {
     		noeuds.put(n, idLibreNoeud());
+    		n.setTreillis(this);
     	}
-    }
+}
     
-    public void ajouteBarre(Barre b) throws Exception {
-    	if (barres.containsKey(b)) {
-    		throw new Exception("Barre déjà dans la liste");
-    	}
-    	else {
+    public void ajouteBarre(Barre b){
+    	if (!barres.containsKey(b)) {
     		ajouteNoeud(b.getNoeudDepart());
     		ajouteNoeud(b.getNoeudArrivee());
     		barres.put(b, idLibreBarre());
+    		b.setTreillis(this);
     	}
     }
     

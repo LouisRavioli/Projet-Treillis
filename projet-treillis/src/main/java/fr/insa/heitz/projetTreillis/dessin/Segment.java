@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.Barre;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.LigneInformationSegment;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
@@ -12,6 +14,8 @@ public class Segment extends FigureSimple {
 
 	private Point pointDepart;
 	private Point pointArrivee;
+	private Barre barre;
+	private LigneInformationSegment ligne;
 	
 	public Segment(int id, Color couleur, Point pointDepart, Point pointArrivee, Forme forme) {
 		super(id, couleur, forme);
@@ -39,7 +43,7 @@ public class Segment extends FigureSimple {
 	
 	@Override
 	public String toString() {
-		return "id : " + getId() + "\npoint départ :\n" + pointDepart + "\npoint arrivée :\n" + pointArrivee + "\ncouleur : " + getCouleur() ;
+		return "segment " + getId() + " :\ncouleur : " + getCouleur() + "\npoint départ :\n" + pointDepart + "\npoint arrivée :\n" + pointArrivee;
 	}
 	
 	public Point getPointDepart() {
@@ -56,6 +60,22 @@ public class Segment extends FigureSimple {
 
 	public void setPointArrivee(Point pointArrivee) {
 		this.pointArrivee = pointArrivee;
+	}
+
+	public Barre getBarre() {
+		return barre;
+	}
+
+	public void setBarre(Barre barre) {
+		this.barre = barre;
+	}
+
+	public LigneInformationSegment getLigne() {
+		return ligne;
+	}
+
+	public void setLigne(LigneInformationSegment ligne) {
+		this.ligne = ligne;
 	}
 
 	@Override
@@ -83,7 +103,7 @@ public class Segment extends FigureSimple {
 		CustomLine cl = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this);
 		setForme(cl);
 		cl.getShape().setOnMouseClicked(event -> {
-			controleur.clicZoneDessin(event, this);
+			controleur.clicSegment(event, this);
 		});
 		cl.getShape().setOnMouseEntered(event -> {
 			controleur.mouseEnterForme(this);
@@ -104,7 +124,7 @@ public class Segment extends FigureSimple {
 	}
 	
 	@Override
-	public List<FigureSimple> getDependance() {
-		return new ArrayList<FigureSimple>(Arrays.asList(this));
+	public List<Figure> getDependance() {
+		return new ArrayList<Figure>(Arrays.asList(this));
 	}
 }

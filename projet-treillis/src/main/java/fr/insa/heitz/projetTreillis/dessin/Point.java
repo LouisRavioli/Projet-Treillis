@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.Noeud;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.LigneInformationPoint;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
@@ -15,6 +17,8 @@ public class Point extends FigureSimple {
 	private double px;
 	private double py;
 	private List<Segment> segmentsIncidents;
+	private Noeud noeud;
+	private LigneInformationPoint ligne;
 	
 	public Point(int id, Color couleur, double px, double py, Forme forme) {
 		super(id, couleur, forme);
@@ -42,7 +46,7 @@ public class Point extends FigureSimple {
 	
 	@Override
 	public String toString() {
-		return "id : " + getId() + "\npos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
+		return "point " + getId() + " :\npos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
 	}
 
 	public double getPx() {
@@ -67,6 +71,22 @@ public class Point extends FigureSimple {
 
 	public void setSegmentsIncidents(List<Segment> segmentsIncidents) {
 		this.segmentsIncidents = segmentsIncidents;
+	}
+
+	public Noeud getNoeud() {
+		return noeud;
+	}
+
+	public void setNoeud(Noeud noeud) {
+		this.noeud = noeud;
+	}
+
+	public LigneInformationPoint getLigne() {
+		return ligne;
+	}
+
+	public void setLigne(LigneInformationPoint ligne) {
+		this.ligne = ligne;
 	}
 
 	@Override
@@ -94,7 +114,7 @@ public class Point extends FigureSimple {
 		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
 		setForme(ce);
 		ce.getShape().setOnMouseClicked(event -> {
-			controleur.clicZoneDessin(event, this);
+			controleur.clicPoint(event, this);
 		});
 		ce.getShape().setOnMouseEntered(event -> {
 			controleur.mouseEnterForme(this);
@@ -117,7 +137,9 @@ public class Point extends FigureSimple {
 	}
 
 	@Override
-	public List<FigureSimple> getDependance() {
-		return new ArrayList<FigureSimple>(Arrays.asList(this));
+	public List<Figure> getDependance() {
+		List<Figure> dependance = new ArrayList<Figure>(Arrays.asList(this));
+		dependance.addAll(segmentsIncidents);
+		return dependance; 
 	}
 }

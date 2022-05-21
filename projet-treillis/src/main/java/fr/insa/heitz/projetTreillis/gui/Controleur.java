@@ -8,6 +8,7 @@ import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -110,7 +111,7 @@ public class Controleur {
 		}
 	}
 		
-	public void clicZoneDessin(MouseEvent event, Point p) {
+	public void clicPoint(MouseEvent event, Point p) {
 		clicForme = true;
 		Color couleur = bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur();
 		switch (etat) {
@@ -160,7 +161,7 @@ public class Controleur {
 		}
 	}
 	
-	public void clicZoneDessin(MouseEvent event, Segment s) {
+	public void clicSegment(MouseEvent event, Segment s) {
 		clicForme = true;
 		Color couleur = bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur();
 		switch (etat) {
@@ -399,12 +400,71 @@ public class Controleur {
 
 	public void effacerForme(Figure f) {
 		if (f.getGroupe() == bpMain.getModele()) {
-			for (FigureSimple fs : f.getDependance()) {
-				bpMain.getModele().removeFigure(fs);
+			for (Figure dependance : f.getDependance()) {
+				bpMain.getModele().removeFigure(dependance);
 			}
 		}
 		else {
 			effacerForme(f.getGroupe());
 		}
+	}
+
+	public void refreshCouleur(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			p.setCouleur(Color.web(newValue));
+			p.getLigne().getrCouleur().setFill(Color.web(newValue));
+			p.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			p.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+
+	public void refreshPx(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			p.setPx(Double.parseDouble(newValue));
+			p.getLigne().getTfPx().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			p.getLigne().getTfPx().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshPy(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			p.setPy(Double.parseDouble(newValue));
+			p.getLigne().getTfPy().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			p.getLigne().getTfPy().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshFx(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			p.getNoeud().getV().setVx(Double.parseDouble(newValue));
+			p.getLigne().getTfFx().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			p.getLigne().getTfFx().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshFy(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			p.getNoeud().getV().setVy(Double.parseDouble(newValue));
+			p.getLigne().getTfFy().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			p.getLigne().getTfFy().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+
+	public void refreshLine(LigneInformationPoint ligne) {
+		ligne.getTfCouleur().setText(String.format("#%02X%02X%02X", (int) (ligne.getP().getCouleur().getRed()*255), (int) (ligne.getP().getCouleur().getGreen()*255), (int) (ligne.getP().getCouleur().getBlue()*255)));
+		ligne.getTfPx().setText(String.valueOf(ligne.getP().getPx()));
+		ligne.getTfPy().setText(String.valueOf(ligne.getP().getPy()));
+		ligne.getTfFx().setText(String.valueOf(ligne.getP().getNoeud().getV().getVx()));
+		ligne.getTfFy().setText(String.valueOf(ligne.getP().getNoeud().getV().getVy()));
 	}
 }

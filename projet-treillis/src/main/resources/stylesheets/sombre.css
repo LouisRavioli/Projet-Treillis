@@ -8,6 +8,8 @@
 	-fx-bleu-hover-90: #6495ED90;
 	-fx-rouge-hover: #FF0000;
 	-fx-transparent: transparent;
+	-fx-info-titre: #261D1D;
+	-fx-info-contenu: #282626;
 }
 
 /*Haut*/
@@ -286,7 +288,7 @@
 .informations-vbox {
 	-fx-background-color: -fx-noir-bof;
 	-fx-alignment: top-right;
-	-fx-max-width: 200px;
+	-fx-max-width: 320px;
 }
 
 .informations-titre-border-pane {
@@ -313,6 +315,102 @@
 .informations-titre-button:hover {
 	-fx-background-color: -fx-rouge-hover;
 	-fx-background-image: url("/images/fermer_blanc.png");
+}
+
+.informations-titled-pane {
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-titled-pane .title {
+	-fx-background-color: -fx-info-titre;
+	-fx-background-radius: 0px;
+}
+
+.informations-titled-pane .title .arrow-button .arrow {
+	-fx-background-color: -fx-blanc;
+}
+
+.informations-titled-pane .content {
+	-fx-background-color: -fx-info-contenu;
+	-fx-box-border: -fx-transparent;
+}
+
+.informations-point-grid-pane {
+	-fx-hgap: 10px;
+	-fx-vgap: 2px;
+}
+
+.informations-label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-hbox-couleur {
+	-fx-spacing: 5px;
+	-fx-alignment: center;
+}
+
+.informations-rectangle {
+	-fx-stroke: -fx-blanc;
+}
+
+
+.informations-couleur {
+	-fx-max-width: 65px;
+	-fx-background-color: -fx-noir-bof;
+	-fx-background-radius: 0px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-point-coordonnee {
+	-fx-max-width: 60px;
+	-fx-background-color: -fx-noir-bof;
+	-fx-background-radius: 0px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-point-separator {
+	-fx-orientation: vertical;
+	-fx-max-height: 80px;
+}
+
+.informations-point-separator .line{
+	-fx-border-width: 0.5px;
+	-fx-border-color: -fx-blanc;
+}
+
+.informations-segment-grid-pane {
+	-fx-hgap: 10px;
+	-fx-vgap: 2px;
+}
+
+.informations-extremites-label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-segment-caracteristique {
+	-fx-background-color: -fx-noir-bof;
+	-fx-background-radius: 0px;
+	-fx-max-width: 60px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-label-wrap {
+	-fx-line-spacing: -5px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.informations-label-cout {
+	-fx-min-height: 30px;
+}
+
+.informations-segment-separator {
+	-fx-orientation: vertical;
+	-fx-max-height: 110px;
+}
+
+.informations-segment-separator .line{
+	-fx-border-width: 0.5px;
+	-fx-border-color: -fx-blanc;
 }
 
 /*Zone dessin*/
