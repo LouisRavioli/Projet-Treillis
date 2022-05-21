@@ -424,6 +424,7 @@ public class Controleur {
 			p.setCouleur(Color.web(newValue));
 			p.getLigne().getrCouleur().setFill(Color.web(newValue));
 			p.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			p.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FF0000");
@@ -434,6 +435,7 @@ public class Controleur {
 		try {
 			p.setPx(Double.parseDouble(newValue));
 			p.getLigne().getTfPx().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			p.getLigne().getTfPx().setStyle("-fx-text-fill: #FF0000");
@@ -444,6 +446,7 @@ public class Controleur {
 		try {
 			p.setPy(Double.parseDouble(newValue));
 			p.getLigne().getTfPy().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			p.getLigne().getTfPy().setStyle("-fx-text-fill: #FF0000");
@@ -454,6 +457,7 @@ public class Controleur {
 		try {
 			p.getNoeud().getV().setVx(Double.parseDouble(newValue));
 			p.getLigne().getTfFx().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			p.getLigne().getTfFx().setStyle("-fx-text-fill: #FF0000");
@@ -464,6 +468,7 @@ public class Controleur {
 		try {
 			p.getNoeud().getV().setVy(Double.parseDouble(newValue));
 			p.getLigne().getTfFy().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			p.getLigne().getTfFy().setStyle("-fx-text-fill: #FF0000");
@@ -483,6 +488,7 @@ public class Controleur {
 			s.setCouleur(Color.web(newValue));
 			s.getLigne().getrCouleur().setFill(Color.web(newValue));
 			s.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			s.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FF0000");
@@ -493,6 +499,7 @@ public class Controleur {
 		try {
 			s.getBarre().setCompMax(Double.parseDouble(newValue));
 			s.getLigne().getTfComp().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			s.getLigne().getTfComp().setStyle("-fx-text-fill: #FF0000");
@@ -503,6 +510,7 @@ public class Controleur {
 		try {
 			s.getBarre().setTracMax(Double.parseDouble(newValue));
 			s.getLigne().getTfTrac().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			s.getLigne().getTfTrac().setStyle("-fx-text-fill: #FF0000");
@@ -513,6 +521,7 @@ public class Controleur {
 		try {
 			s.getBarre().setCout(Double.parseDouble(newValue));
 			s.getLigne().getTfCout().setStyle("-fx-text-fill: #FFFFFF");
+			bpMain.getpZoneDessin().dessinerTout();
 		}
 		catch (Exception e) {
 			s.getLigne().getTfCout().setStyle("-fx-text-fill: #FF0000");
