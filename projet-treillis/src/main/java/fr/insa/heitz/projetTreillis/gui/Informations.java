@@ -3,11 +3,7 @@ package fr.insa.heitz.projetTreillis.gui;
 import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -41,6 +37,14 @@ public class Informations extends VBox {
 		return bpTitre;
 	}
 	
+	public ScrollPane getSpInformations() {
+		return spInformations;
+	}
+
+	public VBox getVbContainer() {
+		return vbContainer;
+	}
+
 	public void addLignePoint(Point p) {
 	    vbContainer.getChildren().add(new LigneInformationPoint(bpMain, p));
 	}

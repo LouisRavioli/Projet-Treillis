@@ -378,7 +378,6 @@
 	-fx-stroke: -fx-blanc;
 }
 
-
 .informations-couleur {
 	-fx-max-width: 65px;
 	-fx-background-color: -fx-noir-bof;
@@ -428,13 +427,9 @@
 	-fx-text-fill: -fx-blanc;
 }
 
-.informations-label-cout {
-	-fx-min-height: 30px;
-}
-
 .informations-segment-separator {
 	-fx-orientation: vertical;
-	-fx-max-height: 110px;
+	-fx-max-height: 120px;
 }
 
 .informations-segment-separator .line{

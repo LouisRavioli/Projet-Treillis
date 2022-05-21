@@ -515,4 +515,12 @@ public class Controleur {
 		ligne.getTfTrac().setText(String.valueOf(ligne.getS().getBarre().getTracMax()));
 		ligne.getTfCout().setText(String.valueOf(ligne.getS().getBarre().getCout()));
 	}
+
+	public void clicInformationP1(LigneInformationSegment ligne) {
+		ligne.getS().getPointDepart().getLigne().setExpanded(true);
+	}
+	
+	public void clicInformationP2(LigneInformationSegment ligne) {
+		ligne.getS().getPointArrivee().getLigne().setExpanded(true);
+	}
 }

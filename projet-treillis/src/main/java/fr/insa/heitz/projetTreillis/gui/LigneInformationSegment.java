@@ -59,7 +59,7 @@ public class LigneInformationSegment extends TitledPane {
 		tfTrac = new TextField(String.valueOf(b.getTracMax()));
 		tfTrac.getStyleClass().add("informations-segment-caracteristique");
 		lCout = new Label("Coût");
-		lCout.getStyleClass().addAll("informations-label-wrap", "informations-label-cout");
+		lCout.getStyleClass().add("informations-label-wrap");
 		tfCout = new TextField(String.valueOf(b.getCout()));
 		tfCout.getStyleClass().add("informations-segment-caracteristique");
 		
@@ -106,6 +106,14 @@ public class LigneInformationSegment extends TitledPane {
 		
 		heightProperty().addListener(observable -> {
 			bpMain.getControleur().refreshLineSegment(this);
+		});
+		
+		lP1.setOnMouseClicked(event -> {
+			bpMain.getControleur().clicInformationP1(this);
+		});
+
+		lP2.setOnMouseClicked(event -> {
+			bpMain.getControleur().clicInformationP2(this);
 		});
 	}
 
