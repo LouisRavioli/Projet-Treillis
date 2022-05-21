@@ -87,6 +87,26 @@ public class LigneInformationSegment extends TitledPane {
 		setContent(gpInformations);
 		setExpanded(false);
 		getStyleClass().add("informations-titled-pane");
+		
+		tfCouleur.textProperty().addListener((observable, oldValue, newValue) -> {
+			bpMain.getControleur().refreshCouleur(s, observable, oldValue, newValue);
+		});
+		
+		tfComp.textProperty().addListener((observable, oldValue, newValue) -> {
+			bpMain.getControleur().refreshComp(s, observable, oldValue, newValue);
+		});
+		
+		tfTrac.textProperty().addListener((observable, oldValue, newValue) -> {
+			bpMain.getControleur().refreshTrac(s, observable, oldValue, newValue);
+		});
+		
+		tfCout.textProperty().addListener((observable, oldValue, newValue) -> {
+			bpMain.getControleur().refreshCout(s, observable, oldValue, newValue);
+		});
+		
+		heightProperty().addListener(observable -> {
+			bpMain.getControleur().refreshLineSegment(this);
+		});
 	}
 
 	public Segment getS() {

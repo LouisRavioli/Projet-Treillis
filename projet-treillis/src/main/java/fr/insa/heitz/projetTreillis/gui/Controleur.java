@@ -460,11 +460,59 @@ public class Controleur {
 		}
 	}
 
-	public void refreshLine(LigneInformationPoint ligne) {
+	public void refreshLinePoint(LigneInformationPoint ligne) {
 		ligne.getTfCouleur().setText(String.format("#%02X%02X%02X", (int) (ligne.getP().getCouleur().getRed()*255), (int) (ligne.getP().getCouleur().getGreen()*255), (int) (ligne.getP().getCouleur().getBlue()*255)));
 		ligne.getTfPx().setText(String.valueOf(ligne.getP().getPx()));
 		ligne.getTfPy().setText(String.valueOf(ligne.getP().getPy()));
 		ligne.getTfFx().setText(String.valueOf(ligne.getP().getNoeud().getV().getVx()));
 		ligne.getTfFy().setText(String.valueOf(ligne.getP().getNoeud().getV().getVy()));
+	}
+
+	public void refreshCouleur(Segment s, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			s.setCouleur(Color.web(newValue));
+			s.getLigne().getrCouleur().setFill(Color.web(newValue));
+			s.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			s.getLigne().getTfCouleur().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshComp(Segment s, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			s.getBarre().setCompMax(Double.parseDouble(newValue));
+			s.getLigne().getTfComp().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			s.getLigne().getTfComp().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshTrac(Segment s, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			s.getBarre().setTracMax(Double.parseDouble(newValue));
+			s.getLigne().getTfTrac().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			s.getLigne().getTfTrac().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshCout(Segment s, ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		try {
+			s.getBarre().setCout(Double.parseDouble(newValue));
+			s.getLigne().getTfCout().setStyle("-fx-text-fill: #FFFFFF");
+		}
+		catch (Exception e) {
+			s.getLigne().getTfCout().setStyle("-fx-text-fill: #FF0000");
+		}
+	}
+	
+	public void refreshLineSegment(LigneInformationSegment ligne) {
+		ligne.getTfCouleur().setText(String.format("#%02X%02X%02X", (int) (ligne.getS().getCouleur().getRed()*255), (int) (ligne.getS().getCouleur().getGreen()*255), (int) (ligne.getS().getCouleur().getBlue()*255)));
+		ligne.getTfComp().setText(String.valueOf(ligne.getS().getBarre().getCompMax()));
+		ligne.getTfTrac().setText(String.valueOf(ligne.getS().getBarre().getTracMax()));
+		ligne.getTfCout().setText(String.valueOf(ligne.getS().getBarre().getCout()));
 	}
 }

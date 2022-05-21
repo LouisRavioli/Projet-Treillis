@@ -109,7 +109,7 @@ public class LigneInformationPoint extends TitledPane {
 		});
 		
 		heightProperty().addListener(observable -> {
-			bpMain.getControleur().refreshLine(this);
+			bpMain.getControleur().refreshLinePoint(this);
 		});
 	}
 
