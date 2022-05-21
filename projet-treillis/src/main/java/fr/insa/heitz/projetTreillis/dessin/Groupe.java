@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.Informations;
 import javafx.scene.Node;
 
 public class Groupe extends Figure {
@@ -148,35 +150,29 @@ public class Groupe extends Figure {
 		return dependance;
 	}
 	
+	@Override
+	public void supprimeDuTreillis(Treillis treillis) {
+		for (Figure f : figures) {
+			f.supprimeDuTreillis(treillis);
+		}
+	}
+	
+	@Override
+	public void supprimeDeInformations(Informations informations) {
+		for (Figure f : figures) {
+			f.supprimeDeInformations(informations);
+		}
+	}
+
 	public void addFigure(Figure f) {
 		f.setGroupe(this);
 		figures.add(f);
-		for (FigureSimple fs : f.getFiguresSimples()) {
-			if (fs.getId() == 0) {
-				fs.setId(idLibre());
-			}
-		}
 	}
 	
 	public void removeFigure(Figure f) {
 		figures.remove(f);
 	}
-	
-	public int idLibre() {
-		boolean idTrouve = true;
-		int i = 0;
-		while (idTrouve) {
-			i++;
-			idTrouve = false;
-			for (FigureSimple fs : getFiguresSimples()) {
-				if (fs.getId() == i) {
-					idTrouve = true;
-				}
-			}
-		}
-		return i;
-	}
-	
+
 	public Groupe grouper(List<Figure> elements) {
 		List<Figure> groupe = new ArrayList<Figure>();
 		for (Figure f : elements) {

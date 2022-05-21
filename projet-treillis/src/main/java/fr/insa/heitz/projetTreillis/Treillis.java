@@ -55,7 +55,7 @@ public class Treillis {
     	}
 }
     
-    public void ajouteBarre(Barre b){
+    public void ajouteBarre(Barre b) {
     	if (!barres.containsKey(b)) {
     		ajouteNoeud(b.getNoeudDepart());
     		ajouteNoeud(b.getNoeudArrivee());
@@ -64,24 +64,15 @@ public class Treillis {
     	}
     }
     
-    public void supprimeNoeud(Noeud n) throws Exception {
+    public void supprimeNoeud(Noeud n) {
     	if (noeuds.containsKey(n)) {
-    		for (Barre b : n.barresIncidentes()) {
-    			supprimeBarre(b);
-    		}
     		noeuds.remove(n);
-    	}
-    	else {
-    		throw new Exception("Noeud absent de la liste");
     	}
     }
     
-    public void supprimeBarre(Barre b) throws Exception {
+    public void supprimeBarre(Barre b) {
     	if (barres.containsKey(b)) {
     		barres.remove(b);
-    	}
-    	else {
-    		throw new Exception("Barre absente de la liste");
     	}
     }
 }

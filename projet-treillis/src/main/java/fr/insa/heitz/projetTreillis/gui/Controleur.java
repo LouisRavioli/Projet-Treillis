@@ -3,6 +3,8 @@ package fr.insa.heitz.projetTreillis.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.Barre;
+import fr.insa.heitz.projetTreillis.NoeudSimple;
 import fr.insa.heitz.projetTreillis.dessin.Figure;
 import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
@@ -227,13 +229,19 @@ public class Controleur {
 		
 	public Point creerPoint(Color couleur, double px, double py) {
 		Point p = new Point(couleur, px, py);
+		p.setNoeud(new NoeudSimple(px, py));
 		bpMain.getModele().addFigure(p);
+		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
+		bpMain.getVbInformations().addLignePoint(p);
 		return p;
 	}
 	
 	public Segment creerSegment(Color couleur, Point pointDepart, Point pointArrivee) {
 		Segment s = new Segment(couleur, pointDepart, pointArrivee);
+		s.setBarre(new Barre(pointDepart.getNoeud(), pointArrivee.getNoeud()));
 		bpMain.getModele().addFigure(s);
+		bpMain.getTreillis().ajouteBarre(s.getBarre());
+		bpMain.getVbInformations().addLigneSegment(s);
 		return s;
 	}
 	
@@ -402,6 +410,8 @@ public class Controleur {
 		if (f.getGroupe() == bpMain.getModele()) {
 			for (Figure dependance : f.getDependance()) {
 				bpMain.getModele().removeFigure(dependance);
+				dependance.supprimeDuTreillis(bpMain.getTreillis());
+				dependance.supprimeDeInformations(bpMain.getVbInformations());
 			}
 		}
 		else {
@@ -522,5 +532,19 @@ public class Controleur {
 	
 	public void clicInformationP2(LigneInformationSegment ligne) {
 		ligne.getS().getPointArrivee().getLigne().setExpanded(true);
+	}
+
+	public void openInformationsPoint(LigneInformationPoint ligne) {
+		if (ligne.isExpanded()) {
+			clearSelection();
+			addToSelection(ligne.getP());
+		}
+	}
+	
+	public void openInformationsSegment(LigneInformationSegment ligne) {
+		if (ligne.isExpanded()) {
+			clearSelection();
+			addToSelection(ligne.getS());
+		}
 	}
 }

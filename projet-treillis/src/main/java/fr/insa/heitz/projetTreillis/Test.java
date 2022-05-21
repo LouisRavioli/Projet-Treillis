@@ -1,5 +1,7 @@
 package fr.insa.heitz.projetTreillis;
 
+import java.util.ArrayList;
+
 import fr.insa.heitz.projetTreillis.dessin.Banque;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
 
@@ -49,7 +51,7 @@ public class Test {
         test.put(new NoeudSimple(0, 0), 1);
         test.put(new NoeudSimple(0, 0), 3);*/
     	
-    	Groupe g = new Groupe(Banque.P1, Banque.P3, Banque.S1);
-    	System.out.println(g.idLibre());
+    	ArrayList<Integer> test = new ArrayList<Integer>();
+    	test.add(1, 1);
     }
 }

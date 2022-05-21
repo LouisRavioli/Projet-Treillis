@@ -8,22 +8,12 @@ import javafx.scene.paint.Color;
 
 public abstract class FigureSimple extends Figure {
 
-	private int id;
 	private Color couleur;
 	private Forme forme;
 	
-	public FigureSimple(int id, Color couleur, Forme forme) {
-		this.id = id;
+	public FigureSimple(Color couleur, Forme forme) {
 		this.couleur = couleur;
 		this.forme = forme;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Color getCouleur() {

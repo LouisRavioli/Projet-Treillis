@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.insa.heitz.projetTreillis.Barre;
+import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.Informations;
 import fr.insa.heitz.projetTreillis.gui.LigneInformationSegment;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -17,8 +19,8 @@ public class Segment extends FigureSimple {
 	private Barre barre;
 	private LigneInformationSegment ligne;
 	
-	public Segment(int id, Color couleur, Point pointDepart, Point pointArrivee, Forme forme) {
-		super(id, couleur, forme);
+	public Segment(Color couleur, Point pointDepart, Point pointArrivee, Forme forme) {
+		super(couleur, forme);
 		this.pointDepart = pointDepart;
 		this.pointArrivee = pointArrivee;
 		pointDepart.getSegmentsIncidents().add(this);
@@ -26,7 +28,7 @@ public class Segment extends FigureSimple {
 	}
 	
 	public Segment(Color couleur, Point pointDepart, Point pointArrivee) {
-		this(0, couleur, pointDepart, pointArrivee, null);
+		this(couleur, pointDepart, pointArrivee, null);
 	}
 	
 	public Segment(Point pointDepart, Point pointArrivee) {
@@ -38,12 +40,12 @@ public class Segment extends FigureSimple {
 	}
 	
 	public Segment(Segment modele) {
-		this(modele.getId(), modele.getCouleur(), modele.pointDepart, modele.pointArrivee, modele.getForme());
+		this(modele.getCouleur(), modele.pointDepart, modele.pointArrivee, modele.getForme());
 	}
 	
 	@Override
 	public String toString() {
-		return "segment " + getId() + " :\ncouleur : " + getCouleur() + "\npoint départ :\n" + pointDepart + "\npoint arrivée :\n" + pointArrivee;
+		return "segment " +getBarre().getTreillis().getBarres().get(getBarre()) + " :\ncouleur : " + getCouleur() + "\npoint départ :\n" + pointDepart + "\npoint arrivée :\n" + pointArrivee;
 	}
 	
 	public Point getPointDepart() {
@@ -126,5 +128,15 @@ public class Segment extends FigureSimple {
 	@Override
 	public List<Figure> getDependance() {
 		return new ArrayList<Figure>(Arrays.asList(this));
+	}
+	
+	@Override
+	public void supprimeDuTreillis(Treillis treillis) {
+		treillis.supprimeBarre(getBarre());
+	}
+	
+	@Override
+	public void supprimeDeInformations(Informations informations) {
+		informations.removeLigneSegment(this);
 	}
 }

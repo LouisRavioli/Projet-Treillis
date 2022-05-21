@@ -115,6 +115,10 @@ public class LigneInformationSegment extends TitledPane {
 		lP2.setOnMouseClicked(event -> {
 			bpMain.getControleur().clicInformationP2(this);
 		});
+		
+		setOnMouseClicked(event -> {
+			bpMain.getControleur().openInformationsSegment(this);
+		});
 	}
 
 	public Segment getS() {

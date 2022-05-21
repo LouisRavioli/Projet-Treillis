@@ -2,19 +2,17 @@ package fr.insa.heitz.projetTreillis.dessin;
 
 import java.util.List;
 
+import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.Informations;
 import javafx.scene.Node;
 
 public abstract class Figure {
 
 	private Groupe groupe;
-	private boolean hover;
-	private boolean selected;
 	
 	public Figure(Groupe groupe) {
 		this.groupe = groupe;
-		hover = false;
-		selected = false;
 	}
 	
 	public Figure() {
@@ -27,22 +25,6 @@ public abstract class Figure {
 
 	public void setGroupe(Groupe groupe) {
 		this.groupe = groupe;
-	}
-	
-	public boolean isHover() {
-		return hover;
-	}
-	
-	public void setHover(boolean hover) {
-		this.hover = hover;
-	}
-	
-	public boolean isSelected() {
-		return selected;
-	}
-	
-	public void setSelected(boolean selected) {
-		this.selected = selected;
 	}
 	
 	public abstract double maxX() throws Exception;
@@ -62,5 +44,9 @@ public abstract class Figure {
 	public abstract void deplacer(double dx, double dy);
 	
 	public abstract List<Figure> getDependance();
+
+	public abstract void supprimeDuTreillis(Treillis treillis);
+
+	public abstract void supprimeDeInformations(Informations informations);
 }
 

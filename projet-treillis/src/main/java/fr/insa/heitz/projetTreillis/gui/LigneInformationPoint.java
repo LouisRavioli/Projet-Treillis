@@ -111,6 +111,10 @@ public class LigneInformationPoint extends TitledPane {
 		heightProperty().addListener(observable -> {
 			bpMain.getControleur().refreshLinePoint(this);
 		});
+		
+		setOnMouseClicked(event -> {
+			bpMain.getControleur().openInformationsPoint(this);
+		});
 	}
 
 	public Point getP() {

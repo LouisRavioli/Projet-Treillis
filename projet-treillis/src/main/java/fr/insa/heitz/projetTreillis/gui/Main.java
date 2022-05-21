@@ -1,5 +1,6 @@
 package fr.insa.heitz.projetTreillis.gui;
 
+import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainBorderPane mainBorderPane = new MainBorderPane(Groupe.groupeTest());
+        MainBorderPane mainBorderPane = new MainBorderPane(new Groupe(), new Treillis());
     	Scene sc = new Scene(mainBorderPane, 1200, 600);
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);

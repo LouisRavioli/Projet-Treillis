@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.insa.heitz.projetTreillis.Noeud;
+import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
+import fr.insa.heitz.projetTreillis.gui.Informations;
 import fr.insa.heitz.projetTreillis.gui.LigneInformationPoint;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -20,15 +22,15 @@ public class Point extends FigureSimple {
 	private Noeud noeud;
 	private LigneInformationPoint ligne;
 	
-	public Point(int id, Color couleur, double px, double py, Forme forme) {
-		super(id, couleur, forme);
+	public Point(Color couleur, double px, double py, Forme forme) {
+		super(couleur, forme);
 		this.px = px;
 		this.py = py;
 		this.segmentsIncidents = new ArrayList<Segment>();
 	}
 
 	public Point(Color couleur, double px, double py) {
-		this(0, couleur, px, py, null);
+		this(couleur, px, py, null);
 	}
 	
 	public Point(double px, double py) {
@@ -40,13 +42,13 @@ public class Point extends FigureSimple {
 	}
 	
 	public Point(Point modele) {
-		this(modele.getId(), modele.getCouleur(), modele.px, modele.py, modele.getForme());
+		this(modele.getCouleur(), modele.px, modele.py, modele.getForme());
 		segmentsIncidents = modele.segmentsIncidents;
 	}
 	
 	@Override
 	public String toString() {
-		return "point " + getId() + " :\npos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
+		return "point " + getNoeud().getTreillis().getNoeuds().get(getNoeud()) + " :\npos : [" + px + "," + py + "]\ncouleur : " + getCouleur();
 	}
 
 	public double getPx() {
@@ -141,5 +143,15 @@ public class Point extends FigureSimple {
 		List<Figure> dependance = new ArrayList<Figure>(Arrays.asList(this));
 		dependance.addAll(segmentsIncidents);
 		return dependance; 
+	}
+	
+	@Override
+	public void supprimeDuTreillis(Treillis treillis) {
+		treillis.supprimeNoeud(getNoeud());
+	}
+	
+	@Override
+	public void supprimeDeInformations(Informations informations) {
+		informations.removeLignePoint(this);
 	}
 }
