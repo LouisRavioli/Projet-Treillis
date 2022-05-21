@@ -4,6 +4,8 @@ import fr.insa.heitz.projetTreillis.dessin.Point;
 import fr.insa.heitz.projetTreillis.dessin.Segment;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -14,7 +16,8 @@ public class Informations extends VBox {
 	private MainBorderPane bpMain;
 	
 	private Titre bpTitre;
-	private GridPane gpInformations;
+	private ScrollPane spInformations;
+	private VBox vbContainer;
 
 	public Informations(MainBorderPane bpMain) {
 		this.bpMain = bpMain;
@@ -23,9 +26,13 @@ public class Informations extends VBox {
 		bpTitre = new Titre("Informations", "informations-titre", bpMain.getControleur(), this);
 		
 		//Informations
-		gpInformations = new GridPane();
+		vbContainer = new VBox();
+		vbContainer.getStyleClass().add("informations-container");
+		spInformations = new ScrollPane(vbContainer);
+		spInformations.getStyleClass().add("informations-scroll-pane");
+		spInformations.prefHeightProperty().bind(heightProperty());
 		
-		getChildren().addAll(bpTitre, gpInformations);
+		getChildren().addAll(bpTitre, spInformations);
 		getStyleClass().add("informations-vbox");
 		StackPane.setAlignment(this, Pos.TOP_RIGHT);
 	}
@@ -34,15 +41,11 @@ public class Informations extends VBox {
 		return bpTitre;
 	}
 	
-	public GridPane getGpInformations() {
-		return gpInformations;
-	}
-	
 	public void addLignePoint(Point p) {
-	    getChildren().add(new LigneInformationPoint(bpMain, p));
+	    vbContainer.getChildren().add(new LigneInformationPoint(bpMain, p));
 	}
 	
 	public void addLigneSegment(Segment s) {
-	    getChildren().add(new LigneInformationSegment(bpMain, s));
+		vbContainer.getChildren().add(new LigneInformationSegment(bpMain, s));
 	}      
 }
