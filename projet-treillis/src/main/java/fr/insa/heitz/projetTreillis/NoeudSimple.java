@@ -18,4 +18,8 @@ public class NoeudSimple extends Noeud {
     public int nbrInconnues() {
         return 0;
     }
+
+	@Override
+	public void remplirMatrice(Matrice m, int ligne, int colonne) {
+	}
 }

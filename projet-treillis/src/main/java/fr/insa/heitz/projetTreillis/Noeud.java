@@ -120,4 +120,6 @@ public abstract class Noeud {
         listeBarres.addAll(barresArrivee);
         return listeBarres;
     }
+
+	public abstract void remplirMatrice(Matrice m, int ligne, int colonne);
 }

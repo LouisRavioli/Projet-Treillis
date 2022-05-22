@@ -1,9 +1,13 @@
 package fr.insa.heitz.projetTreillis.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.insa.heitz.projetTreillis.Barre;
+import fr.insa.heitz.projetTreillis.Matrice;
+import fr.insa.heitz.projetTreillis.Noeud;
 import fr.insa.heitz.projetTreillis.NoeudAppuiGlissant;
 import fr.insa.heitz.projetTreillis.NoeudAppuiSimple;
 import fr.insa.heitz.projetTreillis.NoeudSimple;
@@ -111,7 +115,7 @@ public class Controleur {
 				if (event.isPrimaryButtonDown()) {
 					bpMain.getpZoneDessin().getChildren().remove(curSegment);
 					Point p2 = creerPoint(couleur, event.getX(), event.getY());
-					Segment s = creerSegment(couleur, curSegmentP1, p2);
+					creerSegment(couleur, curSegmentP1, p2);
 					curSegmentP1 = null;
 					bpMain.getpZoneDessin().dessinerTout();
 					clearSelection();
@@ -779,7 +783,55 @@ public class Controleur {
 		}
 	}
 
-	public void calculForces() {
-		
+	public void calculForces() throws Exception {
+		Map<Barre,Integer> colonnesBarres = new HashMap<Barre,Integer>();
+		Map<Noeud,Integer> colonnesNoeuds = new HashMap<Noeud,Integer>();
+		for (Barre b : bpMain.getTreillis().getBarres().keySet()) {
+			if (!b.isTerrain()) {
+				colonnesBarres.put(b, colonnesBarres.size());
+			}
+		}
+		int cur = colonnesBarres.size();
+		for (Noeud n : bpMain.getTreillis().getNoeuds().keySet()) {
+			if (!n.isTerrain()) {
+				colonnesNoeuds.put(n, cur);
+				cur += n.nbrInconnues();
+			}
+		}
+		int ni = colonnesBarres.size();
+		for (Noeud n : colonnesNoeuds.keySet()) {
+			ni += n.nbrInconnues();
+		}
+		if (ni == 2*colonnesNoeuds.size()) {
+			Matrice m = new Matrice(2*colonnesNoeuds.size(), ni + 1);
+			int ligne = 0;
+			for (Noeud n : colonnesNoeuds.keySet()) {
+				for (Barre b : n.barresIncidentes()) {
+					m.setCoeff(ligne, colonnesBarres.get(b), Math.cos(b.angle(n)));
+					m.setCoeff(ligne + 1, colonnesBarres.get(b), Math.sin(b.angle(n)));
+					m.setCoeff(ligne, ni, -n.getV().getVx());
+					m.setCoeff(ligne + 1, ni, -n.getV().getVy());
+					n.remplirMatrice(m, ligne, colonnesNoeuds.get(n));
+				}
+				ligne += 2;
+			}
+			try {
+				m.descenteGauss();
+			}
+			catch (Exception e) {
+				System.out.println(e);
+			}
+			m.unitaire();
+			try {
+				m.remonteeGauss();
+			}
+			catch (Exception e) {
+				System.out.println(e);
+			}
+			System.out.println(m);
+		}
+		else {
+			throw new Exception("Treillis non isostatique");
+		}
 	}
 }

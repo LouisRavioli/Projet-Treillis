@@ -22,4 +22,10 @@ public class NoeudAppuiGlissant extends NoeudAppui {
     public int nbrInconnues() {
         return 1;
     }
+
+	@Override
+	public void remplirMatrice(Matrice m, int ligne, int colonne) {
+		m.setCoeff(ligne, colonne, Math.cos(Math.PI/2 + getTerrain().angle(getTerrain().getNoeudDepart())));
+		m.setCoeff(ligne + 1, colonne, Math.sin(Math.PI/2 + getTerrain().angle(getTerrain().getNoeudDepart())));
+	}
 }

@@ -116,7 +116,12 @@ public class Haut extends VBox {
 		});
 		
 		miCalculForces.setOnAction(event -> {
-			bpMain.getControleur().calculForces();
+			try{
+				bpMain.getControleur().calculForces();
+			}
+			catch (Exception e) {
+				System.out.println(e);
+			}
 		});
 		
 		miContact.setOnAction(event -> {

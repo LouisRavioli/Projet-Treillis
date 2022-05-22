@@ -22,4 +22,10 @@ public class NoeudAppuiSimple extends NoeudAppui {
     public int nbrInconnues() {
         return 2;
     }
+
+	@Override
+	public void remplirMatrice(Matrice m, int ligne, int colonne) {
+		m.setCoeff(ligne, colonne, 1);
+		m.setCoeff(ligne + 1, colonne + 1, 1);
+	}
 }
