@@ -115,7 +115,7 @@ public class Point extends FigureSimple {
 	public void dessine(Controleur controleur, List<Node> formes) {
 		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
 		setForme(ce);
-		ce.getShape().setOnMouseClicked(event -> {
+		ce.getShape().setOnMousePressed(event -> {
 			controleur.clicPoint(event, this);
 		});
 		ce.getShape().setOnMouseEntered(event -> {

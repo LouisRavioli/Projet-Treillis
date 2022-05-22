@@ -5,6 +5,7 @@ import fr.insa.heitz.projetTreillis.dessin.Groupe;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainBorderPane mainBorderPane = new MainBorderPane(new Groupe(), new Treillis());
-    	Scene sc = new Scene(mainBorderPane, 1200, 600);
+    	Scene sc = new Scene(mainBorderPane, 0.8*Screen.getPrimary().getBounds().getWidth(), 0.8*Screen.getPrimary().getBounds().getHeight());
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);
     	primaryStage.setTitle("Interface de fou malade");

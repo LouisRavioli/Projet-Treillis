@@ -104,7 +104,7 @@ public class Segment extends FigureSimple {
 	public void dessine(Controleur controleur, List<Node> formes) {
 		CustomLine cl = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this);
 		setForme(cl);
-		cl.getShape().setOnMouseClicked(event -> {
+		cl.getShape().setOnMousePressed(event -> {
 			controleur.clicSegment(event, this);
 		});
 		cl.getShape().setOnMouseEntered(event -> {

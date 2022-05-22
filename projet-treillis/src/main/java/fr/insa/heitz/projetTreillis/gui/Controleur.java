@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.insa.heitz.projetTreillis.Barre;
-import fr.insa.heitz.projetTreillis.Noeud;
 import fr.insa.heitz.projetTreillis.NoeudSimple;
 import fr.insa.heitz.projetTreillis.dessin.Figure;
 import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
@@ -18,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -81,30 +81,36 @@ public class Controleur {
 			case DEPLACER_SELECTION:
 				break;
 			case POINT:
-				Point p1 = creerPoint(couleur, event.getX(), event.getY());
-				bpMain.getpZoneDessin().dessinerTout();
-				clearSelection();
-				addToSelection(p1);
+				if (event.isPrimaryButtonDown()) {
+					Point p1 = creerPoint(couleur, event.getX(), event.getY());
+					bpMain.getpZoneDessin().dessinerTout();
+					clearSelection();
+					addToSelection(p1);
+				}
 				break;
 			case SEGMENT_P1:
-				curSegmentP1 = creerPoint(couleur, event.getX(), event.getY());
-				bpMain.getpZoneDessin().dessinerTout();
-				clearSelection();
-				addToSelection(curSegmentP1);
-				addLinePreview(couleur, event.getX(), event.getY());
-				curSegmentIsTemp = true;
-				etat = Etat.SEGMENT_P2;
+				if (event.isPrimaryButtonDown()) {
+					curSegmentP1 = creerPoint(couleur, event.getX(), event.getY());
+					bpMain.getpZoneDessin().dessinerTout();
+					clearSelection();
+					addToSelection(curSegmentP1);
+					addLinePreview(couleur, event.getX(), event.getY());
+					curSegmentIsTemp = true;
+					etat = Etat.SEGMENT_P2;
+				}
 				break;
 			case SEGMENT_P2:
-				bpMain.getpZoneDessin().getChildren().remove(curSegment);
-				Point p2 = creerPoint(couleur, event.getX(), event.getY());
-				creerSegment(couleur, curSegmentP1, p2);
-				curSegmentP1 = null;
-				bpMain.getpZoneDessin().dessinerTout();
-				clearSelection();
-				addToSelection(p2);
-				curSegmentIsTemp = false;
-				etat = Etat.SEGMENT_P1;
+				if (event.isPrimaryButtonDown()) {
+					bpMain.getpZoneDessin().getChildren().remove(curSegment);
+					Point p2 = creerPoint(couleur, event.getX(), event.getY());
+					creerSegment(couleur, curSegmentP1, p2);
+					curSegmentP1 = null;
+					bpMain.getpZoneDessin().dessinerTout();
+					clearSelection();
+					addToSelection(p2);
+					curSegmentIsTemp = false;
+					etat = Etat.SEGMENT_P1;
+				}
 				break;
 			case EFFACER:
 				break;
@@ -121,7 +127,7 @@ public class Controleur {
 		case DEFAUT:
 			break;
 		case SELECTION:
-			if (event.isControlDown()) {
+			if ((event.isControlDown())&&(event.isPrimaryButtonDown())) {
 				if ((selection.contains(p))||selection.contains(p.getGroupe())) {
 					removeFromSelection(p);
 				}
@@ -129,9 +135,12 @@ public class Controleur {
 					addToSelection(p);
 				}
 			}
-			else {
+			else if (event.isPrimaryButtonDown()) {
 				clearSelection();
 				addToSelection(p);
+			}
+			else if (event.isSecondaryButtonDown()) {
+				clearSelection();
 			}
 			break;
 		case DEPLACER_SELECTION:
@@ -139,25 +148,31 @@ public class Controleur {
 		case POINT:
 			break;
 		case SEGMENT_P1:
-			clearSelection();
-			addToSelection(p);
-			curSegmentP1 = p;
-			addLinePreview(couleur, event.getX(), event.getY());
-			etat = Etat.SEGMENT_P2;
+			if (event.isPrimaryButtonDown()) {
+				clearSelection();
+				addToSelection(p);
+				curSegmentP1 = p;
+				addLinePreview(couleur, event.getX(), event.getY());
+				etat = Etat.SEGMENT_P2;
+			}
 			break;
 		case SEGMENT_P2:
-			bpMain.getpZoneDessin().getChildren().remove(curSegment);
-			creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, p);
-			curSegmentP1 = null;
-			bpMain.getpZoneDessin().dessinerTout();
-			clearSelection();
-			addToSelection(p);
-			curSegmentIsTemp = false;
-			etat = Etat.SEGMENT_P1;
+			if (event.isPrimaryButtonDown()) {
+				bpMain.getpZoneDessin().getChildren().remove(curSegment);
+				creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, p);
+				curSegmentP1 = null;
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(p);
+				curSegmentIsTemp = false;
+				etat = Etat.SEGMENT_P1;
+			}
 			break;
 		case EFFACER:
-			effacerForme(p);
-			bpMain.getpZoneDessin().dessinerTout();
+			if (event.isPrimaryButtonDown()) {
+				effacerForme(p);
+				bpMain.getpZoneDessin().dessinerTout();
+			}
 			break;
 		case FORCE:
 			break;
@@ -171,7 +186,7 @@ public class Controleur {
 		case DEFAUT:
 			break;	
 		case SELECTION:
-			if (event.isControlDown()) {
+			if ((event.isControlDown())&&(event.isPrimaryButtonDown())) {
 				if ((selection.contains(s))||(selection.contains(s.getGroupe()))) {
 					removeFromSelection(s);
 				}
@@ -179,42 +194,53 @@ public class Controleur {
 					addToSelection(s);
 				}
 			}
-			else {
+			else if (event.isPrimaryButtonDown()) {
 				clearSelection();
 				addToSelection(s);
+			}
+			else if (event.isSecondaryButtonDown()) {
+				clearSelection();
 			}
 			break;
 		case DEPLACER_SELECTION:
 			break;
 		case POINT:
-			Point p1 = scinderSegment(s, couleur, event.getX(), event.getY());
-			bpMain.getpZoneDessin().dessinerTout();
-			clearSelection();
-			addToSelection(p1);
+			if (event.isPrimaryButtonDown()) {
+				Point p1 = scinderSegment(s, couleur, event.getX(), event.getY());
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(p1);
+			}
 			break;
 		case SEGMENT_P1:
-			curSegmentP1 = scinderSegment(s, couleur, event.getX(), event.getY());
-			bpMain.getpZoneDessin().dessinerTout();
-			clearSelection();
-			addToSelection(curSegmentP1);
-			addLinePreview(couleur, event.getX(), event.getY());
-			curSegmentIsTemp = true;
-			etat = Etat.SEGMENT_P2;
+			if (event.isPrimaryButtonDown()) {
+				curSegmentP1 = scinderSegment(s, couleur, event.getX(), event.getY());
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(curSegmentP1);
+				addLinePreview(couleur, event.getX(), event.getY());
+				curSegmentIsTemp = true;
+				etat = Etat.SEGMENT_P2;
+			}
 			break;
 		case SEGMENT_P2:
-			bpMain.getpZoneDessin().getChildren().remove(curSegment);
-			Point p2 = scinderSegment(s, couleur, event.getX(), event.getY());
-			creerSegment(couleur, curSegmentP1, p2);
-			curSegmentP1 = null;
-			bpMain.getpZoneDessin().dessinerTout();
-			clearSelection();
-			addToSelection(p2);
-			curSegmentIsTemp = false;
-			etat = Etat.SEGMENT_P1;
+			if (event.isPrimaryButtonDown()) {
+				bpMain.getpZoneDessin().getChildren().remove(curSegment);
+				Point p2 = scinderSegment(s, couleur, event.getX(), event.getY());
+				creerSegment(couleur, curSegmentP1, p2);
+				curSegmentP1 = null;
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(p2);
+				curSegmentIsTemp = false;
+				etat = Etat.SEGMENT_P1;
+			}
 			break;
 		case EFFACER:
-			effacerForme(s);
-			bpMain.getpZoneDessin().dessinerTout();
+			if (event.isPrimaryButtonDown()) {
+				effacerForme(s);
+				bpMain.getpZoneDessin().dessinerTout();
+			}
 			break;
 		case FORCE:
 			break;
@@ -558,11 +584,48 @@ public class Controleur {
 		}
 	}
 	
-	public void test() {
-		for (Noeud n : bpMain.getTreillis().getNoeuds().keySet()) { //boucle où n prend la valeur de chaque noeud du treillis
-			System.out.println(bpMain.getTreillis().getNoeuds().get(n)); //affiche l'identifiant du noeud
-			System.out.println(n.getPx()); //affiche l'abscisse
-			System.out.println(n.getPy()); //affiche l'ordonnée
+	public void clicMoletteZoneDessin(MouseEvent event) {
+        if (event.isMiddleButtonDown()) {
+        	bpMain.getpZoneDessin().setMouseAnchorX(event.getSceneX());
+        	bpMain.getpZoneDessin().setMouseAnchorY(event.getSceneY());
+        	bpMain.getpZoneDessin().setTranslateAnchorX(bpMain.getpZoneDessin().getTranslateX());
+        	bpMain.getpZoneDessin().setTranslateAnchorY(bpMain.getpZoneDessin().getTranslateY());
+        }
+    }
+	
+	public void dragMoletteZoneDessin(MouseEvent event) {
+		if (event.isMiddleButtonDown()) {
+			bpMain.getpZoneDessin().setTranslateX(bpMain.getpZoneDessin().getTranslateAnchorX() + event.getSceneX() - bpMain.getpZoneDessin().getMouseAnchorX());
+			bpMain.getpZoneDessin().setTranslateY(bpMain.getpZoneDessin().getTranslateAnchorY() + event.getSceneY() - bpMain.getpZoneDessin().getMouseAnchorY());
 		}
 	}
+
+	public void zoomZoneDessin(ScrollEvent event) {
+	    double scale = bpMain.getpZoneDessin().getScale();
+	    double oldScale = scale;
+	    if (event.getDeltaY() < 0) {
+	        scale /= 1.1;
+	    }
+	    else {
+	        scale *= 1.1;
+	    }
+	    scale = clamp(scale, ZoneDessin.MIN_SCALE, ZoneDessin.MAX_SCALE);
+
+	    double f = (scale/oldScale) - 1;
+	    double dx = (event.getSceneX() - (bpMain.getpZoneDessin().getBoundsInParent().getWidth()/2 + bpMain.getpZoneDessin().getBoundsInParent().getMinX()));
+	    double dy = (event.getSceneY() - (bpMain.getpZoneDessin().getBoundsInParent().getHeight()/2 + bpMain.getpZoneDessin().getBoundsInParent().getMinY()));
+
+	    bpMain.getpZoneDessin().setScale(scale);
+	    bpMain.getpZoneDessin().setPivot(f*dx, f*dy);
+	}
+
+	public double clamp(double value, double min, double max) {
+		if (value < min) {
+			return min;
+        }
+        if (value > max) {
+            return max;
+        }
+        return value;
+    }
 }

@@ -34,9 +34,11 @@ public class MainBorderPane extends BorderPane {
 		spCentre = new StackPane(pZoneDessin, vbOutils, vbCouleurs, vbInformations);
 		spCentre.getStyleClass().add("centre-stack-pane");
 		
+		setCenter(spCentre);
 		setTop(vbHaut);
 		setBottom(hbBas);
-		setCenter(spCentre);
+		
+		pZoneDessin.setTranslateX(pZoneDessin.getTranslateX() - 25);
 	}
 
 	public Controleur getControleur() {
