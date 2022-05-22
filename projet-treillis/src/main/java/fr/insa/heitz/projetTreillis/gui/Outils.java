@@ -17,10 +17,10 @@ public class Outils extends VBox {
     private ToggleButton tbDeplacerSelection;
     private ToggleButton tbNoeud;
     private ToggleButton tbBarre;
-    private ToggleButton tbAppui;
+    private ToggleButton tbAppuiSimple;
+    private ToggleButton tbAppuiGlissant;
     private ToggleButton tbTerrain;
     private ToggleButton tbEffacer;
-    private ToggleButton tbForce;
     
     public Outils(MainBorderPane bpMain) {               
 		//Titre
@@ -33,13 +33,13 @@ public class Outils extends VBox {
 		tbDeplacerSelection = new ToggleButton();
 		tbNoeud = new ToggleButton();
 		tbBarre = new ToggleButton();
-		tbAppui = new ToggleButton();
+		tbAppuiSimple = new ToggleButton();
+		tbAppuiGlissant = new ToggleButton();
 		tbTerrain = new ToggleButton();
 		tbEffacer = new ToggleButton();
-		tbForce = new ToggleButton();
 		ToggleGroup tgOutils = new ToggleGroup();
-        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}, {tbAppui, tbTerrain}, {tbEffacer, tbForce}};
- 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}, {"Appui", "Terrain"}, {"Effacer", "Appliquer une force"}};
+        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}, {tbAppuiSimple, tbAppuiGlissant}, {tbTerrain, tbEffacer}};
+ 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}, {"Appui double", "Appui glissant"}, {"Terrain","Effacer"}};
 		for (int i = 0; i < toggleButtonsOutils.length; i++) {
 			for (int j = 0; j < 2; j++) {
 				toggleButtonsOutils[i][j].setToggleGroup(tgOutils);
@@ -89,9 +89,18 @@ public class Outils extends VBox {
 			}
 		});
 		
-		tbAppui.setOnAction(event -> {
-			if (tbAppui.isSelected()) {
-				bpMain.getControleur().changeEtat(Etat.APPUI);
+		tbAppuiSimple.setOnAction(event -> {
+			if (tbAppuiSimple.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.APPUI_SIMPLE);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
+		tbAppuiGlissant.setOnAction(event -> {
+			if (tbAppuiGlissant.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.APPUI_GLISSANT);
 			}
 			else {
 				bpMain.getControleur().changeEtat(Etat.DEFAUT);
@@ -110,15 +119,6 @@ public class Outils extends VBox {
 		tbEffacer.setOnAction(event -> {
 			if (tbEffacer.isSelected()) {
 				bpMain.getControleur().changeEtat(Etat.EFFACER);
-			}
-			else {
-				bpMain.getControleur().changeEtat(Etat.DEFAUT);
-			}
-		});
-		
-		tbForce.setOnAction(event -> {
-			if (tbForce.isSelected()) {
-				bpMain.getControleur().changeEtat(Etat.FORCE);
 			}
 			else {
 				bpMain.getControleur().changeEtat(Etat.DEFAUT);
@@ -150,8 +150,12 @@ public class Outils extends VBox {
 		return tbBarre;
 	}
 
-	public ToggleButton getTbAppui() {
-		return tbAppui;
+	public ToggleButton getTbAppuiSimple() {
+		return tbAppuiSimple;
+	}
+
+	public ToggleButton getTbAppuiGlissant() {
+		return tbAppuiGlissant;
 	}
 
 	public ToggleButton getTbTerrain() {
@@ -160,9 +164,5 @@ public class Outils extends VBox {
 
 	public ToggleButton getTbEffacer() {
 		return tbEffacer;
-	}
-
-	public ToggleButton getTbForce() {
-		return tbForce;
 	}
 }

@@ -2,8 +2,12 @@ package fr.insa.heitz.projetTreillis;
 
 public class NoeudAppuiSimple extends NoeudAppui {
     
+    public NoeudAppuiSimple(double px, double py, Vecteur2D v, Barre terrain) {
+        super(px, py, v, terrain);
+    }
+    
     public NoeudAppuiSimple(double px, double py, Vecteur2D v) {
-        super(px, py, v);
+        this(px, py, v, null);
     }
     
     public NoeudAppuiSimple(double px, double py) {

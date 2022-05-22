@@ -1,7 +1,5 @@
 package fr.insa.heitz.projetTreillis;
 
-import java.util.ArrayList;
-
 public class Test {
     
     public static void main(String[] args) {
@@ -48,7 +46,7 @@ public class Test {
         test.put(new NoeudSimple(0, 0), 1);
         test.put(new NoeudSimple(0, 0), 3);*/
     	
-    	ArrayList<Integer> test = new ArrayList<Integer>();
-    	test.add(1, 1);
+    	/*ArrayList<Integer> test = new ArrayList<Integer>();
+    	test.add(1, 1);*/
     }
 }

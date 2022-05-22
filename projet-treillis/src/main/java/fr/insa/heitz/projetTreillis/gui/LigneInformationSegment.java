@@ -46,9 +46,9 @@ public class LigneInformationSegment extends TitledPane {
 		tfCouleur.getStyleClass().add("informations-couleur");
 		hbCouleur = new HBox(rCouleur, tfCouleur);
 		hbCouleur.getStyleClass().add("informations-hbox-couleur");
-		lP1 = new Label("Point " + b.getTreillis().getNoeuds().get(b.getNoeudDepart()));
+		lP1 = new Label("Noeud " + b.getTreillis().getNoeuds().get(b.getNoeudDepart()));
 		lP1.getStyleClass().add("informations-extremites-label");
-		lP2 = new Label("Point " + b.getTreillis().getNoeuds().get(b.getNoeudArrivee()));
+		lP2 = new Label("Noeud " + b.getTreillis().getNoeuds().get(b.getNoeudArrivee()));
 		lP2.getStyleClass().add("informations-extremites-label");
 		lComp = new Label("Comp.\nmax");
 		lComp.getStyleClass().add("informations-label-wrap");
@@ -87,7 +87,7 @@ public class LigneInformationSegment extends TitledPane {
 			setText("Pente Terrain " + String.valueOf(b.getTreillis().getBarres().get(b)));
 		}
 		else {
-			setText("Segment " + String.valueOf(b.getTreillis().getBarres().get(b)));
+			setText("Barre " + String.valueOf(b.getTreillis().getBarres().get(b)));
 		}
 		setContent(gpInformations);
 		setExpanded(false);

@@ -215,19 +215,19 @@
 }
 
 .outils-corps-toggle-button31 {
-	-fx-background-image: url("/images/appui.png");
+	-fx-background-image: url("/images/appui_simple.png");
 }
 
 .outils-corps-toggle-button32 {
-	-fx-background-image: url("/images/terrain.png");
+	-fx-background-image: url("/images/appui_glissant.png");
 }
 
 .outils-corps-toggle-button41 {
-	-fx-background-image: url("/images/effacer.png");
+	-fx-background-image: url("/images/terrain.png");
 }
 
 .outils-corps-toggle-button42 {
-	-fx-background-image: url("/images/force.png");
+	-fx-background-image: url("/images/effacer.png");
 }
 
 /*Couleurs*/

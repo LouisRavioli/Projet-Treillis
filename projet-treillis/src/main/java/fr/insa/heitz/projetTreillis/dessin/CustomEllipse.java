@@ -2,6 +2,7 @@ package fr.insa.heitz.projetTreillis.dessin;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 public class CustomEllipse extends Forme {
@@ -15,8 +16,12 @@ public class CustomEllipse extends Forme {
 			setShape(new Rectangle(px - 4, py - 4, 8, 8));
 			getShape().getStyleClass().add("forme-angle");
 		}
-		else {
+		else if (point.getNoeud().nbrInconnues() == 0) {
 			setShape(new Ellipse(px, py, rx, ry)); 
+			getShape().getStyleClass().add("forme-point");
+		}
+		else {
+			setShape(new Polygon(px, py - 6, px + 3*Math.sqrt(3), py + 3, px - 3*Math.sqrt(3), py + 3));
 			getShape().getStyleClass().add("forme-point");
 		}
 		getShape().setFill(couleur);

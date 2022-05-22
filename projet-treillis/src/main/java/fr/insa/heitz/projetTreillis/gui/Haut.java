@@ -19,6 +19,7 @@ public class Haut extends VBox {
 	private Menu mEdition;
 	private Menu mAffichage;
 	private Menu mSelection;
+	private Menu mCalcul;
 	private Menu mAide;
 	private MenuItem miNouveau;
 	private MenuItem miOuvrir;
@@ -34,6 +35,7 @@ public class Haut extends VBox {
 	private MenuItem miAjuster;
 	private MenuItem miGrouper;
 	private MenuItem miScinder;
+	private MenuItem miCalculForces;
 	private MenuItem miContact;
 	
 	private BorderPane bpL2;
@@ -60,8 +62,9 @@ public class Haut extends VBox {
 		mEdition = new Menu();
 		mAffichage = new Menu();
 		mSelection = new Menu();
+		mCalcul = new Menu();
 		mAide = new Menu();
-		Menu[] menusHaut = {mFichier, mEdition, mAffichage, mSelection, mAide};
+		Menu[] menusHaut = {mFichier, mEdition, mAffichage, mSelection, mCalcul, mAide};
 		miNouveau = new MenuItem();
 		miOuvrir = new MenuItem();
 		miEnregistrer = new MenuItem();
@@ -76,10 +79,11 @@ public class Haut extends VBox {
 		miAjuster = new MenuItem();
 		miGrouper = new MenuItem();
 		miScinder = new MenuItem();
+		miCalculForces = new MenuItem();
 		miContact = new MenuItem();
-		MenuItem[][] menuItemsHaut = {{miNouveau, miOuvrir, miEnregistrer}, {miAnnuler, miRepeter, miCouper, miCopier, miColler}, {miZoomAvant, miZoomArriere, miTailleReelle, miAjuster}, {miGrouper, miScinder}, {miContact}};
-		String[] nomsMenus = {"Fichier", "Edition", "Affichage", "Sélection", "Aide"};
-		String[][] nomsMenuItems = {{"Nouveau", "Ouvrir", "Enregistrer"}, {"Annuler", "Répéter", "Couper", "Copier", "Coller"}, {"Zoom avant", "Zoom arrière", "Taille réelle", "Ajuster à la fenêtre"}, {"Grouper", "Scinder"}, {"Contact"}};
+		MenuItem[][] menuItemsHaut = {{miNouveau, miOuvrir, miEnregistrer}, {miAnnuler, miRepeter, miCouper, miCopier, miColler}, {miZoomAvant, miZoomArriere, miTailleReelle, miAjuster}, {miGrouper, miScinder}, {miCalculForces}, {miContact}};
+		String[] nomsMenus = {"Fichier", "Edition", "Affichage", "Sélection", "Calcul", "Aide"};
+		String[][] nomsMenuItems = {{"Nouveau", "Ouvrir", "Enregistrer"}, {"Annuler", "Répéter", "Couper", "Copier", "Coller"}, {"Zoom avant", "Zoom arrière", "Taille réelle", "Centrer"}, {"Grouper", "Scinder"}, {"Calcul des forces"}, {"Contact"}};
 		for (int i = 0; i < menusHaut.length; i++) {
 			menusHaut[i].setText(nomsMenus[i]);
 			for (int j = 0; j < menuItemsHaut[i].length; j++) {
@@ -90,6 +94,18 @@ public class Haut extends VBox {
 		mFichier.getItems().add(2, new SeparatorMenuItem());
 		mEdition.getItems().add(2, new SeparatorMenuItem());
 		mbL1.getMenus().addAll(menusHaut);
+		
+		miZoomAvant.setOnAction(event -> {
+			bpMain.getpZoneDessin().setScale(bpMain.getControleur().clamp(bpMain.getpZoneDessin().getScale()*1.1, ZoneDessin.MIN_SCALE, ZoneDessin.MAX_SCALE));
+		});
+		
+		miZoomArriere.setOnAction(event -> {
+			bpMain.getpZoneDessin().setScale(bpMain.getControleur().clamp(bpMain.getpZoneDessin().getScale()/1.1, ZoneDessin.MIN_SCALE, ZoneDessin.MAX_SCALE));
+		});
+		
+		miTailleReelle.setOnAction(event -> {
+			bpMain.getpZoneDessin().setScale(1);
+		});
 		
 		miGrouper.setOnAction(event -> {
 			bpMain.getControleur().clicGrouper();
@@ -175,6 +191,10 @@ public class Haut extends VBox {
 		return mSelection;
 	}
 
+	public Menu getmCalcul() {
+		return mCalcul;
+	}
+
 	public Menu getmAide() {
 		return mAide;
 	}
@@ -230,9 +250,17 @@ public class Haut extends VBox {
 	public MenuItem getMiGrouper() {
 		return miGrouper;
 	}
+	
+	public MenuItem getMiScinder() {
+		return miScinder;
+	}
 
 	public MenuItem getMiContact() {
 		return miContact;
+	}
+
+	public MenuItem getMiCalculForces() {
+		return miCalculForces;
 	}
 
 	public BorderPane getBpL2() {

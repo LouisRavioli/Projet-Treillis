@@ -87,7 +87,17 @@ public class LigneInformationPoint extends TitledPane {
 			setText("Angle Terrain " + String.valueOf(n.getTreillis().getNoeuds().get(n)));
 		}
 		else {
-			setText("Point " + String.valueOf(n.getTreillis().getNoeuds().get(n)));
+			String nom;
+			if (p.getNoeud().nbrInconnues() == 0) {
+				nom = "Noeud simple ";
+			}
+			else if (p.getNoeud().nbrInconnues() == 1) {
+				nom = "Appui glissant ";
+			}
+			else {
+				nom = "Appui double ";
+			}
+			setText(nom + String.valueOf(n.getTreillis().getNoeuds().get(n)));
 		}
 		setContent(gpInformations);
 		setExpanded(false);
