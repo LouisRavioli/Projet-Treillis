@@ -105,14 +105,23 @@ public class Barre {
         if (x > 0) {
             return Math.atan(y/x);
         }
-        else if (x < 0) {
-            return Math.PI + Math.atan(y/x);
+        else if ((x < 0)&&(y > 0)) {
+            return Math.atan(y/x) + Math.PI;
         }
-        else if (y > 0) {
+        else if ((x < 0)&&(y < 0)) {
+            return Math.atan(y/x) - Math.PI;
+        }
+        else if ((x == 0)&&(y > 0)) {
             return Math.PI/2;
         }
-        else {
+        else if ((x == 0)&&(y < 0)) {
             return -Math.PI/2;
+        }
+        else if ((x < 0)&&(y == 0)) {
+        	return Math.PI;
+        }
+        else {
+        	return 0;
         }
     }    
 }

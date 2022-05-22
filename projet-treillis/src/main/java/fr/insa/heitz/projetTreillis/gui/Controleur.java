@@ -18,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -109,7 +111,7 @@ public class Controleur {
 				if (event.isPrimaryButtonDown()) {
 					bpMain.getpZoneDessin().getChildren().remove(curSegment);
 					Point p2 = creerPoint(couleur, event.getX(), event.getY());
-					creerSegment(couleur, curSegmentP1, p2);
+					Segment s = creerSegment(couleur, curSegmentP1, p2);
 					curSegmentP1 = null;
 					bpMain.getpZoneDessin().dessinerTout();
 					clearSelection();
@@ -124,16 +126,11 @@ public class Controleur {
 				break;
 			case TERRAIN_P1:
 				if (event.isPrimaryButtonDown()) {
-					for (Figure f : bpMain.getTerrain().getFigures()) {
-						f.supprimeDuTreillis(bpMain.getTreillis());
-						f.supprimeDeInformations(bpMain.getVbInformations());
-					}
-					bpMain.getTerrain().getFigures().clear();
 					curSegmentP1 = creerAngleAppui(event.getX(), event.getY());
 					bpMain.getpZoneDessin().dessinerTout();
 					clearSelection();
 					addToSelection(curSegmentP1);
-					addLinePreviewDroite(Color.GREEN, event.getX(), event.getY());
+					addLinePreviewTerrain(event.getX(), event.getY());
 					curSegmentIsTemp = true;
 					etat = Etat.TERRAIN_P2;
 				}
@@ -210,8 +207,25 @@ public class Controleur {
 		case APPUI_GLISSANT:
 			break;
 		case TERRAIN_P1:
+			if ((event.isPrimaryButtonDown())&&(p.getNoeud().isTerrain())) {
+				clearSelection();
+				addToSelection(p);
+				curSegmentP1 = p;
+				addLinePreviewTerrain(event.getX(), event.getY());
+				etat = Etat.TERRAIN_P2;
+			}
 			break;
 		case TERRAIN_P2:
+			if ((event.isPrimaryButtonDown())&&(p.getNoeud().isTerrain())) {
+				bpMain.getpZoneDessin().getChildren().remove(curSegment);
+				creerPenteAppui(curSegmentP1, p);
+				curSegmentP1 = null;
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(p);
+				curSegmentIsTemp = false;
+				etat = Etat.TERRAIN_P1;
+			}
 			break;
 		case EFFACER:
 			if (event.isPrimaryButtonDown()) {
@@ -315,16 +329,16 @@ public class Controleur {
 		bpMain.getpZoneDessin().getChildren().add(0, curSegment);
 	}
 	
-	private void addLinePreviewDroite(Color couleur, double px, double py) {
+	private void addLinePreviewTerrain(double px, double py) {
 		curSegment = new Line(px, py, px, py);
-		curSegment.setStroke(couleur);
+		curSegment.setStroke(Color.GREEN);
 		curSegment.getStyleClass().add("forme-segment-temp-terrain");
 		bpMain.getpZoneDessin().getChildren().add(0, curSegment);
 	}
 		
 	public Point creerPoint(Color couleur, double px, double py) {
 		Point p = new Point(couleur, px, py);
-		p.setNoeud(new NoeudSimple(px, py));
+		p.setNoeud(new NoeudSimple(px, bpMain.getpZoneDessin().getHeight() - py));
 		bpMain.getModele().addFigure(p);
 		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
 		bpMain.getVbInformations().addLignePoint(p);
@@ -351,7 +365,7 @@ public class Controleur {
 	
 	private Point creerAngleAppui(double px, double py) {
 		Point p = new Point(Color.GREEN, px, py);
-		p.setNoeud(new NoeudSimple(px, py));
+		p.setNoeud(new NoeudSimple(px, bpMain.getpZoneDessin().getHeight() - py));
 		p.getNoeud().setTerrain(true);
 		bpMain.getTerrain().addFigure(p);
 		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
@@ -371,7 +385,7 @@ public class Controleur {
 	
 	private Point creerAppuiSimple(Segment s, double px, double py) {
 		Point p = new Point(Color.BLUE, px, py);
-		p.setNoeud(new NoeudAppuiSimple(px, py, new Vecteur2D(0, 0), s.getBarre()));
+		p.setNoeud(new NoeudAppuiSimple(px, bpMain.getpZoneDessin().getHeight() - py, new Vecteur2D(0, 0), s.getBarre()));
 		bpMain.getModele().addFigure(p);
 		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
 		bpMain.getVbInformations().addLignePoint(p);
@@ -380,7 +394,7 @@ public class Controleur {
 	
 	private Point creerAppuiGlissant(Segment s, double px, double py) {
 		Point p = new Point(Color.YELLOW, px, py);
-		p.setNoeud(new NoeudAppuiGlissant(px, py, new Vecteur2D(0, 0), s.getBarre()));
+		p.setNoeud(new NoeudAppuiGlissant(px, bpMain.getpZoneDessin().getHeight() - py, new Vecteur2D(0, 0), s.getBarre()));
 		bpMain.getModele().addFigure(p);
 		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
 		bpMain.getVbInformations().addLignePoint(p);
@@ -479,26 +493,14 @@ public class Controleur {
 	}
 
 	public void moveMouseZoneDessinLine(MouseEvent move) {
-		if (etat == Etat.TERRAIN_P2) {
-			if (move.getX() > bpMain.getpZoneDessin().getMaxHeight() - move.getY()) {
-				curSegment.setEndX(move.getX());
-				curSegment.setEndY(curSegmentP1.getPy());
-			}
-			else {
-				curSegment.setEndX(curSegmentP1.getPx());
-				curSegment.setEndY(move.getY());
-			}
-		}
-		else {
-			curSegment.setEndX(move.getX());
-			curSegment.setEndY(move.getY());
-		}
+		curSegment.setEndX(move.getX());
+		curSegment.setEndY(move.getY());
 	}
 	
 	public void dragMouseZoneDessinDeplacer(MouseEvent drag) {
 		if (etat == Etat.DEPLACER_SELECTION) {
 			for (Figure f : selection) {
-				f.deplacer(drag.getX() - posInitialeSouris[0], drag.getY() - posInitialeSouris[1]);
+				f.deplacer(bpMain.getpZoneDessin(), drag.getX() - posInitialeSouris[0], drag.getY() - posInitialeSouris[1]);
 			}
 			posInitialeSouris = new double[] {drag.getX(), drag.getY()};
 			bpMain.getpZoneDessin().dessinerTout();
@@ -593,6 +595,7 @@ public class Controleur {
 	public void refreshPx(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		try {
 			p.setPx(Double.parseDouble(newValue));
+			p.getNoeud().setPx(Double.parseDouble(newValue));
 			p.getLigne().getTfPx().setStyle("-fx-text-fill: #FFFFFF");
 			bpMain.getpZoneDessin().dessinerTout();
 		}
@@ -603,7 +606,8 @@ public class Controleur {
 	
 	public void refreshPy(Point p, ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		try {
-			p.setPy(Double.parseDouble(newValue));
+			p.setPy(bpMain.getpZoneDessin().getHeight() - Double.parseDouble(newValue));
+			p.getNoeud().setPy(Double.parseDouble(newValue));
 			p.getLigne().getTfPy().setStyle("-fx-text-fill: #FFFFFF");
 			bpMain.getpZoneDessin().dessinerTout();
 		}
@@ -636,8 +640,8 @@ public class Controleur {
 
 	public void refreshLinePoint(LigneInformationPoint ligne) {
 		ligne.getTfCouleur().setText(String.format("#%02X%02X%02X", (int) (ligne.getP().getCouleur().getRed()*255), (int) (ligne.getP().getCouleur().getGreen()*255), (int) (ligne.getP().getCouleur().getBlue()*255)));
-		ligne.getTfPx().setText(String.valueOf(ligne.getP().getPx()));
-		ligne.getTfPy().setText(String.valueOf(ligne.getP().getPy()));
+		ligne.getTfPx().setText(String.valueOf(ligne.getP().getNoeud().getPx()));
+		ligne.getTfPy().setText(String.valueOf(ligne.getP().getNoeud().getPy()));
 		ligne.getTfFx().setText(String.valueOf(ligne.getP().getNoeud().getV().getVx()));
 		ligne.getTfFy().setText(String.valueOf(ligne.getP().getNoeud().getV().getVy()));
 	}
@@ -760,4 +764,22 @@ public class Controleur {
         }
         return value;
     }
+
+	public void keyPressed(KeyEvent event) {
+		if (event.getCode() == KeyCode.ESCAPE) {
+			changeEtat(Etat.DEFAUT);
+			bpMain.getVbOutils().getTbSelection().setSelected(false);
+			bpMain.getVbOutils().getTbDeplacerSelection().setSelected(false);
+			bpMain.getVbOutils().getTbNoeud().setSelected(false);
+			bpMain.getVbOutils().getTbBarre().setSelected(false);
+			bpMain.getVbOutils().getTbAppuiSimple().setSelected(false);
+			bpMain.getVbOutils().getTbAppuiGlissant().setSelected(false);
+			bpMain.getVbOutils().getTbTerrain().setSelected(false);
+			bpMain.getVbOutils().getTbEffacer().setSelected(false);
+		}
+	}
+
+	public void calculForces() {
+		
+	}
 }

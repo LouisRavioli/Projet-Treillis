@@ -48,11 +48,11 @@ public class LigneInformationPoint extends TitledPane {
 		hbCouleur.getStyleClass().add("informations-hbox-couleur");
 		lPx = new Label("Px");
 		lPx.getStyleClass().add("informations-label");
-		tfPx = new TextField(String.valueOf(p.getPx()));
+		tfPx = new TextField(String.valueOf(n.getPx()));
 		tfPx.getStyleClass().add("informations-point-coordonnee");
 		lPy = new Label("Py");
 		lPy.getStyleClass().add("informations-label");
-		tfPy = new TextField(String.valueOf(p.getPy()));
+		tfPy = new TextField(String.valueOf(n.getPy()));
 		tfPy.getStyleClass().add("informations-point-coordonnee");
 		lFx = new Label("Fx");
 		lFx.getStyleClass().add("informations-label");
@@ -84,7 +84,7 @@ public class LigneInformationPoint extends TitledPane {
 		}
 		
 		if (p.getNoeud().isTerrain()) {
-			setText("Angle Terrain " + String.valueOf(n.getTreillis().getNoeuds().get(n)));
+			setText("Extrémité terrain " + String.valueOf(n.getTreillis().getNoeuds().get(n)));
 		}
 		else {
 			String nom;

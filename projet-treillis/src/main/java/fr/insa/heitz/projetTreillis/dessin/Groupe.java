@@ -7,6 +7,7 @@ import java.util.List;
 import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import fr.insa.heitz.projetTreillis.gui.Informations;
+import fr.insa.heitz.projetTreillis.gui.ZoneDessin;
 import javafx.scene.Node;
 
 public class Groupe extends Figure {
@@ -135,9 +136,9 @@ public class Groupe extends Figure {
 	}
 	
 	@Override
-	public void deplacer(double dx, double dy) {
+	public void deplacer(ZoneDessin zoneDessin, double dx, double dy) {
 		for (Figure f : figures) {
-			f.deplacer(dx, dy);
+			f.deplacer(zoneDessin, dx, dy);
 		}
 	}
 	

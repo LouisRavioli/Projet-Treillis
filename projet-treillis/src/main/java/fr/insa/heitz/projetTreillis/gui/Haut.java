@@ -115,6 +115,10 @@ public class Haut extends VBox {
 			bpMain.getControleur().clicScinder();
 		});
 		
+		miCalculForces.setOnAction(event -> {
+			bpMain.getControleur().calculForces();
+		});
+		
 		miContact.setOnAction(event -> {
 			bpMain.getControleur().clicContact();
 		});

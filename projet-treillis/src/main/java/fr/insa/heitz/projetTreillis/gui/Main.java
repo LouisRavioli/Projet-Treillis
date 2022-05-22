@@ -14,6 +14,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         MainBorderPane mainBorderPane = new MainBorderPane(new Groupe(), new Treillis(), new Groupe());
     	Scene sc = new Scene(mainBorderPane, 0.8*Screen.getPrimary().getBounds().getWidth(), 0.8*Screen.getPrimary().getBounds().getHeight());
+    	sc.setOnKeyPressed(event -> {
+			mainBorderPane.getControleur().keyPressed(event);
+		});
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);
     	primaryStage.setTitle("Interface de fou malade");

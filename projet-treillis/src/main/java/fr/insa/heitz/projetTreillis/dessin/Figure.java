@@ -5,6 +5,7 @@ import java.util.List;
 import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import fr.insa.heitz.projetTreillis.gui.Informations;
+import fr.insa.heitz.projetTreillis.gui.ZoneDessin;
 import javafx.scene.Node;
 
 public abstract class Figure {
@@ -41,7 +42,7 @@ public abstract class Figure {
 	
 	public abstract List<FigureSimple> getFiguresSimples();
 
-	public abstract void deplacer(double dx, double dy);
+	public abstract void deplacer(ZoneDessin zoneDessin, double dx, double dy);
 	
 	public abstract List<Figure> getDependance();
 

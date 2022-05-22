@@ -36,17 +36,5 @@ public class Test {
 			System.out.println(e);
 		}
 		System.out.println(m);*/
-		
-        /*NoeudSimple n = new NoeudSimple(1, 2, 3, new Vecteur2D(5, 9));
-        System.out.println(n.nbrInconnues());*/
-        
-        /*HashMap<Noeud,Integer> test = new HashMap<Noeud,Integer>();
-        test.put(new NoeudSimple(0, 0), 0);
-        test.put(new NoeudSimple(0, 0), 1);
-        test.put(new NoeudSimple(0, 0), 1);
-        test.put(new NoeudSimple(0, 0), 3);*/
-    	
-    	/*ArrayList<Integer> test = new ArrayList<Integer>();
-    	test.add(1, 1);*/
     }
 }

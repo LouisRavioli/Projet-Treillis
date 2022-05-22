@@ -9,6 +9,7 @@ import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import fr.insa.heitz.projetTreillis.gui.Informations;
 import fr.insa.heitz.projetTreillis.gui.LigneInformationSegment;
+import fr.insa.heitz.projetTreillis.gui.ZoneDessin;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
@@ -124,7 +125,7 @@ public class Segment extends FigureSimple {
 	}
 	
 	@Override
-	public void deplacer(double dx, double dy) {
+	public void deplacer(ZoneDessin zoneDessin, double dx, double dy) {
 	}
 	
 	@Override

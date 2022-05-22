@@ -9,6 +9,7 @@ import fr.insa.heitz.projetTreillis.Treillis;
 import fr.insa.heitz.projetTreillis.gui.Controleur;
 import fr.insa.heitz.projetTreillis.gui.Informations;
 import fr.insa.heitz.projetTreillis.gui.LigneInformationPoint;
+import fr.insa.heitz.projetTreillis.gui.ZoneDessin;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
@@ -135,11 +136,11 @@ public class Point extends FigureSimple {
 	}
 	
 	@Override
-	public void deplacer(double dx, double dy) {
+	public void deplacer(ZoneDessin zoneDessin, double dx, double dy) {
 		px += dx;
 		py += dy;
 		getLigne().getTfPx().setText(String.valueOf(px));
-		getLigne().getTfPy().setText(String.valueOf(py));
+		getLigne().getTfPy().setText(String.valueOf(zoneDessin.getHeight() - py));
 	}
 
 	@Override
