@@ -107,6 +107,9 @@ public class ZoneDessin extends Pane {
 		getChildren().clear();
 		List<Node> formes = new ArrayList<Node>();
 		bpMain.getModele().dessine(bpMain.getControleur(), formes);
+		List<Node> terrain = new ArrayList<Node>();
+		bpMain.getTerrain().dessine(bpMain.getControleur(), terrain);
+		getChildren().addAll(terrain);
 		getChildren().addAll(formes);
 	}
 }

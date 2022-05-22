@@ -83,7 +83,12 @@ public class LigneInformationSegment extends TitledPane {
 			gpInformations.add(sep, i, 0, 1, 4);
 		}
 		
-		setText("Segment " + String.valueOf(b.getTreillis().getBarres().get(b)));
+		if (s.getBarre().isTerrain()) {
+			setText("Pente Terrain " + String.valueOf(b.getTreillis().getBarres().get(b)));
+		}
+		else {
+			setText("Segment " + String.valueOf(b.getTreillis().getBarres().get(b)));
+		}
 		setContent(gpInformations);
 		setExpanded(false);
 		getStyleClass().add("informations-titled-pane");

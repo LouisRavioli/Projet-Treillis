@@ -11,6 +11,10 @@ public abstract class Forme {
 		this.shape = shape;
 		this.figureSimple = figureSimple;
 	}
+	
+	public Forme(FigureSimple figureSimple) {
+		this(null, figureSimple);
+	}
 
 	public Shape getShape() {
 		return shape;

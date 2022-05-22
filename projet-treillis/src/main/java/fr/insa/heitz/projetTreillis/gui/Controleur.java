@@ -27,7 +27,7 @@ public class Controleur {
 	
 	private MainBorderPane bpMain;
 	
-	public enum Etat {DEFAUT, SELECTION, DEPLACER_SELECTION, POINT, SEGMENT_P1, SEGMENT_P2, EFFACER, FORCE};
+	public enum Etat {DEFAUT, SELECTION, DEPLACER_SELECTION, POINT, SEGMENT_P1, SEGMENT_P2, APPUI, TERRAIN_P1, TERRAIN_P2, EFFACER, FORCE};
 	private Etat etat;
 	
 	private Line curSegment;
@@ -94,7 +94,7 @@ public class Controleur {
 					bpMain.getpZoneDessin().dessinerTout();
 					clearSelection();
 					addToSelection(curSegmentP1);
-					addLinePreview(couleur, event.getX(), event.getY());
+					addLinePreview(couleur, event.getX(), event.getY(), false);
 					curSegmentIsTemp = true;
 					etat = Etat.SEGMENT_P2;
 				}
@@ -112,6 +112,32 @@ public class Controleur {
 					etat = Etat.SEGMENT_P1;
 				}
 				break;
+			case APPUI:
+				break;
+			case TERRAIN_P1:
+				if (event.isPrimaryButtonDown()) {
+					curSegmentP1 = creerAngleAppui(event.getX(), event.getY());
+					bpMain.getpZoneDessin().dessinerTout();
+					clearSelection();
+					addToSelection(curSegmentP1);
+					addLinePreview(Color.GREEN, event.getX(), event.getY(), true);
+					curSegmentIsTemp = true;
+					etat = Etat.TERRAIN_P2;
+				}
+				break;
+			case TERRAIN_P2:
+				if (event.isPrimaryButtonDown()) {
+					bpMain.getpZoneDessin().getChildren().remove(curSegment);
+					Point p2 = creerAngleAppui(event.getX(), event.getY());
+					creerPenteAppui(curSegmentP1, p2);
+					curSegmentP1 = null;
+					bpMain.getpZoneDessin().dessinerTout();
+					clearSelection();
+					addToSelection(p2);
+					curSegmentIsTemp = false;
+					etat = Etat.TERRAIN_P1;
+				}
+				break;
 			case EFFACER:
 				break;
 			case FORCE:
@@ -119,7 +145,7 @@ public class Controleur {
 			}
 		}
 	}
-		
+
 	public void clicPoint(MouseEvent event, Point p) {
 		clicForme = true;
 		Color couleur = bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur();
@@ -148,16 +174,16 @@ public class Controleur {
 		case POINT:
 			break;
 		case SEGMENT_P1:
-			if (event.isPrimaryButtonDown()) {
+			if ((event.isPrimaryButtonDown())&&(!p.getNoeud().isTerrain())) {
 				clearSelection();
 				addToSelection(p);
 				curSegmentP1 = p;
-				addLinePreview(couleur, event.getX(), event.getY());
+				addLinePreview(couleur, event.getX(), event.getY(), false);
 				etat = Etat.SEGMENT_P2;
 			}
 			break;
 		case SEGMENT_P2:
-			if (event.isPrimaryButtonDown()) {
+			if ((event.isPrimaryButtonDown())&&(!p.getNoeud().isTerrain())) {
 				bpMain.getpZoneDessin().getChildren().remove(curSegment);
 				creerSegment(bpMain.getVbCouleurs().getSelecteurCouleur().getCouleur(), curSegmentP1, p);
 				curSegmentP1 = null;
@@ -166,6 +192,29 @@ public class Controleur {
 				addToSelection(p);
 				curSegmentIsTemp = false;
 				etat = Etat.SEGMENT_P1;
+			}
+			break;
+		case APPUI:
+			break;
+		case TERRAIN_P1:
+			if ((event.isPrimaryButtonDown())&&(p.getNoeud().isTerrain())) {
+				clearSelection();
+				addToSelection(p);
+				curSegmentP1 = p;
+				addLinePreview(Color.GREEN, event.getX(), event.getY(), true);
+				etat = Etat.TERRAIN_P2;
+			}
+			break;
+		case TERRAIN_P2:
+			if ((event.isPrimaryButtonDown())&&(p.getNoeud().isTerrain())) {
+				bpMain.getpZoneDessin().getChildren().remove(curSegment);
+				creerPenteAppui(curSegmentP1, p);
+				curSegmentP1 = null;
+				bpMain.getpZoneDessin().dessinerTout();
+				clearSelection();
+				addToSelection(p);
+				curSegmentIsTemp = false;
+				etat = Etat.TERRAIN_P1;
 			}
 			break;
 		case EFFACER:
@@ -205,7 +254,7 @@ public class Controleur {
 		case DEPLACER_SELECTION:
 			break;
 		case POINT:
-			if (event.isPrimaryButtonDown()) {
+			if ((event.isPrimaryButtonDown())&&(!s.getBarre().isTerrain())) {
 				Point p1 = scinderSegment(s, couleur, event.getX(), event.getY());
 				bpMain.getpZoneDessin().dessinerTout();
 				clearSelection();
@@ -213,18 +262,18 @@ public class Controleur {
 			}
 			break;
 		case SEGMENT_P1:
-			if (event.isPrimaryButtonDown()) {
+			if ((event.isPrimaryButtonDown())&&(!s.getBarre().isTerrain())) {
 				curSegmentP1 = scinderSegment(s, couleur, event.getX(), event.getY());
 				bpMain.getpZoneDessin().dessinerTout();
 				clearSelection();
 				addToSelection(curSegmentP1);
-				addLinePreview(couleur, event.getX(), event.getY());
+				addLinePreview(couleur, event.getX(), event.getY(), false);
 				curSegmentIsTemp = true;
 				etat = Etat.SEGMENT_P2;
 			}
 			break;
 		case SEGMENT_P2:
-			if (event.isPrimaryButtonDown()) {
+			if ((event.isPrimaryButtonDown())&&(!s.getBarre().isTerrain())) {
 				bpMain.getpZoneDessin().getChildren().remove(curSegment);
 				Point p2 = scinderSegment(s, couleur, event.getX(), event.getY());
 				creerSegment(couleur, curSegmentP1, p2);
@@ -235,6 +284,12 @@ public class Controleur {
 				curSegmentIsTemp = false;
 				etat = Etat.SEGMENT_P1;
 			}
+			break;
+		case APPUI:
+			break;
+		case TERRAIN_P1:
+			break;
+		case TERRAIN_P2:
 			break;
 		case EFFACER:
 			if (event.isPrimaryButtonDown()) {
@@ -247,10 +302,15 @@ public class Controleur {
 		}
 	}
 	
-	public void addLinePreview(Color couleur, double px, double py) {
+	public void addLinePreview(Color couleur, double px, double py, boolean terrain) {
 		curSegment = new Line(px, py, px, py);
 		curSegment.setStroke(couleur);
-		curSegment.getStyleClass().add("forme-segment-temp");
+		if (terrain) {
+			curSegment.getStyleClass().add("forme-segment-temp-terrain");
+		}
+		else {
+			curSegment.getStyleClass().add("forme-segment-temp");
+		}
 		bpMain.getpZoneDessin().getChildren().add(0, curSegment);
 	}
 		
@@ -279,9 +339,30 @@ public class Controleur {
 		creerSegment(couleur, p, s.getPointArrivee());
 		return p;
 	}
+	
+	
+	private Point creerAngleAppui(double px, double py) {
+		Point p = new Point(Color.GREEN, px, py);
+		p.setNoeud(new NoeudSimple(px, py));
+		p.getNoeud().setTerrain(true);
+		bpMain.getTerrain().addFigure(p);
+		bpMain.getTreillis().ajouteNoeud(p.getNoeud());
+		bpMain.getVbInformations().addLignePoint(p);
+		return p;
+	}
+	
+	private Segment creerPenteAppui(Point pointDepart, Point pointArrivee) {
+		Segment s = new Segment(Color.GREEN, pointDepart, pointArrivee);
+		s.setBarre(new Barre(pointDepart.getNoeud(), pointArrivee.getNoeud()));
+		s.getBarre().setTerrain(true);
+		bpMain.getTerrain().addFigure(s);
+		bpMain.getTreillis().ajouteBarre(s.getBarre());
+		bpMain.getVbInformations().addLigneSegment(s);
+		return s;
+	}
 		
 	public void addToSelection(Figure f) {
-		if (f.getGroupe() == bpMain.getModele()) {
+		if ((f.getGroupe() == bpMain.getModele())||f.getGroupe() == bpMain.getTerrain()) {
 			for (FigureSimple fs : f.getFiguresSimples()) {
 				fs.getForme().getShape().getStyleClass().add("forme-selection");
 			}
@@ -392,7 +473,7 @@ public class Controleur {
 	}
 
 	public void clicGrouper() {
-		if (selection.size() > 1) {
+		if ((selection.size() > 1)&&(!contientFigureTerrain(selection))) {
 			Groupe g = bpMain.getModele().grouper(selection);
 			bpMain.getpZoneDessin().dessinerTout();
 			clearSelection();
@@ -409,6 +490,18 @@ public class Controleur {
 				addToSelection(f);
 			}
 		}
+	}
+	
+	public boolean contientFigureTerrain(List<Figure> figures) {
+		boolean contient = false;
+		for (Figure f : figures) {
+			for (FigureSimple fs : f.getFiguresSimples()) {
+				if (fs.getGroupe() == bpMain.getTerrain()) {
+					contient = true;
+				}
+			}
+		}
+		return contient;
 	}
 
 	public void mouseEnterForme(FigureSimple fs) {
@@ -434,9 +527,10 @@ public class Controleur {
 	}
 
 	public void effacerForme(Figure f) {
-		if (f.getGroupe() == bpMain.getModele()) {
+		if ((f.getGroupe() == bpMain.getModele())||(f.getGroupe() == bpMain.getTerrain())) {
 			for (Figure dependance : f.getDependance()) {
 				bpMain.getModele().removeFigure(dependance);
+				bpMain.getTerrain().removeFigure(dependance);
 				dependance.supprimeDuTreillis(bpMain.getTreillis());
 				dependance.supprimeDeInformations(bpMain.getVbInformations());
 			}

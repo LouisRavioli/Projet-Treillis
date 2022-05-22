@@ -8,6 +8,7 @@ public class Barre {
     private double compMax;
     private double cout;
     private Treillis treillis;
+    private boolean isTerrain;
     
     public Barre(Noeud noeudDepart, Noeud noeudArrivee, double tracMax, double compMax, double cout) {
         this.noeudDepart = noeudDepart;
@@ -17,6 +18,7 @@ public class Barre {
         this.tracMax = tracMax;
         this.compMax = compMax;
         this.cout = cout;
+        isTerrain = false;
     }
     
     public Barre(Noeud noeudDepart, Noeud noeudArrivee) {
@@ -78,6 +80,14 @@ public class Barre {
 
 	public void setTreillis(Treillis treillis) {
 		this.treillis = treillis;
+	}
+
+	public boolean isTerrain() {
+		return isTerrain;
+	}
+
+	public void setTerrain(boolean isTerrain) {
+		this.isTerrain = isTerrain;
 	}
 
 	public Noeud noeudOppose(Noeud n) {

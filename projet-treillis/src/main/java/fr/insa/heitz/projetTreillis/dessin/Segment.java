@@ -102,17 +102,19 @@ public class Segment extends FigureSimple {
 
 	@Override
 	public void dessine(Controleur controleur, List<Node> formes) {
-		CustomLine cl = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this);
+		CustomLine cl = new CustomLine(getCouleur(), pointDepart.getPx(), pointDepart.getPy(), pointArrivee.getPx(), pointArrivee.getPy(), this, getBarre().isTerrain());
 		setForme(cl);
 		cl.getShape().setOnMousePressed(event -> {
 			controleur.clicSegment(event, this);
 		});
-		cl.getShape().setOnMouseEntered(event -> {
-			controleur.mouseEnterForme(this);
-		});
-		cl.getShape().setOnMouseExited(event -> {
-			controleur.mouseExitForme(this);
-		});
+		if (!getBarre().isTerrain()) {
+			cl.getShape().setOnMouseEntered(event -> {
+				controleur.mouseEnterForme(this);
+			});
+			cl.getShape().setOnMouseExited(event -> {
+				controleur.mouseExitForme(this);
+			});
+		}
 		formes.add(0, cl.getShape());
 	}
 	
@@ -138,5 +140,15 @@ public class Segment extends FigureSimple {
 	@Override
 	public void supprimeDeInformations(Informations informations) {
 		informations.removeLigneSegment(this);
+	}
+	
+	public int idLigne() {
+		int i = 0;
+		for (Barre b : getBarre().getTreillis().getBarres().keySet()) {
+			if ((getBarre().getTreillis().getBarres().get(getBarre()) > b.getTreillis().getBarres().get(b))&&(!b.isTerrain())) {
+				i++;
+			}
+		}
+		return i + getBarre().getTreillis().getNoeuds().size() - getBarre().getTreillis().nombreAngleTerrain();
 	}
 }

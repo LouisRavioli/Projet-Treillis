@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public class Point extends FigureSimple {
 	
-	public static final double TAILLE_POINT = 5;
+	public static final double TAILLE_POINT = 3;
 	
 	private double px;
 	private double py;
@@ -113,17 +113,19 @@ public class Point extends FigureSimple {
 
 	@Override
 	public void dessine(Controleur controleur, List<Node> formes) {
-		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this);
+		CustomEllipse ce = new CustomEllipse(getCouleur(), px, py, TAILLE_POINT, TAILLE_POINT, this, getNoeud().isTerrain());
 		setForme(ce);
 		ce.getShape().setOnMousePressed(event -> {
 			controleur.clicPoint(event, this);
 		});
-		ce.getShape().setOnMouseEntered(event -> {
-			controleur.mouseEnterForme(this);
-		});
-		ce.getShape().setOnMouseExited(event -> {
-			controleur.mouseExitForme(this);
-		});
+		if (!getNoeud().isTerrain()) {
+			ce.getShape().setOnMouseEntered(event -> {
+				controleur.mouseEnterForme(this);
+			});
+			ce.getShape().setOnMouseExited(event -> {
+				controleur.mouseExitForme(this);
+			});
+		}
 		formes.add(ce.getShape());
 	}
 	
@@ -155,5 +157,15 @@ public class Point extends FigureSimple {
 	@Override
 	public void supprimeDeInformations(Informations informations) {
 		informations.removeLignePoint(this);
+	}
+	
+	public int idLigne() {
+		int i = 0;
+		for (Noeud n : getNoeud().getTreillis().getNoeuds().keySet()) {
+			if ((getNoeud().getTreillis().getNoeuds().get(getNoeud()) > n.getTreillis().getNoeuds().get(n))&&(!n.isTerrain())) {
+				i++;
+			}
+		}
+		return i;
 	}
 }

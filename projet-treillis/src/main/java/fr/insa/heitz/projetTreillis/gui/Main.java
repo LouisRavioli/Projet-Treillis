@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainBorderPane mainBorderPane = new MainBorderPane(new Groupe(), new Treillis());
+        MainBorderPane mainBorderPane = new MainBorderPane(new Groupe(), new Treillis(), new Groupe());
     	Scene sc = new Scene(mainBorderPane, 0.8*Screen.getPrimary().getBounds().getWidth(), 0.8*Screen.getPrimary().getBounds().getHeight());
     	sc.getStylesheets().add("/stylesheets/sombre.css");
     	primaryStage.setScene(sc);

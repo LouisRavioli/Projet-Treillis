@@ -10,6 +10,7 @@ public class MainBorderPane extends BorderPane {
 	private Controleur controleur;
 	private Groupe modele;
 	private Treillis treillis;
+	private Groupe terrain;
 		
 	private Haut vbHaut;
 	private Bas hbBas;
@@ -20,10 +21,11 @@ public class MainBorderPane extends BorderPane {
 	private StackPane spCentre;
 	
 	
-	public MainBorderPane(Groupe modele, Treillis treillis) {
+	public MainBorderPane(Groupe modele, Treillis treillis, Groupe terrain) {
 		controleur = new Controleur(this);
 		this.modele = modele;
 		this.treillis = treillis;
+		this.terrain = terrain;
 		
 		vbHaut = new Haut(this);
 		hbBas = new Bas(this);
@@ -63,6 +65,14 @@ public class MainBorderPane extends BorderPane {
 
 	public void setTreillis(Treillis treillis) {
 		this.treillis = treillis;
+	}
+
+	public Groupe getTerrain() {
+		return terrain;
+	}
+
+	public void setTerrain(Groupe terrain) {
+		this.terrain = terrain;
 	}
 
 	public Haut getVbHaut() {

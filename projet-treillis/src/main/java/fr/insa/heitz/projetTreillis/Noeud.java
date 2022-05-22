@@ -11,6 +11,7 @@ public abstract class Noeud {
     private ArrayList<Barre> barresDepart;
     private ArrayList<Barre> barresArrivee;
     private Treillis treillis;
+    private boolean isTerrain;
     
     public Noeud(double px, double py, Vecteur2D v) {
         this.px = px;
@@ -18,6 +19,7 @@ public abstract class Noeud {
         this.v = v;
         barresDepart = new ArrayList<Barre>();
         barresArrivee = new ArrayList<Barre>();
+        isTerrain = false;
     }
    
     public Noeud(double px, double py) {
@@ -79,6 +81,14 @@ public abstract class Noeud {
 
 	public void setTreillis(Treillis treillis) {
 		this.treillis = treillis;
+	}
+
+	public boolean isTerrain() {
+		return isTerrain;
+	}
+
+	public void setTerrain(boolean isTerrain) {
+		this.isTerrain = isTerrain;
 	}
 
 	static Noeud entreeNoeud(int n) {

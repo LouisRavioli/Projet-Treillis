@@ -17,6 +17,8 @@ public class Outils extends VBox {
     private ToggleButton tbDeplacerSelection;
     private ToggleButton tbNoeud;
     private ToggleButton tbBarre;
+    private ToggleButton tbAppui;
+    private ToggleButton tbTerrain;
     private ToggleButton tbEffacer;
     private ToggleButton tbForce;
     
@@ -31,11 +33,13 @@ public class Outils extends VBox {
 		tbDeplacerSelection = new ToggleButton();
 		tbNoeud = new ToggleButton();
 		tbBarre = new ToggleButton();
+		tbAppui = new ToggleButton();
+		tbTerrain = new ToggleButton();
 		tbEffacer = new ToggleButton();
 		tbForce = new ToggleButton();
 		ToggleGroup tgOutils = new ToggleGroup();
-        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}, {tbEffacer, tbForce}};
- 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}, {"Effacer", "Appliquer une force"}};
+        ToggleButton[][] toggleButtonsOutils = {{tbSelection, tbDeplacerSelection}, {tbNoeud, tbBarre}, {tbAppui, tbTerrain}, {tbEffacer, tbForce}};
+ 		String[][] tooltipsButtonsOutils = {{"Sélection", "Déplacer la sélection"}, {"Noeud", "Barre"}, {"Appui", "Terrain"}, {"Effacer", "Appliquer une force"}};
 		for (int i = 0; i < toggleButtonsOutils.length; i++) {
 			for (int j = 0; j < 2; j++) {
 				toggleButtonsOutils[i][j].setToggleGroup(tgOutils);
@@ -85,6 +89,24 @@ public class Outils extends VBox {
 			}
 		});
 		
+		tbAppui.setOnAction(event -> {
+			if (tbAppui.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.APPUI);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
+		tbTerrain.setOnAction(event -> {
+			if (tbTerrain.isSelected()) {
+				bpMain.getControleur().changeEtat(Etat.TERRAIN_P1);
+			}
+			else {
+				bpMain.getControleur().changeEtat(Etat.DEFAUT);
+			}
+		});
+		
 		tbEffacer.setOnAction(event -> {
 			if (tbEffacer.isSelected()) {
 				bpMain.getControleur().changeEtat(Etat.EFFACER);
@@ -126,5 +148,21 @@ public class Outils extends VBox {
 
 	public ToggleButton getTbBarre() {
 		return tbBarre;
+	}
+
+	public ToggleButton getTbAppui() {
+		return tbAppui;
+	}
+
+	public ToggleButton getTbTerrain() {
+		return tbTerrain;
+	}
+
+	public ToggleButton getTbEffacer() {
+		return tbEffacer;
+	}
+
+	public ToggleButton getTbForce() {
+		return tbForce;
 	}
 }

@@ -75,4 +75,24 @@ public class Treillis {
     		barres.remove(b);
     	}
     }
+    
+    public int nombreAngleTerrain() {
+    	int nb = 0;
+    	for (Noeud n : noeuds.keySet()) {
+    		if (n.isTerrain()) {
+    			nb++;
+    		}
+    	}
+    	return nb;
+    }
+    
+    public int nombrePenteTerrain() {
+    	int nb = 0;
+    	for (Barre b : barres.keySet()) {
+    		if (b.isTerrain()) {
+    			nb++;
+    		}
+    	}
+    	return nb;
+    }
 }

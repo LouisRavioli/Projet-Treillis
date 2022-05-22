@@ -215,10 +215,18 @@
 }
 
 .outils-corps-toggle-button31 {
-	-fx-background-image: url("/images/effacer.png");
+	-fx-background-image: url("/images/appui.png");
 }
 
 .outils-corps-toggle-button32 {
+	-fx-background-image: url("/images/terrain.png");
+}
+
+.outils-corps-toggle-button41 {
+	-fx-background-image: url("/images/effacer.png");
+}
+
+.outils-corps-toggle-button42 {
 	-fx-background-image: url("/images/force.png");
 }
 
@@ -464,11 +472,33 @@
 	-fx-stroke-width: 3px;
 }
 
+.forme-segment-temp-terrain {
+	-fx-stroke-width: 3px;
+	-fx-stroke-dash-array: 10px 10px;
+}
+
 .forme-selection {
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
 
 .forme-hover {
+	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
+}
+
+.forme-angle {
+	-fx-stroke: -fx-noir;
+}
+
+.forme-angle:hover {
+	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
+}
+
+.forme-pente {
+	-fx-stroke-width: 3px;
+	-fx-stroke-dash-array: 10px 10px;
+}
+
+.forme-pente:hover {
 	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
 }
 

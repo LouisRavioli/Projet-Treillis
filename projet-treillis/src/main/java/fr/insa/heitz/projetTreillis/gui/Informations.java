@@ -46,11 +46,21 @@ public class Informations extends VBox {
 	}
 
 	public void addLignePoint(Point p) {
-	    vbContainer.getChildren().add(bpMain.getTreillis().getNoeuds().get(p.getNoeud()), new LigneInformationPoint(bpMain, p));
+		if (p.getNoeud().isTerrain()) {
+			vbContainer.getChildren().add(vbContainer.getChildren().size() - bpMain.getTreillis().nombrePenteTerrain(), new LigneInformationPoint(bpMain, p));
+		}
+		else {
+			vbContainer.getChildren().add(p.idLigne(), new LigneInformationPoint(bpMain, p));
+		}
 	}
 	
 	public void addLigneSegment(Segment s) {
-		vbContainer.getChildren().add(bpMain.getTreillis().getNoeuds().size() + bpMain.getTreillis().getBarres().get(s.getBarre()), new LigneInformationSegment(bpMain, s));
+		if (s.getBarre().isTerrain()) {
+			vbContainer.getChildren().add(vbContainer.getChildren().size(), new LigneInformationSegment(bpMain, s));
+		}
+		else {
+			vbContainer.getChildren().add(s.idLigne(), new LigneInformationSegment(bpMain, s));
+		}
 	}
 	
 	public void removeLignePoint(Point p) {
