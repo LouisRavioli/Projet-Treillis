@@ -124,6 +124,14 @@ public class LigneInformationSegment extends TitledPane {
 		setOnMouseClicked(event -> {
 			bpMain.getControleur().openInformationsSegment(this);
 		});
+		
+		setOnMouseEntered(event -> {
+			s.getForme().getShape().getStyleClass().add("informations-ligne-hover");
+		});
+		
+		setOnMouseExited(event -> {
+			s.getForme().getShape().getStyleClass().remove("informations-ligne-hover");
+		});
 	}
 
 	public Segment getS() {

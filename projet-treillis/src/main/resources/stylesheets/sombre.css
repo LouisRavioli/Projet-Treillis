@@ -445,6 +445,10 @@
 	-fx-border-color: -fx-blanc;
 }
 
+.informations-ligne-hover {
+	-fx-effect: dropshadow(gaussian, -fx-bleu-hover, 5, 0.8, 0, 0);
+}
+
 /*Zone dessin*/
 .zone-dessin-pane {
 	-fx-background-color: -fx-blanc;

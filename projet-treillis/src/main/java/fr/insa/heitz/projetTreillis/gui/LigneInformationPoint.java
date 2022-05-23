@@ -130,6 +130,14 @@ public class LigneInformationPoint extends TitledPane {
 		setOnMouseClicked(event -> {
 			bpMain.getControleur().openInformationsPoint(this);
 		});
+		
+		setOnMouseEntered(event -> {
+			p.getForme().getShape().getStyleClass().add("informations-ligne-hover");
+		});
+		
+		setOnMouseExited(event -> {
+			p.getForme().getShape().getStyleClass().remove("informations-ligne-hover");
+		});
 	}
 
 	public Point getP() {

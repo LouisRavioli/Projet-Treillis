@@ -21,12 +21,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -360,6 +362,8 @@ public class Controleur {
 	
 	public Point scinderSegment(Segment s, Color couleur, double px, double py) {
 		bpMain.getModele().removeFigure(s);
+		bpMain.getTreillis().supprimeBarre(s.getBarre());
+		bpMain.getVbInformations().removeLigneSegment(s);
 		Point p = creerPoint(couleur, px, py);
 		creerSegment(couleur, p, s.getPointDepart());
 		creerSegment(couleur, p, s.getPointArrivee());
@@ -781,6 +785,12 @@ public class Controleur {
 			bpMain.getVbOutils().getTbTerrain().setSelected(false);
 			bpMain.getVbOutils().getTbEffacer().setSelected(false);
 		}
+		else if (event.getCode() == KeyCode.BACK_SPACE) {
+			for (Figure f : selection) {
+				effacerForme(f);
+				bpMain.getpZoneDessin().dessinerTout();
+			}
+		}
 	}
 
 	public void calculForces() throws Exception {
@@ -807,11 +817,13 @@ public class Controleur {
 			int ligne = 0;
 			for (Noeud n : colonnesNoeuds.keySet()) {
 				for (Barre b : n.barresIncidentes()) {
-					m.setCoeff(ligne, colonnesBarres.get(b), Math.cos(b.angle(n)));
-					m.setCoeff(ligne + 1, colonnesBarres.get(b), Math.sin(b.angle(n)));
-					m.setCoeff(ligne, ni, -n.getV().getVx());
-					m.setCoeff(ligne + 1, ni, -n.getV().getVy());
-					n.remplirMatrice(m, ligne, colonnesNoeuds.get(n));
+					if (bpMain.getTreillis().getBarres().containsKey(b)) {
+						m.setCoeff(ligne, colonnesBarres.get(b), Math.cos(b.angle(n)));
+						m.setCoeff(ligne + 1, colonnesBarres.get(b), Math.sin(b.angle(n)));
+						m.setCoeff(ligne, ni, -n.getV().getVx());
+						m.setCoeff(ligne + 1, ni, -n.getV().getVy());
+						n.remplirMatrice(m, ligne, colonnesNoeuds.get(n));
+					}
 				}
 				ligne += 2;
 			}
@@ -829,9 +841,46 @@ public class Controleur {
 				System.out.println(e);
 			}
 			System.out.println(m);
+			
+			GridPane gpForces = new GridPane();
+			Label lTrac = new Label("Barres en traction");
+			Label lComp = new Label("Barres en compression");
+			
+			GridPane gpTrac = new GridPane();
+			GridPane gpComp = new GridPane();
+			
+			
+			ScrollPane spTrac = new ScrollPane(gpTrac);
+			ScrollPane spComp = new ScrollPane(gpComp);
+			
+			gpForces.add(lTrac, 0, 0);
+			gpForces.add(lComp, 1, 0);
+			gpForces.add(spTrac, 0, 1);
+			gpForces.add(spComp, 1, 1);
+			
+			Scene secondaryScene = new Scene(gpForces);
+	        secondaryScene.getStylesheets().add("/stylesheets/sombre.css");
+	    
+	        Stage newWindow = new Stage();
+	        newWindow.setTitle("Forces");
+	        newWindow.setScene(secondaryScene);
+	    
+	        newWindow.show();
 		}
 		else {
 			throw new Exception("Treillis non isostatique");
+		}
+	}
+
+	public void doubleClicPoint(MouseEvent event, Point point) {
+		if ((etat == Etat.DEFAUT)&&(event.getButton().equals(MouseButton.PRIMARY))&&(event.getClickCount() == 2)) {
+			point.getLigne().setExpanded(!point.getLigne().isExpanded());
+		}
+	}
+	
+	public void doubleClicSegment(MouseEvent event, Segment segment) {
+		if ((etat == Etat.DEFAUT)&&(event.getButton().equals(MouseButton.PRIMARY))&&(event.getClickCount() == 2)) {
+			segment.getLigne().setExpanded(!segment.getLigne().isExpanded());
 		}
 	}
 }

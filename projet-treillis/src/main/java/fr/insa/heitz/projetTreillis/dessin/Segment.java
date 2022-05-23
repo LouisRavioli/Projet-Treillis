@@ -108,6 +108,9 @@ public class Segment extends FigureSimple {
 		cl.getShape().setOnMousePressed(event -> {
 			controleur.clicSegment(event, this);
 		});
+		cl.getShape().setOnMouseClicked(event -> {
+			controleur.doubleClicSegment(event, this);
+		});
 		if (!getBarre().isTerrain()) {
 			cl.getShape().setOnMouseEntered(event -> {
 				controleur.mouseEnterForme(this);

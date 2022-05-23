@@ -119,6 +119,9 @@ public class Point extends FigureSimple {
 		ce.getShape().setOnMousePressed(event -> {
 			controleur.clicPoint(event, this);
 		});
+		ce.getShape().setOnMouseClicked(event -> {
+			controleur.doubleClicPoint(event, this);
+		});
 		if (!getNoeud().isTerrain()) {
 			ce.getShape().setOnMouseEntered(event -> {
 				controleur.mouseEnterForme(this);
