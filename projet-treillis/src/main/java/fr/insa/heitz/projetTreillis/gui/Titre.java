@@ -2,12 +2,13 @@ package fr.insa.heitz.projetTreillis.gui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class Titre extends BorderPane {
     
-    public Titre(String nom, String style, Controleur controleur, VBox vbCur) {
+    public Titre(String nom, String style, Controleur controleur, VBox vbCur, ToggleButton toggleButton) {
         Label lTitre = new Label(nom);
         lTitre.getStyleClass().add(style + "-label");
         Button bFermer = new Button();
@@ -17,7 +18,7 @@ public class Titre extends BorderPane {
         getStyleClass().add(style + "-border-pane");
         
         bFermer.setOnAction(event -> {
-        	controleur.clicBoutonFermer(vbCur);
+        	controleur.clicBoutonFermer(vbCur, toggleButton);
         });
     }
 }

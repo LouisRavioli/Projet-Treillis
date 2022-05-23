@@ -19,7 +19,7 @@ public class Informations extends VBox {
 		this.bpMain = bpMain;
 		
 		//Titre
-		bpTitre = new Titre("Informations", "informations-titre", bpMain.getControleur(), this);
+		bpTitre = new Titre("Informations", "informations-titre", bpMain.getControleur(), this, bpMain.getVbHaut().getTbInformations());
 		
 		//Informations
 		vbContainer = new VBox();

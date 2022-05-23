@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -504,8 +505,9 @@ public class Controleur {
         newWindow.show();
 	}
 
-	public void clicBoutonFermer(VBox vbCur) {
+	public void clicBoutonFermer(VBox vbCur, ToggleButton toggleButton) {
 		bpMain.getSpCentre().getChildren().remove(vbCur);
+		toggleButton.setSelected(false);
 	}
 
 	public void moveMouseZoneDessinLine(MouseEvent move) {
@@ -1056,5 +1058,14 @@ public class Controleur {
 
 	public void clicSample1() {
 		//TODO
+	}
+
+	public void clicToggleButtonVBox(VBox vBox, ToggleButton toggleButton) {
+		if (toggleButton.isSelected()) {
+			bpMain.getSpCentre().getChildren().add(vBox);
+		}
+		else {
+			clicBoutonFermer(vBox, toggleButton);
+		}
 	}
 }

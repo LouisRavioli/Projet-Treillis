@@ -178,6 +178,18 @@ public class Haut extends VBox {
 			hbL2Gauche.getChildren().add(i, currentSeparator);
 		}
 		
+		bNouveau.setOnAction(event -> {
+			bpMain.getControleur().clicNouveau();
+		});
+		
+		bOuvrir.setOnAction(event -> {
+			bpMain.getControleur().clicOpen();
+		});
+		
+		bEnregistrer.setOnAction(event -> {
+			bpMain.getControleur().clicEnregistrer();
+		});
+		
 		//Boutons droite
 		hbL2Droite = new HBox();
 		hbL2Droite.getStyleClass().add("haut-l2-hbox");
@@ -185,6 +197,9 @@ public class Haut extends VBox {
 		tbCouleurs = new ToggleButton();
 		tbOutils = new ToggleButton();
 		tbInformations = new ToggleButton();
+		tbCouleurs.setSelected(true);
+		tbOutils.setSelected(true);
+		tbInformations.setSelected(true);
 		ToggleButton[] toggleButtonsHaut = {tbGrille, tbCouleurs, tbOutils, tbInformations};
 		String[] tooltipsToggleButtons = {"Afficher la grille", "Couleurs", "Outils", "Informations"};
 		for (int i = 1; i < toggleButtonsHaut.length; i++) {
@@ -200,6 +215,18 @@ public class Haut extends VBox {
 		bpL2.setRight(hbL2Droite);
 		
 		getChildren().addAll(mbL1, bpL2);
+		
+		tbCouleurs.setOnAction(event -> {
+			bpMain.getControleur().clicToggleButtonVBox(bpMain.getVbCouleurs(), tbCouleurs);
+		});
+		
+		tbOutils.setOnAction(event -> {
+			bpMain.getControleur().clicToggleButtonVBox(bpMain.getVbOutils(), tbOutils);
+		});
+		
+		tbInformations.setOnAction(event -> {
+			bpMain.getControleur().clicToggleButtonVBox(bpMain.getVbInformations(), tbInformations);
+		});
 	}
 
 	public MenuBar getMbL1() {
