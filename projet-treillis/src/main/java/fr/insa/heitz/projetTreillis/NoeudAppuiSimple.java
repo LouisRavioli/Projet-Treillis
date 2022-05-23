@@ -28,4 +28,9 @@ public class NoeudAppuiSimple extends NoeudAppui {
 		m.setCoeff(ligne, colonne, 1);
 		m.setCoeff(ligne + 1, colonne + 1, 1);
 	}
+	
+	@Override
+	public Noeud fromString(String s) {
+		return null;
+	}
 }

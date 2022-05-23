@@ -122,4 +122,8 @@ public abstract class Noeud {
     }
 
 	public abstract void remplirMatrice(Matrice m, int ligne, int colonne);
+	
+	public abstract String barreToSave();
+	
+	public abstract Noeud fromString(String s);
 }

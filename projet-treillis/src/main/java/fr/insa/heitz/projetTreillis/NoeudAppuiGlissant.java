@@ -28,4 +28,9 @@ public class NoeudAppuiGlissant extends NoeudAppui {
 		m.setCoeff(ligne, colonne, Math.cos(Math.PI/2 + getTerrain().angle(getTerrain().getNoeudDepart())));
 		m.setCoeff(ligne + 1, colonne, Math.sin(Math.PI/2 + getTerrain().angle(getTerrain().getNoeudDepart())));
 	}
+	
+	@Override
+	public Noeud fromString(String s) {
+		return null;
+	}
 }

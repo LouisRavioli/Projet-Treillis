@@ -538,3 +538,74 @@
 	-fx-background-color: -fx-noir-bof-bof;
 	-fx-border-color: -fx-blanc;
 }
+
+/*Calcul*/
+.calcul-grid-pane {
+	-fx-vgap: 8px;
+	-fx-background-color: -fx-noir-bof-bof;
+	-fx-padding: 10px;
+}
+
+.calcul-grid-pane .label {
+	-fx-text-fill: -fx-blanc;
+}
+
+.calcul-grid-pane-forces {
+	-fx-hgap: 8px;
+	-fx-vgap: 2px;
+	-fx-border-color: -fx-blanc;
+	-fx-background-color: -fx-noir-bof;
+	-fx-padding: 5px;
+}
+
+.calcul-scroll-pane {
+	-fx-background-color: -fx-transparent;
+	-fx-hbar-policy: never;
+	-fx-vbar-policy: always;
+}
+
+.calcul-scroll-pane .viewport {
+   -fx-background-color: -fx-transparent;
+}
+
+.calcul-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: -fx-noir;
+    -fx-pref-width: 15px;
+}
+
+.calcul-scroll-pane .scroll-bar:vertical .thumb {
+	-fx-background-color: -fx-noir-bof-bof;
+    -fx-background-radius: 0px;
+}
+
+/*Enregistrement*/
+.enregistrement-vbox {
+	-fx-spacing: 10px;
+	-fx-padding: 10px 10px 10px 10px;
+	-fx-background-color: -fx-noir-bof-bof;
+}
+
+.enregistrement-button {
+	-fx-text-fill: -fx-blanc;
+	-fx-max-width: 160px;
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir-bof;
+	-fx-border-color: -fx-blanc;
+}
+
+.enregistrement-button:hover {
+	-fx-background-color: -fx-bleu-hover;
+}
+
+.enregistrement-label {
+	-fx-min-height: 45px;
+	-fx-text-fill: -fx-blanc;
+}
+
+.enregistrement-text-field {
+	-fx-text-fill: -fx-blanc;
+	-fx-background-radius: 0px;
+	-fx-background-color: -fx-noir-bof-bof;
+	-fx-border-color: -fx-blanc;
+	-fx-max-width: 160px;
+}

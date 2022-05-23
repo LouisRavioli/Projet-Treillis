@@ -1,0 +1,10 @@
+id:0;type:0;px:217.0;py320.0;fx:0.0;fy:0.0;terrain:false;barre:null
+id:4;type:0;px:220.20000000000005;py220.0;fx:0.0;fy:0.0;terrain:false;barre:null
+id:2;type:0;px:138.60000000000002;py421.6;fx:0.0;fy:0.0;terrain:false;barre:null
+id:1;type:0;px:243.39999999999998;py376.8;fx:0.0;fy:0.0;terrain:false;barre:null
+id:6;type:0;px:165.8;py282.4;fx:0.0;fy:0.0;terrain:false;barre:null
+id:3;type:0;px:81.0;py275.20000000000005;fx:0.0;fy:0.0;terrain:false;barre:null
+id:5;type:0;px:334.6;py285.6;fx:0.0;fy:0.0;terrain:false;barre:null
+
+id:0;p1:3;p2:4;trac:0.0;comp:0.0;cout:0.0;terrain:false
+id:1;p1:5;p2:6;trac:0.0;comp:0.0;cout:0.0;terrain:false

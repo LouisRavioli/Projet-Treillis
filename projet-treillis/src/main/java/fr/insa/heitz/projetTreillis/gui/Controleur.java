@@ -1,6 +1,13 @@
 package fr.insa.heitz.projetTreillis.gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +19,7 @@ import fr.insa.heitz.projetTreillis.NoeudAppuiGlissant;
 import fr.insa.heitz.projetTreillis.NoeudAppuiSimple;
 import fr.insa.heitz.projetTreillis.NoeudSimple;
 import fr.insa.heitz.projetTreillis.Vecteur2D;
+import fr.insa.heitz.projetTreillis.dessin.Banque;
 import fr.insa.heitz.projetTreillis.dessin.Figure;
 import fr.insa.heitz.projetTreillis.dessin.FigureSimple;
 import fr.insa.heitz.projetTreillis.dessin.Groupe;
@@ -843,20 +851,79 @@ public class Controleur {
 			System.out.println(m);
 			
 			GridPane gpForces = new GridPane();
+			gpForces.getStyleClass().add("calcul-grid-pane");
 			Label lTrac = new Label("Barres en traction");
 			Label lComp = new Label("Barres en compression");
+			Label lNorm = new Label("Forces normales aux appuis");
 			
 			GridPane gpTrac = new GridPane();
+			gpTrac.getStyleClass().add("calcul-grid-pane-forces");
 			GridPane gpComp = new GridPane();
+			gpComp.getStyleClass().add("calcul-grid-pane-forces");
+			GridPane gpNorm = new GridPane();
+			gpNorm.getStyleClass().add("calcul-grid-pane-forces");
+			gpTrac.add(new Label("Barre"), 0, 0);
+			gpTrac.add(new Label("Force calculée"), 1, 0);
+			gpTrac.add(new Label("Force maximum"), 2, 0);
+			gpComp.add(new Label("Barre"), 0, 0);
+			gpComp.add(new Label("Force calculée"), 1, 0);
+			gpComp.add(new Label("Force maximum"), 2, 0);
+			gpNorm.add(new Label("Appui"), 0, 0);
+			gpNorm.add(new Label("Force calculée"), 1, 0);
+			int i = 1;
+			int j = 1;
+			int k = 1;
+			for (Barre b : colonnesBarres.keySet()) {
+				if (m.getCoeff(colonnesBarres.get(b), ni) >= 0) {
+					Label curLabel = new Label(String.valueOf(m.getCoeff(colonnesBarres.get(b), ni)));
+					if (m.getCoeff(colonnesBarres.get(b), ni) > b.getTracMax()) {
+						curLabel.setStyle("-fx-text-fill: #FF0000");
+					}
+					gpTrac.add(new Label(String.valueOf(bpMain.getTreillis().getBarres().get(b))), 0, i);
+					gpTrac.add(curLabel, 1, i);
+					gpTrac.add(new Label(String.valueOf(b.getTracMax())), 2, i);
+					i++;
+				}
+				else {
+					Label curLabel = new Label(String.valueOf(m.getCoeff(colonnesBarres.get(b), ni)));
+					if (m.getCoeff(colonnesBarres.get(b), ni) < b.getCompMax()) {
+						curLabel.setStyle("-fx-text-fill: #FF0000");
+					}
+					gpComp.add(new Label(String.valueOf(bpMain.getTreillis().getBarres().get(b))), 0, j);
+					gpComp.add(curLabel, 1, j);
+					gpComp.add(new Label(String.valueOf(b.getCompMax())), 2, j);
+					j++;
+				}
+			}
+			for (Noeud n : colonnesNoeuds.keySet()) {
+				if (n.nbrInconnues() == 1) {
+					gpNorm.add(new Label(String.valueOf(bpMain.getTreillis().getNoeuds().get(n))), 0, k);
+					gpNorm.add(new Label(String.valueOf(m.getCoeff(colonnesNoeuds.get(n), ni))), 1, k);
+					k++;
+				}
+				else if (n.nbrInconnues() == 2) {
+					gpNorm.add(new Label(String.valueOf(bpMain.getTreillis().getNoeuds().get(n)) + " (x)"), 0, k);
+					gpNorm.add(new Label(String.valueOf(bpMain.getTreillis().getNoeuds().get(n)) + " (y)"), 0, k + 1);
+					gpNorm.add(new Label(String.valueOf(m.getCoeff(colonnesNoeuds.get(n), ni))), 1, k);
+					gpNorm.add(new Label(String.valueOf(m.getCoeff(colonnesNoeuds.get(n) + 1, ni))), 1, k + 1);
+					k += 2;
+				}
+			}
 			
 			
 			ScrollPane spTrac = new ScrollPane(gpTrac);
+			spTrac.getStyleClass().add("calcul-scroll-pane");
 			ScrollPane spComp = new ScrollPane(gpComp);
+			spComp.getStyleClass().add("calcul-scroll-pane");
+			ScrollPane spNorm = new ScrollPane(gpNorm);
+			spNorm.getStyleClass().add("calcul-scroll-pane");
 			
 			gpForces.add(lTrac, 0, 0);
 			gpForces.add(lComp, 1, 0);
+			gpForces.add(lNorm, 2, 0);
 			gpForces.add(spTrac, 0, 1);
 			gpForces.add(spComp, 1, 1);
+			gpForces.add(spNorm, 2, 1);
 			
 			Scene secondaryScene = new Scene(gpForces);
 	        secondaryScene.getStylesheets().add("/stylesheets/sombre.css");
@@ -882,5 +949,112 @@ public class Controleur {
 		if ((etat == Etat.DEFAUT)&&(event.getButton().equals(MouseButton.PRIMARY))&&(event.getClickCount() == 2)) {
 			segment.getLigne().setExpanded(!segment.getLigne().isExpanded());
 		}
+	}
+	
+	public void clicOpen() {
+        Label lTexte = new Label("Saisir le nom du fichier à ouvrir.");
+        lTexte.getStyleClass().add("enregistrement-label");
+        TextField tfOpen = new TextField();
+        tfOpen.getStyleClass().add("enregistrement-text-field");
+        Button bOpen = new Button("Ouvrir");
+        bOpen.getStyleClass().add("enregistrement-button");
+        
+        Stage newWindow = new Stage();
+        
+        VBox vbCorps = new VBox(lTexte,tfOpen,bOpen);
+        vbCorps.getStyleClass().add("enregistrement-vbox");
+        
+        Scene secondaryScene = new Scene(vbCorps, 220, 150);
+        secondaryScene.getStylesheets().add("/stylesheets/sombre.css");
+
+        newWindow.setTitle("Ouvrir");
+        newWindow.setScene(secondaryScene);
+
+        newWindow.show();
+        
+        bOpen.setOnAction(event -> {
+            bpMain.getControleur().clicOuvrir(tfOpen.getText());
+            newWindow.close();
+        });
+	}
+	
+	public void clicOuvrir(String s) {
+		System.out.println("Méthode non implémentée");
+	    /*try {
+			BufferedReader in = new BufferedReader(new FileReader(s + ".txt"));
+			String ligne;
+			Map<Integer,Noeud> idNoeuds = new HashMap<Integer,Noeud>();
+			while ((ligne = in.readLine()) != null) {
+				String[] mots = ligne.split(";");
+	        }
+	        in.close();
+	    }
+	    catch (FileNotFoundException e) {
+	        System.out.println("Erreur : Le fichier n'existe pas !\n" + e);
+		}
+	    catch (IOException e) {
+	    	System.out.println(e);
+	    }*/
+	}
+	
+	public void clicEnregistrer() {
+        Label lTexte = new Label("Saisir le nom du fichier.\nIl sera enregistré dans le dossier du projet.");
+        lTexte.getStyleClass().add("enregistrement-label");
+        TextField tfSauvegarde = new TextField();
+        tfSauvegarde.getStyleClass().add("enregistrement-text-field");
+        Button bSauvegarder = new Button("Sauvegarder");
+        bSauvegarder.getStyleClass().add("enregistrement-button");
+        
+        Stage newWindow = new Stage();
+        
+        VBox vbCorps = new VBox(lTexte,tfSauvegarde,bSauvegarder);
+        vbCorps.getStyleClass().add("enregistrement-vbox");
+        
+        Scene secondaryScene = new Scene(vbCorps, 260, 150);
+        secondaryScene.getStylesheets().add("/stylesheets/sombre.css");
+
+        newWindow.setTitle("Enregistrement");
+        newWindow.setScene(secondaryScene);
+
+        newWindow.show();
+        
+        bSauvegarder.setOnAction(event -> {
+            bpMain.getControleur().clicSauvegarder(tfSauvegarde.getText());
+            newWindow.close();
+        });
+    }
+	
+	public void clicSauvegarder(String s) {
+	    try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(s + ".txt", false));
+			for (Noeud n : bpMain.getTreillis().getNoeuds().keySet()) {
+				out.write("id:" + bpMain.getTreillis().getNoeuds().get(n) + ";type:" + n.nbrInconnues() + ";px:" + n.getPx() + ";py" + n.getPy() + ";fx:" + n.getV().getVx() + ";fy:" + n.getV().getVy() + ";terrain:" + n.isTerrain());
+				out.write(";barre:" + n.barreToSave());
+				out.newLine();
+			}
+			out.newLine();
+			for (Barre b  : bpMain.getTreillis().getBarres().keySet()) {
+				out.write("id:" + bpMain.getTreillis().getBarres().get(b) + ";p1:" + bpMain.getTreillis().getNoeuds().get(b.getNoeudDepart()) + ";p2:" + bpMain.getTreillis().getNoeuds().get(b.getNoeudArrivee()) + ";trac:" + b.getTracMax() + ";comp:" + b.getCompMax() + ";cout:" + b.getCout() + ";terrain:" + b.isTerrain());
+				out.newLine();
+			}
+			out.close();
+	    }
+	    catch (IOException e) {
+			System.out.println("Erreur :\n" + e);
+		}
+	}
+
+	public void clicNouveau() {
+		selection.clear();
+		bpMain.getModele().getFigures().clear();
+		bpMain.getTerrain().getFigures().clear();
+		bpMain.getTreillis().getNoeuds().clear();
+		bpMain.getTreillis().getBarres().clear();
+		bpMain.getVbInformations().getVbContainer().getChildren().clear();
+		bpMain.getpZoneDessin().dessinerTout();
+	}
+
+	public void clicSample1() {
+		//TODO
 	}
 }

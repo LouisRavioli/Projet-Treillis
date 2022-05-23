@@ -24,4 +24,9 @@ public abstract class NoeudAppui extends Noeud {
 	public void setTerrain(Barre terrain) {
 		this.terrain = terrain;
 	}
+	
+	@Override
+	public String barreToSave() {
+		return String.valueOf(getTreillis().getBarres().get(terrain));
+	}
 }

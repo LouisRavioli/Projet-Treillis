@@ -22,4 +22,14 @@ public class NoeudSimple extends Noeud {
 	@Override
 	public void remplirMatrice(Matrice m, int ligne, int colonne) {
 	}
+
+	@Override
+	public String barreToSave() {
+		return "null";
+	}
+
+	@Override
+	public Noeud fromString(String s) {
+		return null;
+	}
 }
